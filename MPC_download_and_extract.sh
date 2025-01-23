@@ -1,18 +1,17 @@
 #!/bin/bash
 
 # 設定下載 URL 和目標目錄
-DOWNLOAD_URL="https://zenodo.org/api/records/4621403/files-archive"
-TARGET_DIR="/data"
+DOWNLOAD_URL="https://zenodo.org/api/records/4621403/files-archive"  # 替換為正確的 URL
+TARGET_DIR="/MPC_data"
 
-# 確保目標目錄存在，如果不存在則建立
+# 確保目標目錄存在
 if [ ! -d "$TARGET_DIR" ]; then
   echo "Creating target directory: $TARGET_DIR"
-  mkdir -p "$TARGET_DIR"
 fi
 
 # 設定下載的檔案名稱
 FILENAME="$(basename $DOWNLOAD_URL)"
-FILEPATH="/tmp/$FILENAME"
+FILEPATH="$TARGET_DIR/$FILENAME"
 
 # 下載檔案
 echo "Downloading file from $DOWNLOAD_URL..."
