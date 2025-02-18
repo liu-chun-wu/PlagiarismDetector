@@ -6,9 +6,9 @@
 3. 在根目錄新增.env
     - 新增 USERNAME=論文網站帳號
     - 新增 PASSWORD=論文網站密碼
-    - 新增 USERNAME=你的gemini API key
+    - 新增 GEMINI_API_KEY=你的gemini API key
 4. 建一個新個conda 環境    
-5. 使用 requirement.txt 安裝套件
+5. 使用 environment.yml 安裝套件，在新的環境下指令 conda env create -f environment.yml 
 6. 如果 chromedriver 和你當前的 chrome 的版本不一樣會出錯，要去以下網址找
     - https://googlechromelabs.github.io/chrome-for-testing/
 # Using
