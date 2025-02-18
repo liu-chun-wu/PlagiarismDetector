@@ -13,9 +13,4 @@
 6. 如果 chromedriver 和你當前的 chrome 的版本不一樣會出錯，要去以下網址找
     - https://googlechromelabs.github.io/chrome-for-testing/
 # Using
-- 呼叫 web_crawl(mode: str, keyword: str)
-    1. mode: 
-        - 'basic' : 簡易查詢
-        - 'advance' : 進階查詢(還沒完成)
-    2. keyword: 關鍵字
-- 下載的 .zip 或是 .pdf 會在 paper
+- 我懶得寫，看code
