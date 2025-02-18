@@ -18,4 +18,4 @@
         - 'basic' : 簡易查詢
         - 'advance' : 進階查詢(還沒完成)
     2. keyword: 關鍵字
-- 下載的 .zip 或是 .pdf 會在 paper/
+- 下載的 .zip 或是 .pdf 會在 paper
