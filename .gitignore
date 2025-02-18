@@ -1,2 +1,3 @@
 .env
-paper_webcrawling\paper\*
+paper_webcrawling/paper/*
+!paper_webcrawling/paper/.gitkeep
