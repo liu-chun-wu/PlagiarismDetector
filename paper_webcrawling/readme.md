@@ -12,5 +12,20 @@
     - my_env 用你的新環境名稱取代掉
 6. 如果 chromedriver 和你當前的 chrome 的版本不一樣會出錯，要去以下網址找
     - https://googlechromelabs.github.io/chrome-for-testing/
+7. 修改下載的路徑，windows需要絕對路徑
+    - download_directory = "D:\\PlagiarismDetector\\paper_webcrawling\\paper" 
 # Using
-- 我懶得寫，看code
+- web_crawl(mode: str, keywords: list) => 下載檔案到paper/
+- 簡易查詢
+    - 只有一個關鍵字
+    ```python=
+    keywords = ["囤房稅"]
+    web_crawl(mode="basic", keywords=keywords)
+    ```
+- 進階查詢
+    - 參數依照以下規則
+    - 第一個關鍵字,第一個欄位名稱,邏輯,第二個關鍵字,第二個欄位名稱,學門(只有這個可以空，其他都不能空)
+    ```python=
+    keywords = ["中央大學", "校院名稱", "and", "2021", "論文出版年", ""]
+    web_crawl(mode="advance", keywords=keywords)
+    ```
