@@ -7,10 +7,12 @@
     - 新增 USERNAME=論文網站帳號
     - 新增 PASSWORD=論文網站密碼
     - 新增 GEMINI_API_KEY=你的gemini API key
-4. 建一個新個conda 環境    
-5. 使用 environment.yml 安裝套件，在新的環境下指令 conda env create --name my_env -f environment.yml
-    - environment.yml 是在 linux 環境下匯出的
-    - my_env 用你的新環境名稱取代掉
+4. 建一個新個 conda 環境，conda create --name "my_env"
+5. 安裝套件
+    ```bash
+    conda install python
+    pip install pillow dotenv google.generativeai selenium
+    ```
 6. 下載 linux 版本的 chrome 和 chromedriver
     - 注意這兩個版本要一樣
     ```bash
