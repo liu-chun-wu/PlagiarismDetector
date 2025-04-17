@@ -19,12 +19,12 @@ REQUIRED_ENV_VARS = [
 
 SOURCE_DIRS = [
     # 正式部署用
-    "dataset/paraphrased_dataset/paraphrased/ncu_2019",
-    "dataset/paraphrased_dataset/paraphrased/ncu_2020",
+    "dataset/paraphrased_dataset/source/ncu_2019",
+    "dataset/paraphrased_dataset/source/ncu_2020",
 
     # 測試用路徑
-    # "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/paraphrased/ncu_2019",
-    # "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/paraphrased/ncu_2020",
+    # "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2019",
+    # "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2020",
 ]
 
 
