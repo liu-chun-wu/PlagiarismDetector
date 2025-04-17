@@ -1,3 +1,4 @@
 .env
 paper_webcrawling/paper/
 dataset/
+output.txt
