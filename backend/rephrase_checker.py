@@ -26,11 +26,15 @@ from openai import OpenAI
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cuda:0")
+print(f"Using device: {device}")
+torch.cuda.set_device(1)
+
 # ========== DEMO AI Detector Model Setup ==========
 detector_model_name = "roberta-base-openai-detector"
 det_tokenizer = AutoTokenizer.from_pretrained(detector_model_name)
 det_model = AutoModelForSequenceClassification.from_pretrained(
-    detector_model_name)
+    detector_model_name).to(device)
 det_model.eval()
 
 # Using your GPT-4o model (replace with your actual key as needed)
@@ -90,7 +94,7 @@ def compute_ai_generated_probability(text: str) -> float:
     inputs = det_tokenizer(text,
                            truncation=True,
                            padding=True,
-                           return_tensors="pt")
+                           return_tensors="pt").to(device)
     with torch.no_grad():
         outputs = det_model(**inputs)
         logits = outputs.logits
@@ -130,8 +134,8 @@ def highlight_matches(original: str, submitted: str, min_len=4):
 def compute_embedding_similarity(embedding_model, text1, text2):
     emb1 = embedding_model.embed_query(text1)
     emb2 = embedding_model.embed_query(text2)
-    t1 = torch.tensor(emb1)
-    t2 = torch.tensor(emb2)
+    t1 = torch.tensor(emb1).to(device)
+    t2 = torch.tensor(emb2).to(device)
     return F.cosine_similarity(t1, t2, dim=0).item()
 
 
@@ -148,7 +152,8 @@ def build_vector_db(dirs_list: List[str]):
     total_file_count = 0
 
     embedding_model = HuggingFaceEmbeddings(
-        model_name="intfloat/multilingual-e5-base")
+        model_name="intfloat/multilingual-e5-base",
+        model_kwargs={"device": "cuda:1"})
 
     for pages_dir in dirs_list:
         processed_files = 0
@@ -185,7 +190,7 @@ def build_vector_db(dirs_list: List[str]):
 # 5) CrossEncoder for re-ranking
 # ===============================================================
 cross_encoder_model = "BAAI/bge-reranker-v2-m3"
-cross_encoder = CrossEncoder(cross_encoder_model)
+cross_encoder = CrossEncoder(cross_encoder_model, device="cuda:1")
 
 
 # ===============================================================

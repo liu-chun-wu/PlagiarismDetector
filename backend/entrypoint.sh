@@ -34,4 +34,4 @@ echo "✅ Conda environment activated."
 
 # 啟動 Gunicorn，改成載入 flask_api.py 裡的 app
 echo "🚀 Starting Gunicorn on port ${BACKEND_PORT}..."
-exec gunicorn --workers 3 --bind 0.0.0.0:${BACKEND_PORT} flask_api:app --timeout 120
+exec gunicorn --workers 2 --bind 0.0.0.0:${BACKEND_PORT} flask_api:app --timeout 120

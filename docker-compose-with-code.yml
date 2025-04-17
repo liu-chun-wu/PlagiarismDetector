@@ -20,6 +20,14 @@ services:
     entrypoint: ["/bin/bash", "/app/entrypoint.sh"]
     env_file:
       - .env
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    runtime: nvidia
     networks:
       - plagiarism-detector-network
 

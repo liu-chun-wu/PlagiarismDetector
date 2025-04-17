@@ -3,11 +3,14 @@ from flask_cors import CORS
 import os
 import random
 from dotenv import load_dotenv
+from rephrase_checker import *
+from generate_checker import *
 
 # ✅ 初始化：讀取環境變數與定義全域常數
 load_dotenv()
 
 REQUIRED_ENV_VARS = [
+    "OPENAI_APIKEY",
     "BACKEND_API_URL_TEXT_GENERATE",
     "BACKEND_API_URL_TEXT_REPHRASE",
     "BACKEND_API_URL_PDF_GENERATE",
@@ -15,8 +18,11 @@ REQUIRED_ENV_VARS = [
 ]
 
 SOURCE_DIRS = [
+    # 正式部署用
     "dataset/paraphrased_dataset/paraphrased/ncu_2019",
-    "dataset/paraphrased_dataset/paraphrased/ncu_2020"
+    "dataset/paraphrased_dataset/paraphrased/ncu_2020",
+
+    # 測試用路徑
     # "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/paraphrased/ncu_2019",
     # "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/paraphrased/ncu_2020",
 ]
@@ -48,10 +54,10 @@ def create_app():
 
     validate_env()
 
-    # print(
-    #     "Building FAISS vector store with all files... (this may take a while)"
-    # )
-    # global_vector_db, global_embedding_model, _ = build_vector_db(SOURCE_DIRS)
+    print(
+        "Building FAISS vector store with all files... (this may take a while)"
+    )
+    global_vector_db, global_embedding_model, _ = build_vector_db(SOURCE_DIRS)
 
     # --- 路由定義區 ---
     @app.route('/')
@@ -60,48 +66,54 @@ def create_app():
 
     @app.route(os.getenv("BACKEND_API_URL_TEXT_REPHRASE"), methods=['POST'])
     def upload_rephrase():
-        return simulate_plagiarism_check(request)
+        return text_rephrase_check(request, global_vector_db,
+                                   global_embedding_model)
 
     @app.route(os.getenv("BACKEND_API_URL_TEXT_GENERATE"), methods=['POST'])
     def upload_generate():
-        return simulate_plagiarism_check(request)
+        return simulate_plagiarism_check(request, global_vector_db,
+                                         global_embedding_model)
 
     @app.route(os.getenv("BACKEND_API_URL_PDF_GENERATE"), methods=['POST'])
     def upload_pdf_generate():
-        return simulate_plagiarism_check(request)
+        return simulate_plagiarism_check(request, global_vector_db,
+                                         global_embedding_model)
 
     @app.route(os.getenv("BACKEND_API_URL_PDF_REPHRASE"), methods=['POST'])
     def upload_pdf_rephrase():
-        return simulate_plagiarism_check(request)
+        return simulate_plagiarism_check(request, global_vector_db,
+                                         global_embedding_model)
 
     return app
 
 
-# ✅ 模擬抄襲檢測回應（之後可以替換為真實邏輯）
-def simulate_plagiarism_check(req):
+def text_rephrase_check(req, global_vector_db, global_embedding_model):
     data = req.json
     text = data.get("text", "")
 
     if not text:
         return jsonify({"error": "No text provided"}), 400
-    #------------------------------------------------------
-    # # Check if global vector database is available
-    # if global_vector_db is None:
-    #     return jsonify({"error": "Vector database not initialized"}), 500
 
-    # # Run plagiarism check
-    # result = cooperate_plagiarism_check(user_text=text,
-    #                                     vector_db=global_vector_db,
-    #                                     embedding_model=global_embedding_model)
+    # Check if global vector database is available
+    if global_vector_db is None:
+        return jsonify({"error": "Vector database not initialized"}), 500
 
-    # response = {
-    #     "plagiarism_percentage": result["plagiarism_percentage"],
-    #     "plagiarism_snippet": result["plagiarism_snippet"],
-    #     "confidence_score": result["confidence_score"],
-    #     "verdict": result["verdict"],
-    #     "main_analysis": result["main_analysis"]
-    # }
-    #-----------------------------------------------------
+    # Run plagiarism check
+    result = cooperate_plagiarism_check(user_text=text,
+                                        vector_db=global_vector_db,
+                                        embedding_model=global_embedding_model)
+
+    return result
+
+
+# ✅ 模擬抄襲檢測回應（之後可以替換為真實邏輯）
+def simulate_plagiarism_check(req, global_vector_db, global_embedding_model):
+    data = req.json
+    text = data.get("text", "")
+
+    if not text:
+        return jsonify({"error": "No text provided"}), 400
+
     plagiarism_percentage = round(random.uniform(0, 100), 2)
     confidence_score = round(random.uniform(0, 100), 2)
     plagiarism_snippet = text[:min(30, len(text))]
@@ -116,4 +128,5 @@ def simulate_plagiarism_check(req):
 app = create_app()
 # ✅ 若是直接執行此檔案，則啟動開發伺服器
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    load_dotenv()
+    app.run(host="0.0.0.0", port=8077, debug=True)

@@ -14,8 +14,16 @@ services:
       - BACKEND_API_URL_PDF_GENERATE=${BACKEND_API_URL_PDF_GENERATE}
       - BACKEND_API_URL_PDF_REPHRASE=${BACKEND_API_URL_PDF_REPHRASE}
     volumes:
-      - ./backend:/app
+      - .:/app
     working_dir: /app
     entrypoint: ["/bin/bash", "/app/entrypoint.sh"]
     env_file:
       - .env
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    runtime: nvidia
