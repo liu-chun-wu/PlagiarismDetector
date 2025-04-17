@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  backend:
+    build: .
+    container_name: flask-backend
+    restart: always
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    environment:
+      - OPENAI_APIKEY=${OPENAI_APIKEY}
+      - BACKEND_PORT=${BACKEND_PORT}
+      - BACKEND_API_URL_TEXT_GENERATE=${BACKEND_API_URL_TEXT_GENERATE}
+      - BACKEND_API_URL_TEXT_REPHRASE=${BACKEND_API_URL_TEXT_REPHRASE}
+      - BACKEND_API_URL_PDF_GENERATE=${BACKEND_API_URL_PDF_GENERATE}
+      - BACKEND_API_URL_PDF_REPHRASE=${BACKEND_API_URL_PDF_REPHRASE}
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    entrypoint: ["/bin/bash", "/app/entrypoint.sh"]
+    env_file:
+      - .env

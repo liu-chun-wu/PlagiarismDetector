@@ -1,0 +1,1 @@
+pip install torch transformers sentence-transformers langchain langchain-community langchain_huggingface faiss-cpu openai flask flask_cors  python-dotenv

@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "@/Sidebar";
-import NewScan from "@/NewScan";
-import MyScan from '@/Myscan';
+import ScanGenerate from "@/ScanGenerate";
+import ScanRephrase from "@/ScanRephrase";
+import Intro from '@/Intro';
 // import MyScans from "./pages/MyScans";
 // import Shared from "./pages/Shared";
 // import Compare from "./pages/Compare";
@@ -16,11 +17,10 @@ function App() {
         {/* 主要內容區域 */}
         <div className="flex-1">
           <Routes>
-            <Route path="/" element={<NewScan />} />
-            <Route path="/new_scan" element={<NewScan />} />
-            <Route path="/my_scans" element={<MyScan />} />
-            {/* <Route path="/shared" element={<Shared />} />
-            <Route path="/compare" element={<Compare />} /> */}
+            <Route path="/" element={<Intro />} />
+            <Route path="/intro" element={<Intro />} />
+            <Route path="/scan_rephrase" element={<ScanRephrase />} />
+            <Route path="/scan_generate" element={<ScanGenerate />} />
           </Routes>
         </div>
       </div>

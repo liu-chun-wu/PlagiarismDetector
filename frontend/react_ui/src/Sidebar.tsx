@@ -7,16 +7,13 @@ export default function Sidebar() {
             <h2 className="text-lg font-semibold mb-4">Menu</h2>
             <nav className="space-y-2">
                 <Button variant="ghost" className="w-full text-left">
-                    <Link to="/new_scan">New Scan</Link>
+                    <Link to="/intro">Intro</Link>
                 </Button>
                 <Button variant="ghost" className="w-full text-left">
-                    <Link to="/my_scans">My Scans</Link>
+                    <Link to="/scan_rephrase">Scan AI Rephrase</Link>
                 </Button>
                 <Button variant="ghost" className="w-full text-left">
-                    <Link to="/">Shared</Link>
-                </Button>
-                <Button variant="ghost" className="w-full text-left">
-                    <Link to="/">Compare</Link>
+                    <Link to="/scan_generate">Scan AI Generate</Link>
                 </Button>
             </nav>
         </aside>

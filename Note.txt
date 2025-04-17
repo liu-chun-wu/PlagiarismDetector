@@ -1,0 +1,47 @@
+docker build -t backend:v1 .
+docker build -t frontend:v1 .
+
+docker run -it -p 8000:8000 --name back1 backend:v1
+docker run -d -p 8000:8000 --name back1 backend:v1
+
+docker run -it -p 8080:8080 --name front1 frontend:v1
+docker run -d -p 8080:8080 --name front1 frontend:v1
+
+docker-compose -f docker-compose-backend-only.yml up --build -d
+docker-compose -f docker-compose-backend-only.yml down
+
+docker-compose -f docker-compose-frontend-only.yml up --build -d
+docker-compose -f docker-compose-frontend-only.yml down
+
+docker ps -a
+docker images -a
+
+docker rm $(docker ps -aq)
+docker rmi $(docker images -q)
+
+docker start vm1
+docker stop vm1
+docker exec -it vm1 bash
+
+docker-compose -f docker-compose-with-code.yml up --build -d
+docker-compose -f docker-compose-with-code.yml down
+
+docker-compose -f docker-compose-with-image.yml up --build -d
+docker-compose -f docker-compose-with-image.yml down
+
+docker-compose -f docker-compose-with-code.yml restart backend
+docker-compose -f docker-compose-with-code.yml restart frontend
+
+docker tag flask-backend:latest  jeffery426/flask-backend:latest
+docker tag react-frontend:latest jeffery426/react-frontend:latest
+
+docker images -f "dangling=true" -q | xargs docker rmi -f
+
+docker push jeffery426/flask-backend:latest
+docker push jeffery426/react-frontend:latest
+
+docker pull jeffery426/flask-backend:latest
+docker pull jeffery426/react-frontend:latest
+
+docker logs django-backend
+docker logs react-frontend
