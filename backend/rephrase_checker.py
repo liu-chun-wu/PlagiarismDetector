@@ -312,19 +312,25 @@ def cooperate_plagiarism_check(user_text: str,
     # Ensure within 0-100 range
     plagiarism_percentage = max(0, min(100, plagiarism_percentage))
 
-    # Get plagiarism snippet from overlaps
-    plagiarism_snippet = ""
-    for doc_info in doc_info_list:
-        if doc_info["overlaps"]:
-            # Take the longest overlap as the snippet
-            plagiarism_snippet = max(doc_info["overlaps"], key=len)
-            break
+    # === Build snippet(s) from EVERY overlap =========================
+    all_overlaps = []
+    for info in doc_info_list:  # gather *all* matches
+        all_overlaps.extend(info["overlaps"])
 
-    if not plagiarism_snippet and doc_info_list:
-        # If no direct overlap, use first part of the most similar document
-        snippet_length = min(50, len(doc_info_list[0]["content"]))
-        plagiarism_snippet = doc_info_list[0][
-            "content"][:snippet_length] + "..."
+    all_overlaps = list(dict.fromkeys(all_overlaps))  # deduplicate, keep order
+
+    # (A) complete concatenation for the UI
+    plagiarism_snippet_full = " … ".join(all_overlaps)
+
+    # (B) longest chunk – keeps old behaviour for backward‑compat
+    plagiarism_snippet = max(all_overlaps, key=len) if all_overlaps else ""
+
+    # fallback if we somehow had no overlaps at all
+    if not plagiarism_snippet_full and doc_info_list:
+        snippet_len = min(50, len(doc_info_list[0]["content"]))
+        plagiarism_snippet_full = doc_info_list[0][
+            "content"][:snippet_len] + "…"
+        plagiarism_snippet = plagiarism_snippet_full
 
     # print(type(doc_info_list))
     # print(type(main_analysis))
@@ -341,8 +347,8 @@ def cooperate_plagiarism_check(user_text: str,
         "main_analysis": main_analysis,
         "feedbacks": transfer_numpy_to_float(feedbacks),
         "judge_output": judge_output,
-        "avg_confidence": float(round(avg_confidence * 100, 2)),
-        "plagiarism_percentage": float(round(plagiarism_percentage, 2)),
+        "avg_confidence": round(float(round(avg_confidence * 100, 2))),
+        "plagiarism_percentage": round(float(round(plagiarism_percentage, 2))),
         "plagiarism_snippet": plagiarism_snippet,
         "verdict": verdict
     }

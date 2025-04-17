@@ -3,7 +3,7 @@ version: "3.3"
 services:
   backend:
     build: ./backend
-    container_name: flask-backend
+    container_name: plagiarismdetector-backend
     restart: always
     ports:
       - "${BACKEND_PORT}:${BACKEND_PORT}"
@@ -41,7 +41,7 @@ services:
         VITE_API_URL_TEXT_GENERATED: ${VITE_API_URL_TEXT_GENERATED}
         VITE_API_URL_PDF_REPHRASED: ${VITE_API_URL_PDF_REPHRASED}
         VITE_API_URL_PDF_GENERATED: ${VITE_API_URL_PDF_GENERATED}
-    container_name: react-frontend
+    container_name: plagiarismdetector-frontend
     restart: always
     ports:
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
