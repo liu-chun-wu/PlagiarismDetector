@@ -5,7 +5,8 @@ import random
 from dotenv import load_dotenv
 from rephrase_checker import *
 from generate_checker import *
-
+from flask import request, jsonify
+from werkzeug.utils import secure_filename
 # ✅ 初始化：讀取環境變數與定義全域常數
 load_dotenv()
 
@@ -18,13 +19,13 @@ REQUIRED_ENV_VARS = [
 ]
 
 SOURCE_DIRS = [
-    # 正式部署用
-    "dataset/paraphrased_dataset/source/ncu_2019",
-    "dataset/paraphrased_dataset/source/ncu_2020",
+    # # 正式部署用
+    # "dataset/paraphrased_dataset/source/ncu_2019",
+    # "dataset/paraphrased_dataset/source/ncu_2020",
 
     # 測試用路徑
-    # "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2019",
-    # "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2020",
+    "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2019",
+    "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2020",
 ]
 
 
@@ -65,24 +66,24 @@ def create_app():
         return "Plagiarism Checker API is running!"
 
     @app.route(os.getenv("BACKEND_API_URL_TEXT_REPHRASE"), methods=['POST'])
-    def upload_rephrase():
+    def upload_text_rephrase():
         return text_rephrase_check(request, global_vector_db,
                                    global_embedding_model)
 
+    @app.route(os.getenv("BACKEND_API_URL_PDF_REPHRASE"), methods=['POST'])
+    def upload_pdf_rephrase():
+        return pdf_rephrase_check(request, global_vector_db,
+                                  global_embedding_model)
+
     @app.route(os.getenv("BACKEND_API_URL_TEXT_GENERATE"), methods=['POST'])
-    def upload_generate():
+    def upload_text_generate():
         return simulate_plagiarism_check(request, global_vector_db,
                                          global_embedding_model)
 
     @app.route(os.getenv("BACKEND_API_URL_PDF_GENERATE"), methods=['POST'])
     def upload_pdf_generate():
-        return simulate_plagiarism_check(request, global_vector_db,
-                                         global_embedding_model)
-
-    @app.route(os.getenv("BACKEND_API_URL_PDF_REPHRASE"), methods=['POST'])
-    def upload_pdf_rephrase():
-        return simulate_plagiarism_check(request, global_vector_db,
-                                         global_embedding_model)
+        return pdf_rephrase_check(request, global_vector_db,
+                                  global_embedding_model)
 
     return app
 
@@ -104,6 +105,42 @@ def text_rephrase_check(req, global_vector_db, global_embedding_model):
                                         embedding_model=global_embedding_model)
 
     return result
+
+
+def pdf_rephrase_check(req, global_vector_db, global_embedding_model):
+    if 'file' not in req.files:
+        return jsonify({"error": "No file part in the request"}), 400
+
+    uploaded_file = req.files['file']
+    original_filename = uploaded_file.filename
+
+    if not original_filename.lower().endswith('.pdf'):
+        return jsonify({"error": "Only PDF files are supported"}), 400
+
+    try:
+        # 避免危險字元，轉成安全檔名
+        safe_filename = secure_filename(original_filename)
+
+        save_dir = "./uploaded_pdfs"
+        os.makedirs(save_dir, exist_ok=True)
+
+        saved_path = os.path.join(save_dir, safe_filename)
+        uploaded_file.save(saved_path)
+
+    except Exception as e:
+        return jsonify({"error": f"Failed to save PDF: {str(e)}"}), 500
+
+    # ///////////////////////////////////////////////////////////////////
+    text = "這是測試的回應，這是測試的回應，這是測試的回應，這是測試的回應，這是測試的回應，這是測試的回應"
+    plagiarism_percentage = round(random.uniform(0, 100), 2)
+    confidence_score = round(random.uniform(0, 100), 2)
+    plagiarism_snippet = text[:min(30, len(text))]
+
+    return jsonify({
+        "plagiarism_percentage": plagiarism_percentage,
+        "plagiarism_snippet": plagiarism_snippet,
+        "confidence_score": confidence_score,
+    })
 
 
 # ✅ 模擬抄襲檢測回應（之後可以替換為真實邏輯）
