@@ -1,0 +1,61 @@
+# Python 編譯結果
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 虛擬環境
+venv/
+env/
+ENV/
+.venv/
+.pyenv/
+Pipfile.lock
+
+# 套件安裝檔案
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# 編譯結果
+*.so
+*.o
+*.out
+
+# 測試相關
+.coverage
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+.cache/
+
+# IDE 設定檔
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 作業系統產生的垃圾檔
+.DS_Store
+Thumbs.db
+
+# Django 特有
+*.log
+*.pot
+*.pyc
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+local_settings.py
+
+# Docker/部署設定（如有使用）
+*.env
+
+# VSCode 或其他編輯器產生的設定檔
+*.code-workspace
+
+# Jupyter Notebook Checkpoint
+.ipynb_checkpoints/
