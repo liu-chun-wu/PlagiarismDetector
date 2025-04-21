@@ -5,7 +5,7 @@ import torch
 import torch.nn.functional as F
 from difflib import SequenceMatcher
 from typing import List
-from transfer_numpy_to_float import *
+from model.transfer_numpy_to_float import *
 
 from dotenv import load_dotenv
 
@@ -331,15 +331,6 @@ def cooperate_plagiarism_check(user_text: str,
         plagiarism_snippet_full = doc_info_list[0][
             "content"][:snippet_len] + "…"
         plagiarism_snippet = plagiarism_snippet_full
-
-    # print(type(doc_info_list))
-    # print(type(main_analysis))
-    # print(type(feedbacks))
-    # print(type(judge_output))
-    # print(type(float(round(avg_confidence * 100, 2))))
-    # print(type(float(round(plagiarism_percentage, 2))))
-    # print(type(plagiarism_snippet))
-    # print(type(verdict))
 
     return {
         # list 中如果有非 float型態 (如 numpy)，轉換成json時會報錯，這邊使用 transfer_numpy_to_float 轉換

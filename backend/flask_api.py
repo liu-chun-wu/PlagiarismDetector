@@ -3,8 +3,8 @@ from flask_cors import CORS
 import os
 import random
 from dotenv import load_dotenv
-from rephrase_checker import *
-from generate_checker import *
+from model.check_rephrase_content import *
+from model.generate_checker import *
 from flask import request, jsonify
 from werkzeug.utils import secure_filename
 # ✅ 初始化：讀取環境變數與定義全域常數
@@ -19,7 +19,7 @@ REQUIRED_ENV_VARS = [
 ]
 
 SOURCE_DIRS = [
-    # # 正式部署用
+    # 正式部署用
     # "dataset/paraphrased_dataset/source/ncu_2019",
     # "dataset/paraphrased_dataset/source/ncu_2020",
 

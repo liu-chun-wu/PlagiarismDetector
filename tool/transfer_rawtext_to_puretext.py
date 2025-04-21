@@ -12,7 +12,7 @@ original_text = """
 json_ready_text = json.dumps(original_text, ensure_ascii=False, indent=2)
 
 # 檔案路徑
-file_path = "/home/undergrad/PlagiarismDetector/output.txt"
+file_path = "/home/undergrad/PlagiarismDetector/tool"
 
 # 如果檔案存在，先刪除
 if os.path.exists(file_path):
