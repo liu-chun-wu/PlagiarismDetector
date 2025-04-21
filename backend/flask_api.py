@@ -4,7 +4,7 @@ import os
 import random
 from dotenv import load_dotenv
 from model.check_rephrase_content import *
-from model.generate_checker import *
+from model.check_generate_content import *
 from flask import request, jsonify
 from werkzeug.utils import secure_filename
 # ✅ 初始化：讀取環境變數與定義全域常數
@@ -121,7 +121,7 @@ def pdf_rephrase_check(req, global_vector_db, global_embedding_model):
         # 避免危險字元，轉成安全檔名
         safe_filename = secure_filename(original_filename)
 
-        save_dir = "./uploaded_pdfs"
+        save_dir = "./backend/uploaded_pdfs"
         os.makedirs(save_dir, exist_ok=True)
 
         saved_path = os.path.join(save_dir, safe_filename)
