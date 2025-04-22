@@ -1,6 +1,7 @@
 #@title agentic_rag_4o_plagiarism_detection_demo_with_flask
 import os
 import re
+import gc
 import torch
 import torch.nn.functional as F
 from difflib import SequenceMatcher
@@ -26,9 +27,9 @@ from openai import OpenAI
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-device = torch.device("cuda:1" if torch.cuda.is_available() else "cuda:0")
+device = torch.device("cuda:0")
+torch.cuda.set_device(0)
 print(f"Using device: {device}")
-torch.cuda.set_device(1)
 
 # ========== DEMO AI Detector Model Setup ==========
 detector_model_name = "roberta-base-openai-detector"
@@ -57,7 +58,7 @@ def generate_with_openai_api(prompt: str,
     """
     try:
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1",
             messages=[
                 {
                     "role": "system",
@@ -153,7 +154,7 @@ def build_vector_db(dirs_list: List[str]):
 
     embedding_model = HuggingFaceEmbeddings(
         model_name="intfloat/multilingual-e5-base",
-        model_kwargs={"device": "cuda:1"})
+        model_kwargs={"device": "cuda:0"})
 
     for pages_dir in dirs_list:
         processed_files = 0
@@ -190,7 +191,7 @@ def build_vector_db(dirs_list: List[str]):
 # 5) CrossEncoder for re-ranking
 # ===============================================================
 cross_encoder_model = "BAAI/bge-reranker-v2-m3"
-cross_encoder = CrossEncoder(cross_encoder_model, device="cuda:1")
+cross_encoder = CrossEncoder(cross_encoder_model, device="cuda:0")
 
 
 # ===============================================================
@@ -331,6 +332,9 @@ def cooperate_plagiarism_check(user_text: str,
         plagiarism_snippet_full = doc_info_list[0][
             "content"][:snippet_len] + "…"
         plagiarism_snippet = plagiarism_snippet_full
+
+    gc.collect()
+    torch.cuda.empty_cache()
 
     return {
         # list 中如果有非 float型態 (如 numpy)，轉換成json時會報錯，這邊使用 transfer_numpy_to_float 轉換

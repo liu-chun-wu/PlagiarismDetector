@@ -76,10 +76,16 @@ export default function ScanRephrase() {
             }
 
             const data = await response.json();
+
+            // ✅ 設定伺服器回傳的原始文本為輸入來源
+            if (data.original_text) {
+                setTextInput(data.original_text);  // ← 將伺服器回傳的原文作為輸入文本
+            }
+
             setAiContent(data.plagiarism_percentage || 100);
             setConfidenceScore(data.avg_confidence || 100);
             setUploaded(true);
-            highlightPlagiarism(data.plagiarism_snippet);
+            highlightPlagiarism(data.plagiarism_snippet, data.original_text);
         } catch (error) {
             console.error("Error uploading PDF:", error);
             alert("Failed to upload PDF");
@@ -87,6 +93,7 @@ export default function ScanRephrase() {
             setLoading(false);
         }
     };
+
 
 
     const jaccardSimilarity = (str1: string, str2: string): number => {
@@ -97,9 +104,11 @@ export default function ScanRephrase() {
         return intersection.size / union.size;
     };
 
-    const highlightPlagiarism = (plagiarismSnippet: string): void => {
+    const highlightPlagiarism = (plagiarismSnippet: string, sourceText?: string): void => {
+        const text = sourceText || textInput;
+
         if (!plagiarismSnippet) {
-            setHighlightedText(textInput);
+            setHighlightedText(text);
             return;
         }
 
@@ -107,8 +116,8 @@ export default function ScanRephrase() {
         const threshold = 0.7;
         const matches: [number, number][] = [];
 
-        for (let i = 0; i <= textInput.length - windowSize; i++) {
-            const substring = textInput.slice(i, i + windowSize);
+        for (let i = 0; i <= text.length - windowSize; i++) {
+            const substring = text.slice(i, i + windowSize);
             const similarity = jaccardSimilarity(substring.toLowerCase(), plagiarismSnippet.toLowerCase());
 
             if (similarity >= threshold) {
@@ -117,7 +126,7 @@ export default function ScanRephrase() {
         }
 
         if (matches.length === 0) {
-            setHighlightedText(textInput);
+            setHighlightedText(text);
             return;
         }
 
@@ -128,14 +137,15 @@ export default function ScanRephrase() {
             if (start < currentIndex) {
                 return;
             }
-            highlightedText += textInput.slice(currentIndex, start);
-            highlightedText += `<span class="bg-yellow-300">${textInput.slice(start, end + 1)}</span>`;
+            highlightedText += text.slice(currentIndex, start);
+            highlightedText += `<span class="bg-yellow-300">${text.slice(start, end + 1)}</span>`;
             currentIndex = end + 1;
         });
 
-        highlightedText += textInput.slice(currentIndex);
+        highlightedText += text.slice(currentIndex);
         setHighlightedText(highlightedText);
     };
+
 
     const handleNewScan = () => {
         setUploaded(false);

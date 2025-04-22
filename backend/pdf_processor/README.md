@@ -14,7 +14,12 @@ PDF Text Extractor 是一個專門針對學術論文和文檔的文本提取工�
 ## 安裝依賴
 
 ```bash
-pip install PyMuPDF google-generativeai pillow python-dotenv
+pip install PyMuPDF google-genai pillow python-dotenv
+```
+
+```bash
+conda install -c conda-forge pymupdf pillow python-dotenv
+pip install google-genai
 ```
 
 ## 使用方法
