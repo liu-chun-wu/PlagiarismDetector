@@ -6,7 +6,7 @@ import torch
 import torch.nn.functional as F
 from difflib import SequenceMatcher
 from typing import List
-from model.transfer_numpy_to_float import *
+import numpy
 
 from dotenv import load_dotenv
 
@@ -22,10 +22,6 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 # For calling GPT-4o
 from openai import OpenAI
-
-# Flask and ngrok
-from flask import Flask, request, jsonify
-from flask_cors import CORS
 
 device = torch.device("cuda:0")
 torch.cuda.set_device(0)
@@ -116,6 +112,19 @@ def split_into_paragraphs(text: str):
         if blk:
             paragraphs.append(blk)
     return paragraphs
+
+
+# Updated on 04/22/2025
+def split_into_sentences_chinese(text):
+    pattern = re.compile(r'([^。！？]*[。！？])', re.U)
+    sentences = pattern.findall(text)
+    left = pattern.sub('', text)
+    if left:
+        sentences.append(left)
+    return [s for s in sentences if s.strip()]
+
+
+# Updated on 04/22/2025
 
 
 def highlight_matches(original: str, submitted: str, min_len=4):
@@ -321,20 +330,81 @@ def cooperate_plagiarism_check(user_text: str,
     all_overlaps = list(dict.fromkeys(all_overlaps))  # deduplicate, keep order
 
     # (A) complete concatenation for the UI
-    plagiarism_snippet_full = " … ".join(all_overlaps)
+    # plagiarism_snippet_full = " ".join(all_overlaps)
+    plagiarism_snippet_full = all_overlaps
 
     # (B) longest chunk – keeps old behaviour for backward‑compat
     plagiarism_snippet = max(all_overlaps, key=len) if all_overlaps else ""
 
     # fallback if we somehow had no overlaps at all
-    if not plagiarism_snippet_full and doc_info_list:
-        snippet_len = min(50, len(doc_info_list[0]["content"]))
-        plagiarism_snippet_full = doc_info_list[0][
-            "content"][:snippet_len] + "…"
-        plagiarism_snippet = plagiarism_snippet_full
+    # if not plagiarism_snippet_full and doc_info_list:
+    #     snippet_len = len(doc_info_list[0]["content"])
+    #     plagiarism_snippet_full = doc_info_list[0][
+    #         "content"][:snippet_len] + "…"
+    original_snippet = plagiarism_snippet_full
+
+    # ----- GPT-4.1 Sentence-level Highlighting -----
+    user_sentences = split_into_sentences_chinese(user_text)
+    plag_highlight_prompt = (
+        "你是学术剽窃检测AI。下面是用户逐句分割的段落，以及最相似的参考文献段落。\n"
+        "请你判断哪些用户句子涉嫌剽窃，请只用[PLAG]...[/PLAG]包裹这些句子输出原文（不必解释，保持原句原格式，剩下句子不要输出）。\n"
+        "如果没有任何句子涉嫌剽窃，则只输出空字符串。\n\n"
+        "【用户分句】:\n" +
+        "\n".join([f"{i+1}. {s}" for i, s in enumerate(user_sentences)]) +
+        "\n\n【最相似文献段落】:\n" + "\n".join(top_texts))
+    gpt4_plag_sentence_mark = generate_with_openai_api(plag_highlight_prompt,
+                                                       max_tokens=256)
+    plagiarized_sents = re.findall(r'\[PLAG\](.+?)\[/PLAG\]',
+                                   gpt4_plag_sentence_mark,
+                                   flags=re.S)
+
+    def highlight_sentences(user_sentences, plag_sents):
+        result = []
+        for s in user_sentences:
+            if s.strip() in [ps.strip() for ps in plag_sents]:
+                result.append(f'<mark style="background:orange">{s}</mark>')
+            else:
+                result.append(s)
+        return ''.join(result)
+
+    gpt_sentence_highlight_html = highlight_sentences(user_sentences,
+                                                      plagiarized_sents)
+    # gpt4_1_snippet = " ".join(plagiarized_sents)
+    gpt4_1_snippet = plagiarized_sents
+
+    # updated on 04/23/2025
+    # ----- SMART: PICK CLOSER TO PERCENTAGE -----
+    def snippet_score_ratio(snippet, user_text):
+        if not snippet or not user_text:
+            return 0.0
+        return len(snippet) / max(1, len(user_text))
+
+    ratio_original = snippet_score_ratio(original_snippet, user_text)
+    ratio_gpt41 = snippet_score_ratio(gpt4_1_snippet, user_text)
+    target_ratio = plagiarism_percentage / 100
+
+    if abs(ratio_original - target_ratio) < abs(ratio_gpt41 - target_ratio):
+        plagiarism_snippet = original_snippet
+    else:
+        plagiarism_snippet = gpt4_1_snippet
+    # updated on 04/23/2025
 
     gc.collect()
     torch.cuda.empty_cache()
+
+    def transfer_numpy_to_float(data):
+        if isinstance(data, dict):
+            return {k: transfer_numpy_to_float(v) for k, v in data.items()}
+        elif isinstance(data, list):
+            return [transfer_numpy_to_float(item) for item in data]
+        elif isinstance(data, (numpy.integer, )):
+            return int(data)
+        elif isinstance(data, (numpy.floating, )):
+            return float(data)
+        elif isinstance(data, numpy.ndarray):
+            return data.tolist()
+        else:
+            return data
 
     return {
         # list 中如果有非 float型態 (如 numpy)，轉換成json時會報錯，這邊使用 transfer_numpy_to_float 轉換
@@ -342,7 +412,7 @@ def cooperate_plagiarism_check(user_text: str,
         "main_analysis": main_analysis,
         "feedbacks": transfer_numpy_to_float(feedbacks),
         "judge_output": judge_output,
-        "avg_confidence": round(float(round(avg_confidence * 100, 2))),
+        "plagiarism_confidence": round(float(round(avg_confidence * 100, 2))),
         "plagiarism_percentage": round(float(round(plagiarism_percentage, 2))),
         "plagiarism_snippet": plagiarism_snippet,
         "verdict": verdict

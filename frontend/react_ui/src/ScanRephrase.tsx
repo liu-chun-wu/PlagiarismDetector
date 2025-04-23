@@ -38,15 +38,15 @@ export default function ScanRephrase() {
                 body: JSON.stringify({ text: textInput }),
             });
 
-            if (!response.ok) {
-                throw new Error("Failed to upload text");
-            }
+            if (!response.ok) throw new Error("Failed to upload text");
 
             const data = await response.json();
             setAiContent(data.plagiarism_percentage || 100);
-            setConfidenceScore(data.avg_confidence || 100);
+            setConfidenceScore(data.plagiarism_confidence || 100);
             setUploaded(true);
-            highlightPlagiarism(data.plagiarism_snippet);
+
+            // ✅ 使用 unified 函數處理
+            highlightSnippetsUnified(data.original_text_and_plagiarism_snippet);
         } catch (error) {
             console.error("Error uploading text:", error);
             alert("Failed to upload text");
@@ -71,21 +71,20 @@ export default function ScanRephrase() {
                 body: formData,
             });
 
-            if (!response.ok) {
-                throw new Error("Failed to upload PDF");
-            }
+            if (!response.ok) throw new Error("Failed to upload PDF");
 
             const data = await response.json();
 
-            // ✅ 設定伺服器回傳的原始文本為輸入來源
-            if (data.original_text) {
-                setTextInput(data.original_text);  // ← 將伺服器回傳的原文作為輸入文本
+            if (data.original_text_and_plagiarism_snippet?.[0]?.original_text) {
+                setTextInput(data.original_text_and_plagiarism_snippet[0].original_text);
             }
 
             setAiContent(data.plagiarism_percentage || 100);
-            setConfidenceScore(data.avg_confidence || 100);
+            setConfidenceScore(data.plagiarism_confidence || 100);
             setUploaded(true);
-            highlightPlagiarism(data.plagiarism_snippet, data.original_text);
+
+            // ✅ 使用 unified 函數處理
+            highlightSnippetsUnified(data.original_text_and_plagiarism_snippet);
         } catch (error) {
             console.error("Error uploading PDF:", error);
             alert("Failed to upload PDF");
@@ -93,8 +92,6 @@ export default function ScanRephrase() {
             setLoading(false);
         }
     };
-
-
 
     const jaccardSimilarity = (str1: string, str2: string): number => {
         const set1 = new Set(str1);
@@ -104,46 +101,58 @@ export default function ScanRephrase() {
         return intersection.size / union.size;
     };
 
-    const highlightPlagiarism = (plagiarismSnippet: string, sourceText?: string): void => {
-        const text = sourceText || textInput;
+    const highlightSnippetsUnified = (
+        originalTextAndSnippets: { original_text: string; plagiarism_snippet: string[] }[]
+    ): void => {
+        const results: string[] = [];
 
-        if (!plagiarismSnippet) {
-            setHighlightedText(text);
-            return;
-        }
-
-        const windowSize = plagiarismSnippet.length;
-        const threshold = 0.7;
-        const matches: [number, number][] = [];
-
-        for (let i = 0; i <= text.length - windowSize; i++) {
-            const substring = text.slice(i, i + windowSize);
-            const similarity = jaccardSimilarity(substring.toLowerCase(), plagiarismSnippet.toLowerCase());
-
-            if (similarity >= threshold) {
-                matches.push([i, i + windowSize - 1]);
-            }
-        }
-
-        if (matches.length === 0) {
-            setHighlightedText(text);
-            return;
-        }
-
-        let highlightedText = "";
-        let currentIndex = 0;
-
-        matches.sort((a, b) => a[0] - b[0]).forEach(([start, end]) => {
-            if (start < currentIndex) {
+        originalTextAndSnippets.forEach(({ original_text, plagiarism_snippet }) => {
+            if (!plagiarism_snippet || plagiarism_snippet.length === 0) {
+                results.push(original_text);
                 return;
             }
-            highlightedText += text.slice(currentIndex, start);
-            highlightedText += `<span class="bg-yellow-300">${text.slice(start, end + 1)}</span>`;
-            currentIndex = end + 1;
+
+            let matches: [number, number][] = [];
+
+            // 每個 snippet 分開處理、比對
+            plagiarism_snippet.forEach((snippet) => {
+                const windowSize = snippet.length;
+                const threshold = 0.7;
+
+                for (let i = 0; i <= original_text.length - windowSize; i++) {
+                    const substring = original_text.slice(i, i + windowSize);
+                    const similarity = jaccardSimilarity(substring.toLowerCase(), snippet.toLowerCase());
+
+                    if (similarity >= threshold) {
+                        matches.push([i, i + windowSize - 1]);
+                    }
+                }
+            });
+
+            // 合併標記區間，避免重複標記
+            matches.sort((a, b) => a[0] - b[0]);
+            const merged: [number, number][] = [];
+            for (const [start, end] of matches) {
+                if (merged.length === 0 || start > merged[merged.length - 1][1]) {
+                    merged.push([start, end]);
+                } else {
+                    merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], end);
+                }
+            }
+
+            // 插入 HTML 螢光標記
+            let highlighted = "";
+            let currentIndex = 0;
+            for (const [start, end] of merged) {
+                highlighted += original_text.slice(currentIndex, start);
+                highlighted += `<span class="bg-yellow-300">${original_text.slice(start, end + 1)}</span>`;
+                currentIndex = end + 1;
+            }
+            highlighted += original_text.slice(currentIndex);
+            results.push(highlighted);
         });
 
-        highlightedText += text.slice(currentIndex);
-        setHighlightedText(highlightedText);
+        setHighlightedText(results.join("<br/><br/>"));
     };
 
 
@@ -229,7 +238,10 @@ export default function ScanRephrase() {
                         <CardContent className="mt-4">
                             <div className="mt-6">
                                 <p className="font-semibold">Original Text with Highlighted Plagiarism Snippet</p>
-                                <div className="p-2 bg-gray-200 rounded-md mt-2" dangerouslySetInnerHTML={{ __html: highlightedText }} />
+                                <div
+                                    className="p-4 bg-gray-200 rounded-md mt-2 max-h-[400px] max-w-[700px] overflow-y-auto overflow-x-auto whitespace-pre-wrap text-base leading-relaxed"
+                                    dangerouslySetInnerHTML={{ __html: highlightedText }}
+                                />
                                 <p className="mt-4 font-semibold">Plagiarism Percentage</p>
                                 <Progress value={aiContent} className="mt-2 bg-red-500" />
                                 <p className="text-right font-bold text-red-600">{aiContent}%</p>

@@ -1,4 +1,6 @@
 import numpy
+
+
 def transfer_numpy_to_float(data):
     if isinstance(data, dict):
         return {k: transfer_numpy_to_float(v) for k, v in data.items()}
