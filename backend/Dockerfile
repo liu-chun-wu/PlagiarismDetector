@@ -40,11 +40,13 @@ ENV PATH="/opt/conda/envs/webapp/bin:$PATH"
 WORKDIR /home/appuser/flask_backend
 COPY --chown=appuser:appuser . /home/appuser/flask_backend
 
+RUN mkdir -p /app/uploaded_pdfs && chmod 777 /app/uploaded_pdfs
+
 # 複製 entrypoint
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-USER appuser
+# USER appuser
 
 EXPOSE ${BACKEND_PORT}
 ENTRYPOINT ["/entrypoint.sh"]

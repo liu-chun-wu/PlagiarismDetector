@@ -41,3 +41,5 @@ db.sqlite3
 
 # Celery 佇列檔案（如果有使用）
 celerybeat-schedule
+
+uploaded_pdfs/
