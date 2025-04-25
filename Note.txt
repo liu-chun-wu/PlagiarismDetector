@@ -9,9 +9,11 @@ docker run -d -p 8080:8080 --name front1 frontend:v1
 
 docker-compose -f docker-compose-backend-only.yml up --build -d
 docker-compose -f docker-compose-backend-only.yml down
+docker logs flask-backend
 
 docker-compose -f docker-compose-frontend-only.yml up --build -d
 docker-compose -f docker-compose-frontend-only.yml down
+docker logs flask-backend
 
 docker logs plagiarismdetector-backend
 docker logs plagiarismdetector-frontend

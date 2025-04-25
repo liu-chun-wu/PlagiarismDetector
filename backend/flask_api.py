@@ -71,11 +71,11 @@ def create_app():
     # 設定 logger 級別為 DEBUG
     app.logger.setLevel(logging.DEBUG)
 
-    handler = logging.StreamHandler()
-    handler.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('[%(asctime)s] %(levelname)s: %(message)s')
-    handler.setFormatter(formatter)
-    app.logger.addHandler(handler)
+    # handler = logging.StreamHandler()
+    # handler.setLevel(logging.DEBUG)
+    # formatter = logging.Formatter('[%(asctime)s] %(levelname)s: %(message)s')
+    # handler.setFormatter(formatter)
+    # app.logger.addHandler(handler)
 
     validate_env()
 
