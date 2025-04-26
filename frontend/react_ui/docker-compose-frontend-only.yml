@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        FRONTEND_PORT: ${FRONTEND_PORT}
+        VITE_API_URL_BACKEND: ${VITE_API_URL_BACKEND}
+        VITE_API_URL_TEXT_REPHRASED: ${VITE_API_URL_TEXT_REPHRASED}
+        VITE_API_URL_TEXT_GENERATED: ${VITE_API_URL_TEXT_GENERATED}
+        VITE_API_URL_PDF_REPHRASED: ${VITE_API_URL_PDF_REPHRASED}
+        VITE_API_URL_PDF_GENERATED: ${VITE_API_URL_PDF_GENERATED}
+    container_name: react-frontend
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    env_file:
+      - .env
