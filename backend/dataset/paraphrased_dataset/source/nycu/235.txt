@@ -1,0 +1,1 @@
+本論文參考自動化測試流程方法（ATLM - automated testing lifecycle methodology）[7]與其他相關文獻，對英國電信BT（British Telecom，簡稱BT）的家用AP（無線存取點，Wireless Access Point， 縮寫AP）產品WHW（Whole Home Wi-Fi）提出一個自動化的測試 流程。此流程整合功能測試與壓力測試，避免重複運用測試資源，透 過自動化測試工具完善的建構有效降低測試成本，使測試資源再利用， 達到工作效益最大化。經由本論文研究個案實例探討，測試報告顯示 實際有效運用後，確實能夠帶來顯著的效果，值得其他欲導入自動化 - 6 - 測試之企業組織參考。

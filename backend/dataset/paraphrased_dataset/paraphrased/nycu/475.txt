@@ -1,0 +1,1 @@
+目標檢測中，輸入影像會產生大量region proposal，但僅少數包含目標，造成類別不平衡，負樣本過多主導loss函數，影響模型優化方向。為此，引入focal loss[13]解決此問題，將損失函數由cross-entropy改為focal loss，觀察辨識率提升狀況。Focal loss公式為FL(𝑝`) = −(1 −𝑝`)ᵝlog (𝑝`)，在cross-entropy基礎上添加調制係數(1 −𝑝`)ᵝ，降低易分類樣本權重，使模型更關注難分類樣本。𝑝`代表ground truth類別的機率，分錯時𝑝`小，loss幾乎不受影響；𝑝`接近1時，則降低易分類樣本權重。𝛾 = 0時，focal loss等同cross-entropy；𝛾增加，調制係數增加，降低易分類樣本權重效果更明顯。實驗中，參考[13]設定𝛾= 2。

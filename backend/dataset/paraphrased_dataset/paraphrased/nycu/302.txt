@@ -1,0 +1,1 @@
+XGBoost，最初由陳天奇在DMLC的一個研究項目，在Higgs機器學習比賽中嶄露頭角後廣為人知。由於受到許多機器學習比賽獲獎團隊的青睞，XGBoost逐漸成為機器學習領域中實用性很強的演算法之一。它是一個開源的gradient boosting framework函式庫，可用於C++、Java、Python、R、Julia等程式語言，並支援Windows、Linux和MAC等作業系統。此外，XGBoost也支援Apache Hadoop、Apache Spark、Apache Flink等分散式架構。

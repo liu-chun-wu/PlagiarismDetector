@@ -1,0 +1,1 @@
+UCI資料開放平台中的BlogFeedback、Superconductivty和Facebook Comment Volume Dataset資料集已預先切分為訓練集和測試集。Appliances energy prediction和Relative location of CT slices on axial axis資料集則使用Sklearn的train_test_split套件以7:3的比例進行切分。切分後的資料筆數請參考表格3.1。

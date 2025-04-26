@@ -1,0 +1,1 @@
+In this process, we have three steps to extract the region we want to embroider. First, we segment the input image by Otsu’s method, because it is efficient. Then, we use morphological opening operation to remove small objects and smooth edges. At last, we find the contour of the region.

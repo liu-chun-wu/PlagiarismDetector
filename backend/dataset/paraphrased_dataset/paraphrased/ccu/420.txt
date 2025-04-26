@@ -1,0 +1,1 @@
+3.3.7節使用了YOLO v2物件偵測定位及截取字元，再以CNN辨識，所有字元視為同一類別。本節嘗試將34個字元(I、O除外)分成34類，標註標籤依0到9、A到Z順序編號。YOLO組態檔與偵測車牌、車牌字元位置的組態檔大致相同，但因偵測34類，classes=34，filter=(5+34)*5=195。訓練使用的traincharDirectRec.txt包含圖檔路徑，標籤檔與圖檔位於同目錄，charDirectRec.names則依序記錄各類別名稱。訓練指令為：darknet.exe detector train data\charDirectRec.data cfg\YOLO-DirectRec2.cfg  defaultWeight\darknet19_448.conv.23。

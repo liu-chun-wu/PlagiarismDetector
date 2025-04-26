@@ -1,0 +1,1 @@
+深度學習的實作者往往首先使用RNN 類別的神經網路處理序列建模(sequence modeling)問題，舉例而言，深度學習經典書籍Deep Learning 內序列問題的章節名稱為 「Sequence Modeling : Recurrent and Recursive Nets」[2]，即「序列建模：Recurrent 及 Recursive 網路」，Recursive 網路亦為Recurrent 網路的一個分支；知名深度學習書籍 Deep learning with Python 內[1]，序列問題章節也首先介紹RNN 神經網路。

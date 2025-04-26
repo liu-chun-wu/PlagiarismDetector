@@ -1,0 +1,1 @@
+本研究在後續建立系統時，將透過下列所提及之軟體、程式 語、開發環境，來進行系統之開發，如下表4-1 所示： 表4-1 環境配置表 軟體及程式語言 規格說明 開發工具 Visual Studio 2017、Jupyter Notebook、Notepad++ 程式語言 後端 : C# 前端 : Typescript、HTML 中介層: Python 模型層: Python 第三方UI Bootstrap、Ant Design、DevExtreme 開發框架 後端 : ASP.NET MVC 前端 : Angular 中介層: Flask 模型函式庫 SKLearn、Tensorflow、Keras Web Server Windows 10 IIS Server 資料來源：本研究整理

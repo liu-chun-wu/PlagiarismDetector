@@ -1,0 +1,1 @@
+人臉關鍵點檢測技術應用廣泛，例如人臉識別中的人臉影像對齊，因此相關研究也常稱為face alignment。Dlib是一個包含機器學習、計算機視覺、圖像處理等功能的開源免費C++函式庫，廣泛應用於工業界和學術界，並支援跨平台使用及Python API。本研究使用Dlib中基於Ensemble of Regression Trees算法的人臉關鍵點檢測工具，參考Kazemi, Vahid, & Sullivan (2014) 的研究，識別Cootes, Taylor, Cooper, & Graham (1995) 和Edwards, Taylor, & Cootes (1998) 定義的68個臉部特徵點，兼具速度（單人人臉關鍵點檢測耗時約1ms）和精準度。

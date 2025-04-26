@@ -1,0 +1,1 @@
+殭屍網路由三個部分組成：Botmaster（亦稱Bot Herder），如同司令官，負責透過C&C Server（命令與控制伺服器）向Botnet成員下達指令。駭客即Botmaster，通常隱藏幕後，運用Proxy偽裝IP地址以規避法律責任。Bot（Botclient）與一般病毒木馬不同，它是一個簡單的網路連線程式，缺乏病毒木馬特徵，不易被防毒軟體偵測。其主要功能是與C&C Server連線以接收攻擊命令及程式，攻擊程式由C&C Server提供，而非Bot本身。Bot潛伏期中，封包流量與正常無異，使用者難以察覺自身已成為殭屍網路的一部分。C&C Server負責分擔Botmaster的流量並儲存其指令，當Bot請求更新時，C&C Server傳遞命令，同時記錄Bot數量及相關資訊，供Botmaster掌握殭屍網路狀態。

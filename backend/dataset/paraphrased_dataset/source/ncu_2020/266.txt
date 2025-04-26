@@ -1,0 +1,1 @@
+為了增加輸入資料的豐富度並且關注相關度較高的輸出向量，Li Zhao 結合AE-LSTM 及AT-LSTM 的構想創造出觀點嵌入之長短期記憶結合注意 力模型(Attention-based LSTM with Aspect Embedding, ATAE-LSTM)，如圖

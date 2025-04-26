@@ -1,0 +1,1 @@
+Bai、Kolter 及 Koltun (2018) 的研究指出，TCN 的表現優於傳統 LSTM 和 GRU。後續研究如 Pradhan 與 Longpre (2016)、Prakash et al. (2016) 及 Kim et al. (2017) 等，提出了具殘差連接的 LSTM 網路。然而，目前尚無研究比較 TCN 與具殘差連接 LSTM 網路的表現。本研究將比較 TCN 和 Prakash et al. (2016) 提出的 RES LSTM，探討兩者在投資績效上的差異，並與買進持有的投資績效進行比較。以下將分別介紹 TCN 模型建立、RES LSTM 模型建立、模型共通性參數、資料分割以及預測方法。

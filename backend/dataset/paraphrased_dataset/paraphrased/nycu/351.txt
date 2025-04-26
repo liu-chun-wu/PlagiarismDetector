@@ -1,0 +1,3 @@
+Metric learning 常用的損失函數之一是 FaceNet 提出的 triplet loss，旨在訓練網路辨別輸入人臉是否為同一人。Triplet loss 輸入三張圖片：anchor、與 anchor 同一人臉的正樣本，以及與 anchor 不同人臉的負樣本。目標是縮小 anchor 與正樣本特徵距離 Dap，並加大 anchor 與負樣本特徵距離 Dan。Triplet Loss 的公式為 [Dap² - Dan² + α]+，目的是使 anchor 與正樣本、負樣本的相對距離大於閥值 α，但沒有明確拉近正樣本對的距離。
+
+為適應追蹤任務中需要判斷是否為同一人的需求，本文修改 triplet loss，加入 anchor 和正樣本距離需小於設定閥值的條件，使其有助於追蹤任務的匹配判斷。Revised Triplet Loss 公式為 max{Dap - τ1, 0} + 2max{(Dap - Dan) + τ2, 0}，前項拉近 anchor 和正樣本距離，後項參考原 triplet loss 拉遠 anchor 與正樣本、負樣本的相對距離。本文 τ1 取 0.2，τ2 取 0.8。

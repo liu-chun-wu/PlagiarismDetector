@@ -1,0 +1,13 @@
+實驗二利用位於台灣、美國及英國伺服器的個案公司，透過 100Mbps 頻寬的 MPLS 網路，進行 SFTP、SMB、Tsunami、Synology Presto File Systems 與 Signiant 傳輸效能測試。所有實驗均於離峰時間執行。圖 4-7 為實驗架構。
+
+
+Synology Presto File Server 實驗部分，首先登入台灣一台 Synology D451+，在套件中心安裝最新版 Presto File Server 套件，安裝完成後即可獲得 30 天無限制頻寬的試用授權。英國及美國伺服器則需安裝 Presto Client 端工具，可於 D451+ 上的 Presto File Server 下載頁面取得對應版本。安裝過程皆使用預設選項。安裝完成後，點擊桌面 Synology Presto Automator 圖示，點擊 “+ Create Task”，輸入伺服器地址、帳號密碼，按下 “Next”。忽略 SSL 憑證提醒訊息，設定檔案傳輸來源及目的地路徑，設定任務排程，設定目的地檔案已存在的處理方式 (本實驗選擇覆蓋不同大小或較新檔案)，以及來源檔案不存在時保留目的端檔案。最後，不設定特定副檔名排除傳輸，並設定傳輸流量限制、加密及壓縮選項。
+
+
+MPLS 網路實際延遲因伺服器位置而異，與 IBM 預估值略有差異。封包遺失率經 ping 測試，無論距離遠近皆為 0.1%，顯示 MPLS 網路品質優異。Presto File Server 傳輸穩定性高，每次傳輸時間誤差極低。
+
+
+Signiant 實驗部分，在 Basic 頁簽設定 Job Name, Source Agent, Source Directory, Target Agent, Target Directory 等必要選項。在 Advanced 頁簽的 Source Specification 設定中維持預設檔案篩選原則。Transport Options 也維持預設值。在 Advanced Options 中開啟 Encryption Level 和 Compress Files，提升傳輸安全性和速度。Signiant 傳輸穩定性與 Presto FS 相當，每次傳輸時間誤差低，但傳輸速率約為 Presto FS 的兩倍。高頻寬利用率可能影響其他服務，必要時應限制次要任務的可用頻寬。
+
+
+Tsunami、SFTP 與 SMB 的 MPLS 網路傳輸實驗方法與實驗一相同，僅改用實際 MPLS 網路。相較於 WANem 模擬環境，完成時間大幅縮短。

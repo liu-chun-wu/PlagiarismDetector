@@ -1,0 +1,1 @@
+從Wikipedia的"Information Security"頁面擷取相關詞彙作為資訊安全關鍵字集，並利用爬蟲程式抓取後存入資料庫。關鍵字集的建立流程如圖7所示。研究中使用Python、Selenium、Apache Hadoop、文字分析技術(斷詞、停用詞、詞性標記、詞幹提取、TF-IDF)以及Apache Spark等工具，結合大數據和資料視覺化技術，建構學術期刊在資訊安全研究的演進圖。

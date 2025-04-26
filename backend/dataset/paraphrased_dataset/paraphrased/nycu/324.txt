@@ -1,0 +1,5 @@
+已錄製一組無背景音及一組帶有台語標籤的語音資料集，內容包含「你好嗎(lí hó)」、「我來呀(góa-lâi-a)」、「今日(kin-á-ji̍t/kin-má-ji̍t)」、「不用客氣(bián-kheh-khì)」、「吃飽沒(tsia̍h-pá-buē)」、「火車(hoe-chia)」、「春天(Tshun-thin)」、「鼻子酸(phī-thâu-sng)」等多筆錄音，涵蓋台語輔音 p, ph, b, m, t, th, n, l, ts, tsh, s, j, k, kh, g, ng, h 及母音 a, e, i, o, oo, u。
+
+本研究參考楊允言的台語文處理技術，分析台語文變調及白話文音節，並根據其提出的合法台語音節組合規則：輔音：[無輔音|p|ph|m|b|t|th|n|l|k|kh|g|ng|ts|tsh|s|j]，韻母：[oaihN|iang|ong|iahN|iauh|oaiN|oang|iauN|ahN|aiN|ang|auh|ehN|eng|auN|iaN|iah|iam|ian|iap|iat|iau|ioh|iok|ioN|iuN|iak|iou|iuh|ngh|ouN|oaN|oah|oai|oan|oat|oeh|ouh|ong|uiN|uih|aN|ah|ai|ak|am|an|ap|at|au|eN|eh|ek|iN|ia|im|in|io|ip|it|iu|ih|mh|ng|oN|oa|oe|oh|ok|om|on|op|uh|ui|un|ut|a|e|i|m|o|u] (台語音節結構為輔音加上韻母)，進行訓練樣本篩選。
+
+實驗將語音樣本切成細微片段，使用不同數量的2D卷積層進行人聲及背景音分類，並與過往的Segment分割方法比較。此實驗將應用於錄製實驗者複誦十次的音訊後自動切段。

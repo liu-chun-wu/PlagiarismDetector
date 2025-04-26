@@ -1,0 +1,1 @@
+台灣護理記錄系統常見的有SOAPIER和焦點記錄法兩種。SOAPIER包含主觀資料(S)、客觀資料(O)、評估(A)、計畫(P)、執行(I)、評值(E)及修訂(R)七個步驟。焦點記錄法則著重於焦點問題(Focus)、資料(Data)、措施(Action)、指導(Teaching)及反應/評值(Response)。本研究採用焦點記錄法，並以Data、Action、Teaching和Response欄位進行文字探勘，而Treatment和Focus欄位則不列入分析範圍，其中Focus欄位已用於擷取跌倒相關危險因子作為自變數。

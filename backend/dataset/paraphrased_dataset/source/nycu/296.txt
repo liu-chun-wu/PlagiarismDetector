@@ -1,0 +1,1 @@
+TF-IDF（Term Frequency–Inverse Document Frequency）是一種採用統計的方法來進 行文本探勘技術，主要用於資訊檢索、文本探勘的權重計算，或是特徵選取（Feature selection）之用。TF-IDF 的演算法包含了詞頻（Term Frequency，TF）[18]及逆向文件 頻率（inverse document frequency，IDF）[19]。 詞頻（Term Frequency，TF）指的是某一個給定的字詞在文件中出現的頻率。逆向 文件頻率（inverse document frequency，IDF）指的是所給定的某一個字詞出現在越多的 文件中，所計算出來的IDF 的值就越小，表示它的識別性就越低。IDF 的計算方式就是 以總文件數除以加總某字詞出現的文件數後取log 值。

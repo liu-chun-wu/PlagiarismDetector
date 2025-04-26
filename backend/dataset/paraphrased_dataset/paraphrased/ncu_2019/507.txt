@@ -1,0 +1,9 @@
+本研究採用兩種方法串接 Web3 與 JavaScript：直接使用 Remix 提供的 Web3 Provider 連線，以及使用 truffle framework 的 truffle-contract 套件調用合約。
+
+透過 Remix 的 web3 provider，可以直接連線到本地 testrpc 設定的地址 (http://localhost:8545)，點擊 Deploy 部署智能合約到本地測試鏈。以 UploadInfoContract.sol 為例，部署完成後，下方會顯示合約地址 (UploadInfoContract at address)。
+
+JavaScript  可透過 web3.js 存取已部署的合約。首先建立 web3 provider：`web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))`，並設定預設帳號：`web3.eth.defaultAccount = web3.eth.accounts[0]` (使用 testrpc 提供的第一個帳號)。接著，JavaScript 需要合約的 ABI Code 了解合約內容 (方法、回傳型態等)，可透過 Remix IDE 取得。  前端程式碼需宣告變數代表已部署的合約，並藉此調用合約方法。
+
+使用 truffle framework 的 truffle-contract 方法，則在使用 truffle compile 編譯並部署到 testrpc 後，前端程式碼需新增程式碼調用智能合約。truffle framework 與 Remix web3 provider 不同之處在於可以直接編譯 smart contract，無需使用 Remix IDE。透過 getJson 方法即可獲取編譯好的智能合約 (json 格式)。程式碼中加入特定程式碼即可取得 ABI code，並透過類似 `UploadInfoContract.deployed().someFunction()` 的方式調用已部署合約的函數 (UploadInfoContract 為合約名稱，someFunction 為函數名稱)。
+
+本研究先使用第一種方法快速除錯和測試 Solidity 智能合約，確認無誤後再使用 truffle framework 部署到 testrpc 產生的測試鏈。

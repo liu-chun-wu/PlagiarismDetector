@@ -1,0 +1,1 @@
+在3.3.9 節訓練過程，當觀察avg. loss 不再下降時就可終止訓練。將儲存各 個weights 檔以下列指令做驗證，取mAP 最好的.weights。 在90000 runs後avg. loss為0.043~0.045。以此權重驗證如下： for thresh = 0.25, precision = 0.98, recall = 1.00, F1-score = 0.99 for thresh = 0.25, TP = 10391, FP = 176, FN = 10, average IoU = 92.21 % mean average precision (mAP) = 0.989294, or 98.93 % 圖 68 YOLO 直接偵測車牌上的字元 資料來源:本研究整理 停車場入口之車牌影像辨識

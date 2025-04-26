@@ -1,0 +1,9 @@
+此Debugger從DSL開發者和GUI終端使用者兩個層面設計。為方便非程式專家的GUI使用者除錯，設計了專用UI Debugger，提醒GUI操作錯誤，例如功能塊、連接線的多餘或缺失，以及判斷、循環功能塊參數錯誤。
+
+程式異常會影響執行，設計錯誤會導致程式終止。因此，必須捕獲並處理scripts發生的異常。
+
+非程式專家使用者可能難以理解TypeError、SyntaxError、AttributeError等錯誤訊息。Debugger藉由繼承Python內建Exception，針對MasonPy操作設定限制，並定義流程圖的必要條件，提供更白話的錯誤訊息，幫助使用者快速找到並修正錯誤。Debugger檢測流程圖的功能塊缺失、連接錯誤和輸入設定錯誤。
+
+Debugger針對流程圖設計了一些Exceptions，檢查功能塊、連接線數量、Decision和Loop的輸入設定是否正確。這些Exceptions繼承自Python內建Exceptions，並針對MasonPy定制錯誤訊息。
+
+Debugger檢查項目包括：Start/End數量、Start/End連接線數量、Process/Decision/Loop連接線數量、Decision條件式、Loop終止條件式和Counter。錯誤訊息會明確指出錯誤類型和位置，例如"Start僅能有一個"、"Decision輸出線必須為兩條，目前不足?條"等。

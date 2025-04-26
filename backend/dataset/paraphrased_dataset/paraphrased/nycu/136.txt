@@ -1,0 +1,1 @@
+Oracle RAC One Node 與 Oracle RAC 共用相同的基礎架構，但 One Node 通常只在一台主機上運行一個實例。發生軟硬體故障時，服務會遷移到另一台主機 (Instance Relocation)，或是在主機正常運作下進行線上遷移 (Online Relocation)。遷移過程需要關閉並重啟資料庫，造成短暫的服務中斷和使用者斷線。本架構採用 iSCSI 模擬 SAN 環境，多台主機共用磁碟，並測試資料庫切換、網路故障和單顆 RAID Z 磁碟故障下的資料庫運作狀況。圖 15 和圖 16  (略) 分別展示了 RAC One Node 架構和 SCAN IP 的概念，SCAN IP 讓 Client 端在主機切換時僅經歷短暫中斷。表 7  (略)  列出了安裝主機資源與網路規格。

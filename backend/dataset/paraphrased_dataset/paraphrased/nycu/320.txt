@@ -1,0 +1,7 @@
+RF參數調整：從 n_estimators=20 調整為 n_estimators=300，min_samples_split=2，min_samples_leaf=1，max_features='auto'，max_depth=None，bootstrap=False，random_state=42。
+
+XGB參數調整：從 n_estimators=20，max_depth=5，random_state=42 調整為 n_estimators=1100，learning_rate=0.1，max_depth=3，min_child_weight=1，random_state=42，subsample=0.8，colsample_bytree=0.9，gamma=0.1，reg_alpha=0.1，reg_lambda=0.1。
+
+NB參數調整：維持使用預設值，因調整priors參數未改善結果。
+
+LR參數調整：solver 從 'sag' 調整為 'lbfgs'，其他參數(multi_class='multinomial', max_iter=100, class_weight={0:0.60, 1:0.4})維持不變。

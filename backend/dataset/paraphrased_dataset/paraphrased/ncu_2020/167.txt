@@ -1,0 +1,52 @@
+在實驗環境中，我們在伺服器和客戶端上安裝了SFTP（使用TCP）、SAMBA（使用TCP）和Tsunami（使用UDP），以比較三種傳輸軟體的效能差異。
+
+(1) SFTP 安裝：執行以下指令安裝 openssh-server：
+`sudo apt-get install openssh-server`
+`dpkg –get-selections |grep ssh`
+
+(2) SAMBA 安裝：執行以下指令安裝 SAMBA：
+`sudo apt-get install samba`
+
+設定 SAMBA：
+編輯 `/etc/samba/smb.conf`，在檔案尾端加入：
+
+```
+[share]
+path = /home/richou/share
+writable = yes
+guest account = “username”
+force user = “username”
+public = yes
+```
+
+重新啟動 SAMBA 伺服器，使設定生效：
+`sudo /etc/init.d/smbd restart`
+
+在客戶端上掛載伺服器分享的資料夾：
+`sudo apt install cifs-utils`
+`sudo mkdir /mnt/share`
+`sudo mount -t cifs -o username=“username”,password=“password” //192.168.190.130/share /mnt/share`
+
+
+(3) Tsunami 安裝：Tsunami 僅提供原始碼，必須自行編譯安裝。首先安裝編譯套件，例如 gcc, git, automake, autoconf 和 make：
+`sudo apt install gcc git automake autoconf make`
+
+從 git 下載 Tsunami 原始程式碼：
+`git clone https://git.code.sf.net/p/tsunami-udp/code_git tsunami-udp-code_git`
+
+編譯 Tsunami：
+`cd tsunami-udp-code_git/tsunami-udp/`
+`./recompile.sh`
+
+安裝 Tsunami：
+`./configure --prefix=/opt/tsunami`
+`sudo make install`
+
+啟動 Tsunami 伺服器：
+`cd /home/richou/share`
+`/opt/tsunami/bin/tsunamid --hbtimeout=3600`
+
+啟動 Tsunami 客戶端：
+`/opt/tsunami/bin/tsunami`
+`tsunami> set rate 100M`
+`tsunami> connect server`

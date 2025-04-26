@@ -1,0 +1,13 @@
+SPS和PPS位於每個video chunk的開頭，後面緊接著一個I-Frame作為GOP的起始。因此，會將SPS和PPS對應的video sample合併到I-Frame對應的video sample中(圖 34)。
+
+圖 33所示的修正程序，針對修正情境發生在同一個chunk內且合併的sample目標在後的情況：
+
+1. 到 4.  與4.1.1節的1到4項相同。
+5.  如果移除stts box中delta time為0的紀錄對應的並非檔案中最後一筆video sample，則執行此步驟。
+7.  如果移除stts box中delta time為0的紀錄對應的video sample並非位於video chunk的最後，則執行此步驟。
+11. 由於移除stts box中delta time為0的紀錄會導致video sample數量減少，需要同步更新暫存的stsc box結構中每個video chunk的video sample數量資訊。此外，由於是在同一個chunk內將delta time為0的sample往後合併到相鄰的sample，因此在暫存的stsz box資料結構中，處理delta time為0的項目的方式為：在目標video sample所屬的video chunk中，找到位於目標之後相連且delta time大於0的video sample，將目標的sample size加到該video sample的sample size中，最後刪除stsz box結構中目標自身的紀錄項。
+14. 到 15. 與4.1.1節的14和15項相同。
+
+圖 33 修正流程圖──狀況二 (資料來源：本研究)
+
+圖 34 修正示意圖──狀況二：同chunk，往後合併 (資料來源：本研究)

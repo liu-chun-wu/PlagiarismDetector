@@ -1,0 +1,3 @@
+本研究探討影響消費者散播負面電子口碑的因素。鑑於近年電子口碑藉由網路和電子產品快速發展，其傳播速度與範圍遠超傳統口碑，本研究聚焦於2012年至2018年間的相關文獻。選擇此時間區間的原因在於，電子商務、線上評論平台和智慧型手機於此期間蓬勃發展。例如，線上評論平台自2012年競爭加劇後，線上評論數量大幅增長，突顯其影響力。此外，網路社群和通訊軟體（如LINE）的興起，也為電子口碑傳播提供了新的途徑。
+
+研究方法上，本研究檢索Business Source Complete、ScienceDirect Online、Emerald Insight、Wiley Online Library和Google Scholar等資料庫，使用「口碑」、「線上口碑」、「線上推薦」、「線上消費者評論」、「線上評價」、「電子口碑」、「eWOM」、「線上評論」、「負面口碑」、「負面電子口碑」、「NWOM」、「消費者抱怨」等關鍵詞，搜尋相關文獻，並特別關注MIS Quarterly、Information Systems Research、Journal of Management Information Systems、Journal of the AIS、Decision Sciences、Decision Support Systems、Information and Management等高影響力期刊，以期全面掌握近年來影響負面電子口碑傳播的重要因素。

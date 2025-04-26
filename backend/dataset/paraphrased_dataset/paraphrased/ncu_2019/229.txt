@@ -1,0 +1,1 @@
+Richard Tortoriell (2009) 提出的選股模型評估因子包含複合年平均投資報酬率 (CAGR)、超額報酬 (Alpha)、波動震幅 (Beta)、夏普比率 (Sharp ratio) 及獲利標準差 (Standard Error) 等，用以衡量模型的收益績效和穩定性。陳宥任與曾崇銘 (2014) 和 Kevin J. Davey (2014) 則提出評估程式交易策略績效的方法，例如獲利因子 (Profit Factor) 和最大交易虧損 (MDD)。本研究結合選股模型和程式交易的評估方法，採用 CAGR、MDD、Profit Factor、Standard Error、Sharp ratio 以及獲利來源分析作為評估指標。

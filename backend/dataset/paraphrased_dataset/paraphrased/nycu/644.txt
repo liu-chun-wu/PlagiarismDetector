@@ -1,0 +1,17 @@
+定義o為真實人物，h為程式偵測到的人物，Mt記錄每組配對。初始M0為空集。每隔t時間，執行以下步驟：
+
+1. 檢查Mt−1中每組(oi, hj)是否有效：若時間t時oi仍可見且hj存在，且兩者距離不超過門檻值T，則在時間t建立(oi, hj)配對。
+
+2. 對於時間t中未配對的oi，尋找可配對的hj：條件為一對一配對且距離不超過T，選擇距離最短的配對。若新配對與Mt−1不同，則mismatch計數MM加1。
+
+3. 剩餘的h計入false positive (FP)，剩餘的o計入false negative (FN)。
+
+4. 統計FP、FN、MM和true positive (TP)，計算多目標追蹤準確度MOTA： MOTA = 1 − (FP + FN + MM) / (TP + FN)
+
+  TP指人物出現且被偵測到；FN指人物出現但未被偵測到；FP指偵測到但無人物；MM指同一人在前後幀被賦予不同ID。MOTA越接近1，追蹤效果越好。
+
+IDF1衡量ID追蹤能力： IDF1 = 2 * IDTP / (2 * IDTP + IDFP + IDFN)
+
+  IDTP指符合真實軌跡；IDFP指符合真實軌跡但不屬於IDTP的軌跡；IDFN指不符合真實軌跡。
+
+MOTA的TP與IDF1的IDTP相同。MOTA的MM每次身份交換計數一次；IDF1中，即使只交換一次，若後續軌跡不同，IDFP和IDFN會持續累計至ID恢復正確。MOTA更注重軌跡存在，IDF1更注重判斷軌跡是否為同一目標。

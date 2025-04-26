@@ -1,0 +1,16 @@
+此處採用等距投影魚眼模型（圖3-8右圖），其入射角𝜃與成像像高𝑟成正比。圖3-8左圖為Virtual PTZ成像平面，右圖為等距投影模型。
+
+進行Virtual PTZ時，需計算Virtual PTZ影像在世界座標的基向量。設定𝜃為40度，𝜑以45度間隔取值，即0、45、90、135、180、225、270、315度。
+
+Virtual PTZ在世界座標的基向量為：
+u' = (sin𝜃cos𝜑, sin𝜃sin𝜑, -cos𝜃)
+v' = u' × ẑ / |u' × ẑ|
+w' = u' × v'
+
+Virtual PTZ影像中任一點(x', y')在世界座標對應的射線向量為：
+p = x'v' + y'w' + fu' = (Px, Py, Pz)，其中f為焦距。
+
+𝜑B = arctan(Py / Px)
+𝜃B = arctan(sqrt(Px² + Py²) / -Pz)
+
+根據等距投影模型（圖3-8），點(x', y')在魚眼影像中到圓心的距離為 rB = R * 𝜃B，可換算魚眼影像座標為 C（圓心）+ (rB * cos𝜑B, rB * sin𝜑B)。

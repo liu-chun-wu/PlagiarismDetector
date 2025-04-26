@@ -1,0 +1,7 @@
+本研究主要目的為與Iadarola等人(2020)[18]提出的Android惡意程式家族分類研究進行比較。該研究[18]使用程式圖像化方法[51]將惡意程式轉換為灰階圖像，並使用四種圖像萃取法生成特徵，但僅針對樣本數大於500的家族進行實驗，最後使用多種機器學習模型(如Random Forest、IBk、J48、Decision Table)進行分類。
+
+本研究使用與[18]相同的資料集(十個AMD惡意家族：Airpush、BankBot、Dowgin、DroidKungFu、FakeInst、Fusob、Jisut、Kuguo、Mecor、Youmi)，並採用十折交叉驗證(訓練/測試比例為9:1)，使用平均F1-score作為比較指標。
+
+實驗結果顯示，本研究方法在所有家族上的偵測能力皆優於[18]。其中五個家族(BankBot、FakeInst、Fusob、Jisut、Mecor)使用兩種方法的F1-score皆超過99%，但本研究方法仍有提升(例如，BankBot從99.30%提升至99.46%，FakeInst從99.20%提升至99.88%)。
+
+另外五個家族中，本研究方法在四個家族(Dowgin、DroidKungFu、Kuguo、Youmi)的F1-score提升超過5%(例如，Dowgin從80.40%提升至87.27%，DroidKungFu從82.90%提升至93.13%)，而在Airpush家族的F1-score也從94.20%提升至95.68%。

@@ -1,0 +1,1 @@
+本研究使用Jupyter Notebook 操控Keras framework。Jupyter Notebook 是一個基於 網頁的互動式環境，可用於開發、文件編寫、執行。本研究使用的Keras api 建立於 Tensorflow 2.0 framework 上。Google 在TensorFlow 2.0 加入針對TensorFlow 優化過的 類神經網路Keras api，使 TensorFlow 更易於使用，並且不會犧牲靈活性和性能。 Keras 是一個用於構建和訓練深度學習模型的高階 API。它可用於快速設計原型、高 級研究和生產，具有以下三個主要優勢 ： 方便用戶使用、模組化和可組合、易於擴 展。可以編寫自訂神經層以表達新的研究創意，並且可以創建新層、損失函數並開發 先進的模型[49]。

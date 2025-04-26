@@ -1,0 +1,1 @@
+又被簡稱為Sklearn，是python 語言機器學習領域中的模組，其將許多 的演算法模組化，方便使用者呼叫調用，將機器學習方法運用在程式當中， 並可透過參數的調整，讓演算法更適合使用者的資料分析。Sklearn 包含許 多類型的機器學習演算法，可分為下列幾種： - 分類﹝Classification﹞ - 迴歸﹝Regression﹞ - 分群﹝Clustering﹞ - 資料降維﹝Dimensionality reduction﹞ - 模型選擇﹝Model Selection﹞ - 資料預處理﹝Preprocessing ﹞ 圖 11 Scikit-learn 出處： http://scikit-learn.org/stable/index.html#

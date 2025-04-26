@@ -1,0 +1,1 @@
+以圖2.1.b的潮流分析(Gauss-Seidel)為例，Simulink工具箱PSAT(Power System Analysis Toolbox)[11]提供基於Simulink的單線網絡圖編輯器，構建使用者圖形界面來模擬電力系統分析。本研究針對Simulink/PSAT/MATLAB整合架構，依開發者與使用者角色，分析討論如下：圖2.2.1以PSAT為例，說明Simulink開發DSL的流程。DSL開發者利用Simulink DSL框架構建PSAT DSL，DSL程式設計師再透過Simulink介面使用該DSL拖拉建構程式，最後提供給終端使用者操作。

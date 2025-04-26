@@ -1,0 +1,12 @@
+This paper examines three non-linear time decay functions: power, exponential, and logistic.  These functions provide smoother decay than linear functions, as demonstrated in Figure 5.  The time decay calculation is based on the difference (Δt) between the current time and the rating time.  A general non-linear decay function is represented by:  D(Δt) =  1  -  (0.5 * ∂ * Δt) (3).
+
+Algorithm 2 details the application of non-linear time decay.  Given a rating matrix R, current time, individual rating times, user averages (ui_avg), and a decay function, the algorithm generates a decayed rating matrix R’. The algorithm adjusts ratings towards the user's average rating. Ratings above the average decay downwards, while ratings below increase. The non-linear nature of the decay ensures ratings approach but do not cross the average.
+
+The three specific non-linear decay functions explored are:
+
+Power decay: D(Δt) = 0.67 * ∂ * Δt (4). This function offers a smoother curve than linear decay, with the parameter ∂ controlling the decay strength.
+
+Exponential decay: D(Δt) = -2 * (1 + exp(-∂ * Δt)) + 2 (5). This function provides even smoother decay towards neutrality compared to the power function, with ∂ again influencing the decay strength.
+
+
+Logistic decay: D(Δt) = 1 / (1 + exp(-∂ * Δt)) + 1.5 (6).  This function further decelerates the decay rate compared to the exponential function, offering the smoothest transition towards neutrality.  As with the other functions, ∂ controls the decay strength. Figure 6 compares the smoothness of these non-linear functions.

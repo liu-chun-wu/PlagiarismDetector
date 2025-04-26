@@ -1,0 +1,1 @@
+frequency,tf-idf） tf-idf 是從TermDocumentMatrix，也就是詞袋模型將文本對應每一個索引詞後 計算出現的次數產生的稀疏矩陣，所衍生的綜合評比的方式。 其原理為搜尋某一個詞Ti 在多數文件{D1, D2, …Dn}出現的頻率，出現頻率越 高則權重越高，反之越低，來表述文件的組成特性，這種方式稱為文件頻率df （Document Frequency），相反，如果需要知道其普遍重要性的度量，則為反向 文件頻率idf （Inverse Document Frequency）[6]。

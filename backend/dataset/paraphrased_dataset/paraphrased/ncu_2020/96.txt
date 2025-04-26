@@ -1,0 +1,23 @@
+本實驗基於Pytorch 1.2.0，使用單個NVIDIA GeForce GTX 1050 Ti GPU。模型架構採用單層LSTM編碼器(隱藏狀態維度64)和單層LSTM解碼器(隱藏狀態維度128)，如表4所示。每個ConvNet包含兩個卷積層，每層後接指數化線性單元(ELU)進行非線性處理，再接一個最大池化層。嵌入式輸入使用Linear(in_features=2, out_features=32, bias=True)和ELU(alpha=1.0)。其餘模型參數設定如表5所示，包含批量大小、丟碼率0.5、學習率0.01、Adam優化器和RMSE損失函數。預訓練期和訓練期數值未提供。
+
+表 4  模型架構
+
+| 網路架構     | 配置                                                                   |
+|--------------|------------------------------------------------------------------------|
+| 嵌入式輸入 | Linear(in_features=2, out_features=32, bias=True) <br> ELU(alpha=1.0) |
+| LSTM 編碼器   | LSTM(32, 64)                                                        |
+| 卷積層       | Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1)) <br> Conv2d(64, 16, kernel_size=(3, 1), stride=(1, 1)) |
+| 最大池化層   | MaxPool2d(kernel_size=(2, 1), stride=(2, 1), padding=(1, 0), dilation=1, ceil_mode=False) |
+| LSTM 解碼器   | LSTM(352, 128, dropout=0.5)                                           |
+
+表 5  模型參數設定
+
+| 參數     | 配置   |
+|----------|--------|
+| 預訓練期 | 未提供 |
+| 訓練期   | 未提供 |
+| 批量大小 | 未提供 |
+| 丟碼率   | 0.5    |
+| 學習率   | 0.01   |
+| 優化器   | Adam   |
+| 損失函數 | RMSE   |

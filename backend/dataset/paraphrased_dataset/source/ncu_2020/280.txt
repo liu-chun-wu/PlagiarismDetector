@@ -1,0 +1,1 @@
+本論文使用 NLTK （Natural Language Toolkit tokenize）對每筆資料做英文 斷詞與刪除停用詞。 英文斷詞（English Tokenization）採用預先訓練好的斷詞模型將句子中的每 個字詞分隔，不僅能夠將標點符號與字詞分開，也能將縮寫字拆分成單一的單 詞。譬如：didn’t 可以被準確的切成did 與not 兩個單詞。 刪除停用詞（Stop Words）指的是在英文中非常常用的字詞，通常不太影 響情緒分類，在英文中常見的停用詞有a, the, is, are, in, on，刪除停用詞能夠幫 助模型更加正確的分類文句情緒。

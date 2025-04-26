@@ -1,0 +1,1 @@
+利用粉絲專頁的貼文ID 以及粉絲專頁的存取權杖(page access token)，我們可以 使用Facebook Graph Api 來取得粉絲專頁貼文的資訊，如：貼文的文案、貼文的類型、 曾點擊貼文任何位置的用戶人數、粉絲專頁的貼文進入用戶瀏覽畫面的次數、粉絲專頁 上貼文的資訊。[2] 表2-1 Facebook Graph Api 節點列表 Facebook Graph Api page_storyId/ type message page_storyId/insights?metric= post_engaged_users post_impressions_unique

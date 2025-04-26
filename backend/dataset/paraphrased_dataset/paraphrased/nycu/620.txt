@@ -1,0 +1,3 @@
+機器學習特徵組預測模型在第一年到第五年的表現中，以 Random Forest 的 AUC 評分最佳。Logistic Regression 的表現相對較不出色，但模型穩定性較佳。準確度方面，第一年以 Decision Tree 表現最佳，而第二年到第五年則以 Random Forest 的準確度最高。
+
+綜觀機器學習挑選的特徵，Random Forest 模型表現優於 Decision Tree 和 Logistic Regression。與醫療挑選的特徵相比，機器挑選的特徵在模型表現和效能上都更為出色。

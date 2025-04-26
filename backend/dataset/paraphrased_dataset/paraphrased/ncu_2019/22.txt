@@ -1,0 +1,1 @@
+全連接層、residual connection和shortcut connection使用Selu作為啟動函數，以期比Relu更快收斂並解決梯度消失和爆炸問題。Dropout rate設定為30%，優化器採用Adam。學習率參考Karpathy設定為0.0001。損失函數使用均方差(MSE)。為避免梯度爆炸，參考Bai et al. (2018)使用梯度裁減，clipvalue設為0.5，clipnorm設為1。訓練次數(epochs)參考Lei et al. (2017)設定為300次，每次訓練樣本數(batch size)參考Wu et al. (2016)設定為16。模型訓練時間會被記錄以檢視效率。

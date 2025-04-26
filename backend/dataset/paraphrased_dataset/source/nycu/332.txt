@@ -1,0 +1,1 @@
+台語⾳訊及國語⾳訊分別從Youtube下載⾳訊及字幕檔。 須先安裝youtube-dl，才能從Youtube下載⾳訊檔。 pip3 install youtube-dl ＃下載字幕檔 youtube-dl --write-sub --sub-format srt --sub-lang zh-TW https://www.youtube.com/watch? v=mwB6dAksXR4 #下載⾳訊檔 youtube-dl -x --audio-format m4a https://www.youtube.com/watch?v=mwB6dAksXR4 台語樣本 國語樣本 來源 從Youtube下載⾳訊及字 幕檔 PTT推⽂⽂字轉為國語⾳ 訊 數量 11

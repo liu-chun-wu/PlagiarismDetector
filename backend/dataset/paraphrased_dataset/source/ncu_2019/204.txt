@@ -1,0 +1,1 @@
+本研究中所使用的離散化程式是使用R 語言做撰寫，在MDLP 與ChiMerge 中所使用的套件名稱為discretization，本實驗選用了MDLP 與ChiMerge 兩種監 督式學習的離散化方法，其中，MDLP 不需自行設定參數，而ChiMerge 方法則 使用其預設值，方法中的顯著水準在本研究中設定為α =0.05。

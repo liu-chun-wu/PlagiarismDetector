@@ -1,0 +1,5 @@
+CryptoKitties由Axiom Zen團隊開發，最初每15分鐘生成一隻0代貓，總量上限為5萬隻。團隊設計0代貓的基因，決定其外觀特徵。玩家可購買0代貓，並通過繁殖產生新的後代，基因會隨機組合。
+
+為保持遊戲趣味性，團隊持續開發新品種，例如特殊節日推出的Exclusive Cats，以及玩家可通過特定基因組合繁殖出的Fancy Cats，並透過社群媒體發布線索。此外，CryptoKitties還建立了社群平台KittyVerse，讓玩家參與遊戲概念發想，並衍生出收藏、銷售等功能。團隊也計畫推出行動版APP，提升遊戲便利性。目前遊戲中的貓咪類型包含：初期基因繁殖而來的Normal；稀有且不可繁殖的Exclusive Cats；限量且基因組合公開的Fancy Cats；以及部分可繁殖的Special Edition Cats。
+
+CryptoKitties選擇以太坊區塊鏈，借助其社群力量推廣區塊鏈應用，並與玩家互動、宣傳產品。團隊重視使用者體驗，積極採納社群意見。除了利用既有社群平台，CryptoKitties也建立了自己的社群KittyVerse，促進團隊與玩家、玩家之間的交流。  他們的主要社群經營方式包括：在Discord上建立主題群組供玩家交流；在KittyVerse上讓玩家參與遊戲開發並獲得資金支持；在官方部落格更新活動訊息和區塊鏈知識；以及在Facebook、Twitch、Twitter、YouTube和Reddit等平台分享特殊貓咪基因線索、開發團隊採訪和遊戲技巧等。

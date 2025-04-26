@@ -1,0 +1,1 @@
+與化學纖維紡織工廠合作，使用Point Grey工業相機Flea3 FL3-U3-88S2C-C，其外觀與硬體參數參見圖4-1，鏡頭參數參見表4-2。（圖4-1為Point Grey Flea3 FL3-U3-88S2C-C外觀; 表4-2為Point Grey Flea3 FL3-U3-88S2C-C硬體參數; 表4-1為工業相機鏡頭參數）

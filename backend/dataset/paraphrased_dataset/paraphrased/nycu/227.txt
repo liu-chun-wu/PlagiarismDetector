@@ -1,0 +1,3 @@
+WRC-2533GENT 手動測試與自動測試比較後，節省人力約 50%。COVR-2202 Pre Test 測試項目手動測試與自動測試比較後，節省人力約 75%。Pre Test 測試項目從 DWR-972 轉換到 COVR-2202，轉換率約 72%。
+
+實作結果顯示，Boardfram 自動化測試有效幫助測試部門節省時間。本文成功將 Boardfram Framework 從第一類產品導入第二類產品。利用 Boardfram Framework，相同測試項目的轉換快速且有效率。

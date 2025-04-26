@@ -1,0 +1,1 @@
+CMMI (Capability Maturity Model Integration) 源於美國卡內基美隆大學軟體工程學院 (SEI) 於1986年接受美國國防部委託開發的軟體開發能力評鑑模型CMM (Capability Maturity Model)。CMMI旨在協助組織提升績效，適用於專案、部門或整個組織的流程改進，並提供階段式和持續式兩種實踐方法。為確保軟體品質，CMMI規範測試流程需涵蓋：功能性、可靠性、維護性、有效性、適應性、可移植性、重複使用性、可測試性以及使用性。

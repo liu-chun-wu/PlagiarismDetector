@@ -1,0 +1,17 @@
+後續測試將使用iSCSI連接主機，因此簡介幾種常見儲存介接方式。
+
+DAS (Direct Attached Storage)多為早期儲存設備，主要由SCSI或SAS介面的HBA卡和磁碟櫃組成，直接與主機連接，效率遠勝以往的ATA介面。但其無法連接多台主機，僅能透過已連線主機以網路分享，彈性與效率不如NAS或SAN架構。
+
+NAS (Network Attached Storage)內建檔案分享系統功能，將磁碟櫃組成共享空間，使用Linux與Unix的NFS、Windows的CIFS，以及基於TCP/IP和SCSI協定的iSCSI（將SCSI協定透過網路掛載為本機磁碟），成本比SAN架構低。
+
+SAN (Storage Attachment Network)將所有儲存設備集中於光纖SAN Switch，類似區域網路但獨立運作，彈性高且可集中管理並與主機高速介接。但主機需安裝光纖介面卡，以光纖纜線傳輸，成本較高。
+
+下表為安裝主機資源與網路相關規格：
+
+| Hostname | IP 網址 | 磁碟陣列空間 | 本機作業系統配置 | Oracle 資料庫版本 | 相關軟體版本 | 虛擬主機平台 | 作業系統 | 記憶體配置 |
+|---|---|---|---|---|---|---|---|---|
+| ora1 | 192.168.1.201 | 無 | /boot 1G, swap 16G, / 43G | 12.2.0.1 | 無 | VMware Workstation 15 Pro | Oracle Linux 6.10 (含更新 2019/06) | 4G 以上 |
+| ora2 | 192.168.1.202 | 無 | /boot 1G, swap 16G, / 43G | 12.2.0.1 | 無 | VMware Workstation 15 Pro | Oracle Linux 6.10 (含更新 2019/06) | 4G |
+| freenas2 | 192.168.1.230 | 45G | /boot 1G, swap 4G, / 20G | 無 | 無 | VMware Workstation 15 Pro | FreeNAS- 11.2-U4.1 | 8G |
+| freenas3 | 192.168.1.231 | 100G | 安裝自動設定 | 無 | 無 | VMware Workstation 15 Pro | FreeNAS- 11.2-U4.1 | 8G |
+| mydns | 192.168.1.88 | 無 | 安裝自動設定 | 無 | Bind 9.8.2 | VMware Workstation 15 Pro | CentOS 6.7 (含更新 2019/06) | 1G |

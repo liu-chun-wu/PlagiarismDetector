@@ -1,0 +1,1 @@
+圖4-1所示ROC曲線比較了使用contrastive loss和修改後的triplet loss訓練行人重識別模型的效能。結果顯示，以虛線表示的contrastive loss模型在人物辨識方面略優於triplet loss模型。這可能是因為triplet loss的訓練目標包含兩個方面：拉遠正負樣本對的距離，以及限制正樣本對的絕對距離小於設定閾值。這兩個目標之間的權衡需要調整參數，增加了訓練難度。而contrastive loss的目標更為直觀，只需拉近正樣本、拉遠負樣本，只需調整一個閾值參數。基於以上比較，後續實驗皆採用contrastive loss作為模型的損失函數。

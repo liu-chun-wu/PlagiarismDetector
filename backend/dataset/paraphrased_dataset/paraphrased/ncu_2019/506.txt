@@ -1,0 +1,1 @@
+Firebase是Google Cloud Platform (GCP)提供的NoSQL雲端資料庫，使用JSON格式儲存資料，並支援跨裝置資料同步。除了文字資料，Firebase也提供檔案儲存功能 (Storage)，例如圖片等，可將檔案儲存於雲端。

@@ -1,0 +1,1 @@
+本研究使用R語言撰寫離散化程式，並使用discretization套件執行MDLP和ChiMerge兩種監督式學習的離散化方法。其中，MDLP採用無參數設定，ChiMerge則使用預設值，顯著水準α設定為0.05。

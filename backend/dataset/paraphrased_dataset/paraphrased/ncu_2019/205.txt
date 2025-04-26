@@ -1,0 +1,1 @@
+本研究採用三種以MATLAB撰寫的樣本選取程式：遞減式縮減最佳化程序（DROP3）、基因演算法（GA）和基於樣本學習演算法（IB3）。DROP3使用MATLAB內建的knnclassify方法進行樣本雜訊過濾，knnclassify的KNN參數設定為1，即採用1-NN作為雜訊處理準則。GA的基因突變機率參數設定為random，使染色體突變機率隨機。IB3則無需自行設定參數。

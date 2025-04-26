@@ -1,0 +1,1 @@
+由於人工標記街景影像耗時費力，我們採用 Superpixel 演算法[13]輔助標記行人。首先，將 1280 × 720 解析度的影像進行 Gaussian Smoothing Filter 模糊化處理，再執行 Superpixel Segmentation，將影像分割成多個區塊。接著，篩選符合以下規則的行人：完整度較高（遮擋較少）、寬度大於約 35 像素，且避免重複標記。針對符合條件的行人，選取其對應的 Superpixel 區塊 (圖 3-1(b))，並保留行人 Bounding Box 影像 (圖 3-1(a))。選取的 Superpixel 區塊即作為行人遮罩 (圖 3-1(c))。最後，利用 Bounding Box 影像和遮罩影像進行屬性標記和分類器訓練。

@@ -1,0 +1,1 @@
+由於不同資料集的RMSE和MAE結果不一致，難以直接判斷最佳的分群和特徵選取方法。因此，本研究計算各資料集在分群數目k=2~5的RMSE和MAE加總平均值，藉此找出平均表現最佳的組合。結果顯示，在k=3時，RMSE加總平均表現最佳的組合為K-means、C-means、EM分群演算法搭配Mutual Information和Information Gain特徵選取演算法，特徵留取百分比為75%(圖4.19)。而在k=4時，MAE加總平均表現最佳的組合同樣是K-means、C-means、EM分群演算法搭配Mutual Information和Information Gain特徵選取演算法，特徵留取百分比落在50%至75%之間(圖4.20)。

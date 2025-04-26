@@ -1,0 +1,18 @@
+IEEE 802.11定義了無線區域網路的四個組成元件：
+
+工作站 (Stations, STAs)：符合IEEE 802.11規格實體層與媒體控制層的裝置，例如具備無線網路介面的電腦、平板或手機。
+
+無線媒介 (Wireless Medium)：使用無線電波在一定區域內傳遞資料訊號。
+
+存取點 (Access Points, APs)：無線區域網路的基地台，工作站透過無線電波經由AP連接到傳輸分配系統。
+
+傳輸分配系統 (Distribute System, DS)：通常由有線網路構成，作為無線區域網路的骨幹，連接不同的基本服務單位 (BSS)。
+
+
+服務單位名詞定義：
+
+基本服務單位 (Basic Service Sets, BSS)：由STAs和APs組成，STAs透過APs進行資訊傳遞與資料交換。
+
+獨立基本服務單位 (Independent Basic Service, IBSS)：由STAs組成，用於Ad-Hoc模式網路架構。
+
+延伸服務單位 (Extended Service Sets, ESS)：數個BSS透過DS連接而成，用於Infrastructure模式網路架構，常見於企業無線網路。

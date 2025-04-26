@@ -1,0 +1,7 @@
+本研究以Drebin数据集进行恶意家族分类，并与文献[17]比较，旨在探究结合多特征（Opcode、API和Permission）并转换为RGB图像的深度学习方法，是否优于[17]中仅使用Opcode并转换为灰度图像的方法，以提升Android小样本恶意家族检测能力。
+
+实验使用与[17]相同的10个恶意家族组合，其中Adrd (91个样本)、DroidDream (81个样本)和Geinimi (15个样本)被视为小样本家族（样本数少于100）。采用十折交叉验证，训练集和测试集比例为9:1，使用十折平均F1-score作为评估指标。
+
+结果显示，本研究方法在三个小样本家族上的F1-score均高于[17]。Adrd、DroidDream和Geinimi的F1-score分别提升了9%、9%和3%，达到62.94%、81.13%和70%。其他家族的F1-score也均有提升，GinMaster提升幅度最高，达到18%。
+
+此外，本研究还用Gappusin (58个样本)和Glodream (66个样本)替换了Adrd和Geinimi，进行另一组实验。结果表明，本研究方法在所有10个家族上的F1-score均更高。DroidDream、Gappusin和Glodream的F1-score分别提升了10%、10%和16%，DroidKungFu和GinMaster分别提升了8%和17%。

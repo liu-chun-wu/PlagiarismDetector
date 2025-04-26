@@ -1,0 +1,16 @@
+DSL 的合理定義是其腳本格式易於人類讀寫，並能從腳本中讀取輸入、控制或配置文件信息。MasonPy 的 DSL 指令設計參考 Verilog，例如 Verilog 指令 `xor xor1(W1, A, B);` 表示一個名為 xor1 的 xor 模塊，W1 為輸出，A 和 B 為輸入。MasonPy 的 DSL 指令以列表形式表達功能塊：`[功能塊名稱+編號, 導入的模組, 輸入線列表, 輸出線列表, 其他附加條件]`。例如，`['Start0', 'ExtremePoint', [], ['line_0']]` 表示一個名為 Start0 的 ExtremePoint 模塊，無輸入，輸出為 line_0。
+
+程序執行流程從 Start 功能塊開始，根據輸出線名稱索引到具有相同名稱輸入線的下一個功能塊，依次執行直到 End 功能塊。功能塊列表的順序可以任意調整，只要連線正確即可。Decision 和 Loop 模塊會根據輸入值和設定條件判斷分支。執行 DSL 指令列表前，Debugger 會進行初步檢查以排除錯誤。
+
+DSL 規則格式如下：
+
+`'BlockName+RandomNum' 'ModuleName' [輸入線名稱列表] [輸出線名稱列表] [其他附加條件]`
+
+特殊功能塊格式：
+
+* `'Start+RandomNum' 'ExtremePoint' [] [輸出線名稱]`
+* `'End+RandomNum' 'ExtremePoint' [輸入線名稱列表] []`
+* `'Mode+RandomNum' 'DefinedModuleName' [輸入線名稱列表] [輸出線名稱列表] [[欲修改的變數1, 值], [欲修改的變數2, 值], ...[]]`
+* `'Decision+RandomNum' 'Decide' [輸入線名稱列表] [True輸出線名稱, False輸出線名稱] ['比較參數', 'operator', '數值']`
+* `'Loop+RandomNum' 'Loop' [輸入線名稱列表] [End輸出線名稱, continue輸出線名稱] ['比較參數', 'operator', '數值'], Counter次數`
+* `'Loop+RandomNum+break' 'Loop' [輸入線名稱列表] [輸出線名稱]`

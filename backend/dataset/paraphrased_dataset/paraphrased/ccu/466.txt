@@ -1,0 +1,5 @@
+Orange 使用的變數重要性排序如下：rotationRate, timegroup, Precp, ConnectRentRate, BackRate, Density, Temperature, RH, NearStation, NearCompany。
+
+分析顯示，影響 Orange 的最重要變數為 rotationRate (684.43)，其次是 timegroup (605.54) 和 Precp (284.65)。ConnectRentRate (231.08)、BackRate (226.73)、Density (137.45)、Temperature (130.15)、RH (124.58)、NearStation (123.83) 和 NearCompany (100.87) 的重要性則依次遞減。
+
+研究參考了 Faghih-Imani & Eluru(2016) 和 Mattson & Godavarthy(2017) 等文獻，並使用了多種變數，例如 750 公尺範圍內的連接租賃率、降水量、溫度、相對濕度、鄰近站點數量和鄰近公司數量等，來探討影響 Orange 的因素。

@@ -1,0 +1,11 @@
+以D-Link DWR-972 (未上市) 這款4G LTE家用閘道器為例，其WAN端可使用4G或Ethernet WAN。由於T公司缺乏4G LTE測試介面，目前測試以Ethernet WAN進行。DWR-972的Pre Test測試項目的先行開發，有利於COVR-2202 Pre Test測試項目的開發。系統實作步驟如下：
+
+1.  新增產品環境參數：在twina_config.json檔案中設定DWR-972的產品環境參數。
+2.  新增產品參數：在device/資料夾下建立DWR-972的產品參數檔案dwr972.py。
+3.  新增或修改測試步驟Lib：將手動操作步驟轉換為自動化程式，整合至DWR972GuiLib.py測試步驟Lib檔案中。
+4.  撰寫測試項目：以Pre Test案例為例，建立DWR-972的Pre Test測試項目。
+5.  新增或修改測試項目分類類別：將DWR-972 Pre Test測試項目加入testsuites.cfg檔案。
+
+執行測試後產生測試報告。
+
+實作結果顯示，經過兩個月的D-Link DWR-972 Pre Test開發，完成了44項測試項目，這使得D-Link COVR-2202的初始開發迅速達到32項，項目在一週的轉換率高達72%。

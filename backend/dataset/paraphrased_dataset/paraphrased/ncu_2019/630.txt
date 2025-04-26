@@ -1,0 +1,1 @@
+本研究以PC平台模擬SOM-MFNN與MFNN實驗，並以辨識率、EER、運算量及記憶體使用量作為性能評估指標。雖然記憶體使用量並非嵌入式系統實際數值，但其使用量比率仍具參考價值。實驗軟硬體平台規格如下：處理器Intel(R) Core(TM) i7-4770 @3.4Ghz、記憶體16.00GB DDR3 1600Mhz、硬碟Seagate ST1000DM010-2EP102 1TB/7200轉、作業系統Windows 10專業版64bit、程式開發環境Visual Studio 2017、編譯器Windows(R) Resource Compiler Version 10.0.10011.16384。使用的語音指令資料集為Google Speech Commands v0.01和MIAT中文語音指令資料庫。

@@ -1,0 +1,3 @@
+Orange3是一個結合資料探勘和機器學習的分析工具，它以圖形物件簡化資料流程編排。本研究旨在預測客訴問題分類，採用監督式機器學習中的分類方法。延續先前研究，本研究同樣使用Orange作為分析工具。
+
+預測模型以Google Play商店客訴留言為數據來源，並使用Orange的數個插件：Data模組中的File、Select Rows、Data Table用於讀取和篩選資料；Text mining模組中的Word Cloud用於尋找詞性特徵詞；Evaluate模組中的Test and Score、Confusion Matrix用於模型測試、評分和評估；Model模組中的KNN、SVM、Random Forest、Naïve Bayes、Save Model用於建立模型。

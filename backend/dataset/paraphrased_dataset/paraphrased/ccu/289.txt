@@ -1,0 +1,1 @@
+Maksy Sendiang (2016)指出，PHP開發可使用PDO延伸模組執行SQL指令。PDO以C/C++開發，具備安裝簡便、執行效能高等優點，其支援多種資料庫且安全性高。Sherriff (2008)提及，PHP5推出PDO後，其彈性及安全的傳輸模式雖效能稍慢，卻是較推薦的連線方式。PDO具備高彈性，僅需調整資料庫連線語法即可轉換不同資料庫；高安全性則來自於完整的prepare command模組及自動字串過濾機制，有效防範SQL Injection。PDO透過參數化查詢過濾檢測參數，有效排除SQL Injection的危害。ASP.net的Prepare Command也能達到相同效果 (陳明照, 民103)。以下列出PDO的有效和無效使用範例。

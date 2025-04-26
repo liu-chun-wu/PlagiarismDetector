@@ -1,0 +1,7 @@
+YOLO（You Only Look Once）是一種基於darknet架構的物件偵測神經網路演算法。Darknet是由Joseph Redmon使用C和CUDA編寫的開源神經網路框架，其輕量、依賴少且高效。本研究參考官方說明 (https://github.com/AlexeyAB/darknet)，使用MSVS 2015, CUDA 10.0, cuDNN 7.4 和 OpenCV 3.42 構建 darknet.exe，用於訓練和預測停車場入口車牌影像辨識。
+
+訓練範例標籤使用YOLO_mark.exe工具製作 (https://github.com/AlexeyAB/YOLO_mark)。訓練過程中，loss值從初始的4.5以上逐步下降。以batch size為64為例，在6898 iterations時，loss值已降至0.0036，總訓練次數為441472次。模型每100次迭代會儲存權重，例如YOLO_car2_100.weights、YOLO_car2_200.weights等，直到45000次迭代後儲存為YOLO_car2_final.weights。
+
+利用OpenCV DNN模組的`readNetFromDarknet`函數載入訓練好的權重檔（.weights）和組態檔（.cfg）。透過`blobFromImage`、`setInput`和`forward`等函數進行預測，設定confidence閥值為0.25，篩選車牌物件並獲取其位置資訊，以便裁剪出車牌影像。
+
+由於OpenCV目前不支援GPU和CUDA，Darknet提供了一個用於預測的動態連結程式庫（DLL）。通過`Detector detector(modelConfiguration, modelBinary)`在主程式中連結呼叫，並使用`detector.detect(srcImg)`獲取車牌位置。為方便程式使用，Detector的建構式新增了不立即載入權重和組態檔的功能，允許在需要時再呼叫`detector.init(modelConfiguration, modelBinary)`進行初始化。

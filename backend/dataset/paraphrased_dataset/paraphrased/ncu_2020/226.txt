@@ -1,0 +1,1 @@
+解壓縮APK檔案，提取classes.dex和AndroidManifest.xml檔案。使用Androguard反編譯classes.dex檔案，生成可讀的smali檔案，並提取Opcode和API以供後續分析。Androguard是一個Python編寫的Android應用程式逆向工程工具，可用於惡意程式檢測和威脅評估，常被用於Android惡意程式分析的靜態分析階段，具備apk、dex、odex、arsc等檔案的分析和處理能力，並結合多特徵及深度學習擴增技術提升Android小樣本惡意家族分類能力。從AndroidManifest.xml檔案中提取應用程式宣告的權限。

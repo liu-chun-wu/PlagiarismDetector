@@ -1,0 +1,1 @@
+表 6 各機器學習方罄預測效果比較 algorithm DecisionTree RandomForest DeepNeural Network Feature Selection accuracy 77% 81% 81.56% 表5為各機器學習方法預測比較結果，輸入資料皆為使用隨機森林特徵權重挑出來 的10個特徵(X6、X5、X12、X18、X13、X20、X19、X23、X17、X14)，以多層神經網 路演算法表現的效果較好。 五、結論與建議

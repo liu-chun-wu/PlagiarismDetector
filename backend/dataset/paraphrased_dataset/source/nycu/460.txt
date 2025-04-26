@@ -1,0 +1,1 @@
+本實驗為針對訓練資料是否作data augmentation 的比較，下表4-3 為測試 LAB-1 此組資料集的結果，訓練過程finetune 30 個epoch。 表4-3 最左邊的為使用訓練好的MS COCO model 作偵測的結果，可以發現 使用自己資料集訓練出來的模型，無論是否作data augmentation 和COCO 預訓 練的model 相比皆表現較佳。而從表中，我們可以觀察出表現最好的模型是資 料集在訓練階段時有作data augmentation 的模型，data augmentation 帶給資料集 更多的多樣性，因而在後續的小節中，我們的實驗皆會在訓練階段時對訓練資 料集作data augmentation。

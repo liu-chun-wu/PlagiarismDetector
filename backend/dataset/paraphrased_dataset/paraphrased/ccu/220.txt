@@ -1,0 +1,5 @@
+NS-2是由加州大學柏克萊分校等機構開發的離散事件網路模擬器，可用於模擬有線和無線網路功能及協議，主要用於網路研究和教學 (Issariyakul & Hossain, 2012)。NS-3是由華盛頓大學等機構開發的NS-2替代軟體，完全使用C++編寫，對研究者和學生更友好，並可使用Python腳本 (Henderson, Lacage, Riley, Dowell, & Kopena, 2008; Riley & Henderson, 2010)。NS-3甚至包含一個能源框架，可以模擬行動裝置的能源消耗，更精確地評估模型性能 (Wu, Nabar, & Poovendran, 2011)。本論文使用NS-3進行模擬實驗。
+
+OMNET++也是一個基於C++的離散事件網路模擬器 (Varga & Hornig, 2008)，旨在填補研究導向的開源項目（如NS-3）和昂貴的商業方案（如OPNET）之間的空白。OMNET++和NS-3一樣，可以直接查看和修改源碼，但OMNET++還提供了圖形化腳本控制界面，對研究人員更為友好。
+
+MANET和WSN都是對等式無線網路，但許多期刊文章顯示，MANET研究傾向於使用NS-2或NS-3，而WSN研究大多使用OMNET++。在相同的模擬場景下，NS-3和OMNET++具有相同的輸出結果，且都適用於大規模網路模擬，但NS-3的綜合性能略勝一籌 (Weingartner, Vom Lehn, & Wehrle, 2009)。

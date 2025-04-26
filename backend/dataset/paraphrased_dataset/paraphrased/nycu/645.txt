@@ -1,0 +1,1 @@
+影片中人物移動軌跡每隔10幀標記一次作為ground truth，不同人物標記不同編號。為區分追蹤過程中的mismatch狀況，標記人物位置(x, y)。若檢測結果(x1, y1)與標記位置距離不超過50公分，則判定為TP。處理完所有幀後，將未配對的點再次配對，距離不超過50公分時，選擇最近點配對，這些點視為mismatch。剩餘未配對的tracking點為FP，label點為FN，以此計算MOTA值。IDF1則透過IDTP、IDFN、IDFP計算。圖4-1中，綠色代表Ground truth，橘色代表tracking軌跡。

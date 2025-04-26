@@ -1,0 +1,23 @@
+MP4檔案最後一個video sample的delta time為0時（圖30），因無法後續合併，只能向前找到delta time非0的sample合併，或者有問題的video sample剛好是video chunk的最後一個，且該video chunk與下一個video chunk之間穿插audio chunk而無法直接後續合併時（圖32），可採用向前合併的修正方式。圖30和圖32對應的修正流程分別為圖29和圖31。
+
+針對圖29，即最後一個video sample的修正流程：
+
+1. 找到影像trak box的檔案偏移位址。
+2. 取得trak box中的stts、stsz、stsc、stco、stts box原始資料，並存入程式資料結構。
+3. 正規化stsc、stts box原始資料並存入程式暫存資料結構。
+4. 計算各video sample的檔案偏移量資訊並存入程式資料結構，檢查stts box中delta time為0的每個video sample，若包含VCL NAL-Unit，則將其delta time在程式暫存資料結構中調整為非0，否則不調整，最後移除程式暫存stts box資料結構中delta time為0的紀錄。
+5. 若移除的stts box中delta time為0的紀錄對應的是檔案最後一個video sample。
+6. 該video sample所屬的video chunk內有多個video sample，且在其所屬chunk中可找到前一個delta time大於0的video sample。
+7. 更新程式暫存stsc box結構中每個video chunk的video sample個數資訊，因合併導致stts box表示的video sample數減少。由於在同一個chunk內合併delta time為0的sample，將其sample size加到前一個video sample的sample size中，最後刪除原sample size紀錄。
+8. 重新索引原I-Frame的sample index。
+9. 重新產生stts、stco、stsc、stsz、stss table bytes，重建影像trak box及整個moov box位元組陣列。
+
+
+針對圖31，即video sample後緊鄰Audio Chunk的修正流程：
+
+1. 步驟1至4同前述流程。
+2. 若移除的stts box中delta time為0的紀錄對應的不是檔案最後一個video sample。
+3. 移除的stts box中delta time為0的紀錄對應的video sample位於video chunk的最後。
+4. 該video chunk與下一個video chunk之間因穿插audio chunk而不連續。
+5. 步驟7同前述流程。
+6. 步驟8、9同前述流程。

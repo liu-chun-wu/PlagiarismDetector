@@ -1,0 +1,1 @@
+本研究之模型參數設計如表5，編碼器和解碼器皆由3 層、200 維、25 個 Time Step 的長短期記憶（LSTM）神經網路所構成。 詞嵌入層的部分，為求與預訓練詞嵌入一致，分佈式向量之維度取300 維。 由於原本就有8000 的字彙量再加上<GO>,<EOS>,<unk>等特殊字元，取9000 作為模型詞嵌入層的字彙庫大小。 第39 頁 表5  模型架構參數設定 模型參數 Encoder Hidden Dim Encoder #Layers Encoder Cell LSTM Decoder Hidden Dim Decoder #Layers Decoder Cell LSTM Vocab Size Sequence Len Embedding Size 表格來源：本研究製作 表格說明：本研究模型架構參數設定

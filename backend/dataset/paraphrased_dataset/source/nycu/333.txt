@@ -1,0 +1,1 @@
+在Google Colab上訓練。 Reference： 1.Google Colab Text Generator https://raw.githubusercontent.com/tensorﬂow/docs/master/site/en/r2/tutorials/text/ text_generation.ipynb 2. Youtube民視戲劇館 Formosa TV Dramas https://www.youtube.com/results?search_query=⼤時代great+time+ep

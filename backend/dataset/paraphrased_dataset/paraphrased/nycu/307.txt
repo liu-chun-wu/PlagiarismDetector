@@ -1,0 +1,1 @@
+本研究使用SentiWordNet情感詞典進行情感分析。SentiWordNet源自WordNet，為英文中最有名的情感詞典，它將每個詞彙標注正、負、客觀情感分數。一般建構情感詞典，多參考現有詞典及大量語料，標注詞彙的情感傾向、強弱、極性等。其他常見的通用情感詞典包括：英文的General Inquirer、Opinion Lexicon，以及中文的NTUSD、DUTIR情感詞彙本體庫和HowNet情感詞典。

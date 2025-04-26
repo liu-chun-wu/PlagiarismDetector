@@ -1,0 +1,1 @@
+去除停用字後，雖然已經減少相當多冗詞贅字的字詞，但仍可透過詞性標記，再 進一步的篩選，分析所蒐集到的關鍵字中，有動詞和名詞的字詞存在，因此保留動詞 和名詞的字詞。本研究使用Python 語言所編寫的Natural Language Toolkit 工具中 pos_tag 模組來完成。 Information Security Security Information Information_Security Information_Security 透過大數據與資料視覺化建構學術期刊於資訊安全研究演進

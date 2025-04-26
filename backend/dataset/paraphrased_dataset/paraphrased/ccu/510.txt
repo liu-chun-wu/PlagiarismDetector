@@ -1,0 +1,1 @@
+為從大量的護理記錄中萃取跌倒相關的危險因子，本研究使用TF-IDF方法進行特徵選取。首先，利用Python套件scikit-learn 0.19.2計算各詞彙的TF-IDF權重分數。公式如表8所示，其中CountVectorizer()用於計算詞頻，TfidfTransformer()則用於計算TF-IDF值。  TfidfTransformer()的參數設定包含l2正規化、啟用IDF、平滑IDF以及未啟用次線性詞頻調整。透過分析跌倒病患跌倒前記錄中高權重的詞彙，即可找出潛在的跌倒危險因子。

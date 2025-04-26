@@ -1,0 +1,7 @@
+CARLA (Car Learning to Act) 是一個開源的自駕車模擬器，提供程式碼、協定和數位資產，例如城市建築、道路和地圖。該平台規格彈性，具備多種感測器，如GPS、車速、加速度等，並能模擬不同環境條件，例如晴天、雨天等。CARLA基於Unreal Engine 4 (UE4) 開發，利用其渲染技術和物理特性。CARLA採用Server-Client架構，Server負責模擬和渲染，Client端使用Python發送請求和接收感測器數據，控制車輛、環境條件、光照、天氣等，並支援RGB相機、深度相機等多種感測器。
+
+CARLA主要特性包括：多Client連接同一Server、彈性API控制交通流量、行人行為、天氣變化等、可自定義感測器套件（光達、相機、深度相機、GPS等）、快速模擬模式（停用渲染）、地圖生成（支援OpenDrive標準和RoadRunner工具）、交通情境模擬（ScenarioRunner）、ROS整合（ROS-bridge）以及自動駕駛基準測試（AutoWare agent和條件式模仿學習agent）。
+
+CARLA的核心概念包含：Actor（車輛、行人、感測器等）、Blueprint（定義Actor屬性）、World（代表目前地圖，可將Blueprint轉換為Actor，提供路線圖存取和天氣控制）。CARLA提供範例程式碼，例如spawn_npc.py用於生成車輛，manual_control.py用於建立真實世界畫面。manual_control.py包含九個class：World、KeyboardControl、HUD、FadingText、HelpText、CollisionSensor、LaneInvasionSensor、GnssSensor和CameraManager。
+
+本論文使用的CARLA環境為：Ubuntu 16.04.5 和 CARLA 0.9.5，Server端執行方式為./CarlaUE4.sh，Client端執行方式為python manual_control.py。

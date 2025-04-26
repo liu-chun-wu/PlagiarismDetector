@@ -1,0 +1,1 @@
+有別於基本面分析專注於公司內部表現，技術分析相信歷史會重演，所有股票訊 息都反應在過往股價上，藉由分析成交量與股價便可預測未來趨勢， 因此發展出許多 基於成交量及股價的技術指標，張林忠（2014）提出，常見的程式交易技術指標有幾 種，例如：移動均線、布林通道（Bollinger Bands）、凱特通道（Keltner Channel）、相 對強弱指數（Relative Strength Index，RSI）、隨機指標（Stochastic Oscillator，KD） 等。 本研究參考前述 Richard Tortoriello 提出之模型做為基本架構，搭配技術指標之交 易策略及其他選股模型參數進行實驗。

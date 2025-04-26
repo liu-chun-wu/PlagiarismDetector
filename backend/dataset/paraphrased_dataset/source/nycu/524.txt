@@ -1,0 +1,1 @@
+本研究使用敏感度(Sensitivity)、特異度(Specificity)和正確性(Accuracy)為模 型的評量指標。敏感度為預測將有病的族群正確分類至有病的能力；特異度為預 測將沒病的族群正確分類至沒病的能力；而正確性為模型整體的準確率。根據表 2 的混淆矩陣，公式分別為公式(4)~公式(6)。 表2 混淆矩陣 實際 有 無 預測 有 True Positive (TP) False Positive (FP) 無 False Negative (FN) True Negative (TN) Sensitivity = TP (TP + FN) ⋯⋯(4) Specificity = TN (FP + TN) ⋯⋯(5) Accuracy = (TP + TN) (TP + FN + FP + TN) ⋯⋯(6)

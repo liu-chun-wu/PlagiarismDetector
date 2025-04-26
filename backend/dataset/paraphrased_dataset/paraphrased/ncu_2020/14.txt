@@ -1,0 +1,23 @@
+目標是合併stts box中video sample delta為0的項目到鄰近sample。做法是移除對應的stts box record。由於stts, stsz和stsc box記錄的video sample數量必須一致，因此移除stts record後，stsz和stsc也需調整。此外，stss box中I-Frame的索引也需重新編製。這些調整只修改metadata，不影響串流資料。
+
+受影響的box如下：
+
+* **stsz box:** 移除對應的stsz record，並將其sample size合併到鄰近sample。
+* **stsc box:** 調整video chunk和video sample的數量關係。
+* **stco box:**  若sample合併到鄰近chunk，則需調整video chunk offset。
+* **stts box:** 移除video sample delta為0的紀錄。
+* **stss box:** 重新編製IDR的索引。
+
+研究發現四種需修正的攝影機態樣，處理方式各有不同，詳見表12及4.1.1至4.1.4小節說明。後續示意圖中，灰底表示stts box中delta time為0的video sample。
+
+
+表 12 修正態樣整理
+
+| 項目 | 需處理之狀況 | 處理方式 |
+|---|---|---|
+| 狀況一 | 欲合併目標在同一video chunk內，合併的目標在前 | 調整stsz、stsc、stts、stss box |
+| 狀況二 | 欲合併目標在同一video chunk內，合併的目標在後 | 調整stsz、stsc、stts、stss box |
+| 狀況三 | 欲合併目標在不同video chunk內，video chunk不連續 | 調整stsz、stsc、stts、stss、stco box |
+| 狀況四 | 欲合併目標在不同video chunk內，video chunk連續 | 調整stsz、stsc、stts、stss、stco box |
+
+資料來源：本研究

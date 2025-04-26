@@ -1,0 +1,5 @@
+本研究探討結合 Opcode、API 和 Permission 特徵，將其轉換為 RGB 圖像後，輸入深度卷積生成對抗網路生成擴增樣本，以提升 Android 少樣本惡意家族檢測能力的效果。本研究沿用實驗五的資料集和[17]相同的擴增樣本數量，並與[17]進行比較。
+
+實驗使用與實驗五相同的 19 個 Drebin 惡意家族組合，其中樣本數少於 100 的 10 個家族 (Adrd、DroidDream、FakeRun、Gappusin、Geinimi、Glodream、Imlog、MobileTx、SendPay、SMSreg) 被視為少樣本家族，並進行等倍擴增。擴增後的樣本數分別為 182、162、122、116、30、132、86、138、116 和 82 個。將擴增後的少樣本家族與其他家族的樣本輸入卷積神經網路進行分類，使用十折交叉驗證，訓練與測試比例為 9:1，以十折平均 F1-score 作為評估指標。
+
+實驗結果顯示，本研究在 10 個少樣本家族中，有 7 個家族的 F1-score 高於[17]。Adrd、DroidDream、FakeRun、Gappusin、Geinimi、Glodream 和 SendPay 的 F1-score 分別提升了 3%、9%、1%、4%、8%、10% 和 3%。其他家族的 F1-score 如下：本研究( [17] )：Imlog 98.16% (97.71%)，MobileTx 98.97% (99.28%)，SMSreg 87.97% (88.86%)。

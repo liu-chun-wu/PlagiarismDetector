@@ -1,0 +1,1 @@
+本研究使用一台Master主機及四台Data Node主機，以SSH連接組成Hadoop叢集運算環境。系統採用Ubuntu Linux 14.04，搭配Hadoop 2.6.4及Python 2.7作為運算工具。Master主機規格為AMD Ryzen 2600@3.8Ghz六核心處理器及16G記憶體；Data Node主機規格分別為：Data1（雙核心，8G記憶體）、Data2（雙核心，4G記憶體）、Data3（雙核心，4G記憶體）以及Data4（雙核心，8G記憶體）。 Hadoop運算環境已成功啟動。

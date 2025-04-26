@@ -1,0 +1,24 @@
+一般輸入法使用OnKey事件，根據按鍵對應字根組字，但為實現錯誤校正，需更高解析度的組字方法。通過OnTouchListener的onTouch事件，可以獲取點擊位置，計算每次點擊的權重。
+
+
+```java
+private View.OnTouchListener handleTouch = new View.OnTouchListener() {
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                Log.e("TAG", "touched down");
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Log.e("TAG", "moving: (" + x + ", " + y + ")");
+                break;
+            case MotionEvent.ACTION_UP:
+                Log.e("TAG", "touched up");
+                break;
+        }
+        return false;
+    }
+};
+```

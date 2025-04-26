@@ -1,0 +1,1 @@
+模型篩選的部分，我們比較了三種CPM[5]、HG[7]、MSPN[8]不同的網路架構， 以RHD 和STB 此二公開資料集做測試，從中選出適合的網路架構，作為後續研究的 基礎。從表3、圖23 的實驗結果可以看出MSPN 的效果較好，故後續實驗主要以 MSPN 進行。 表3、CPM、HG、MSPN 在RHD、STB 資料集的結果 Mean EPE RHD STB CPM 6.057 7.316 HG 5.207 6.773 MSPN 4.574 6.491 圖23、CPM、HG、MSPN 在RHD、STB 結果圖表

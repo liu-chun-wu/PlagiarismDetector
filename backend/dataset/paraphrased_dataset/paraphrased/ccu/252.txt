@@ -1,0 +1,1 @@
+利用Python計算TF-IDF值，數值越高代表關鍵詞在資訊安全文章中的重要性越高。以下說明文字前處理流程，以「Malware is any software intentionally designed to cause damage to a computer, server or computer network.」為例。去除停用字後，移除is、any、to、a和or。詞性標記後，保留名詞，移除intentionally和designed。最後，對剩餘詞彙進行詞幹提取。

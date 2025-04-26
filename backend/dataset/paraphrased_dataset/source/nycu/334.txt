@@ -1,0 +1,1 @@
+安裝youtube-dl，才能從Youtube下載字幕檔。 pip3 install youtube-dl youtube-dl --write-sub --sub-format srt --sub-lang zh-TW https://www.youtube.com/watch?v=QwjpmxscJCw 從網路上下載Youtube民視⼋點檔⼤時代的vtt字幕檔，共19個字幕檔，總字數為365,451 個，包含2293個不重複的字。 13

@@ -1,0 +1,1 @@
+Firebase 是 Google Cloud Platform(GCP) 提供的雲端資料庫，與一般關聯式資 料庫不同，它是一個NoSQL 資料庫，資料使用 JSON 格式來儲存，當各裝置連 上資料庫時可進行同步。Firebase 上不僅提供了文字資料的儲存，同時也支援檔 案的存放，例如圖片等，可以藉由Firebase 的Storage 功能儲存於雲端。 圖35 Firebase 畫面 資料來源：本研究整理

@@ -1,0 +1,5 @@
+Remix是一個基於瀏覽器的Solidity整合開發環境，開發者可直接透過線上網站(https://remix.ethereum.org/)進行智能合約的編譯、除錯、部署、測試與開發。Remix 也能與web3、Metamask、testrpc等工具整合。
+
+在編譯模式中，Remix 可即時編譯Solidity智能合約並顯示語法錯誤，同時提供不同版本的Solidity編譯器供開發者選擇，預設為最新版。
+
+在執行模式中，Remix 提供 JavaScript VM、Injected Web3 與 Web3 Provider 三種測試環境。JavaScript VM 是Remix內建的JavaScript虛擬環境，提供5個預設擁有100 ETH的虛擬帳戶，方便合約部署。Injected Web3 可連接 MetaMask。Web3 Provider 則允許開發者指定節點位址，例如本機私網路 http://localhost:8545，連接後即可部署新合約或透過合約地址與已部署合約互動。

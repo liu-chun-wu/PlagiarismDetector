@@ -1,0 +1,3 @@
+本研究使用Intel(R) Core(TM) i7-10700 CPU @ 2.90GHz處理器、32GB記憶體和NVIDIA GeForce GTX 1080 Ti顯示卡進行實驗。處理器主要負責反編譯模組、特徵向量化模組和RGB圖片生成模組的運算；顯示卡則支援惡意程式樣本擴增模組和惡意家族分類模組中神經網路的運算。
+
+實驗的整體系統架構和程式皆使用Python 3.8撰寫，並使用以下套件：Androguard 3.3.5進行apk檔案的反編譯和分析；Numpy 1.19.5將特徵向量化並生成RGB圖片；Keras 2.4.3和Tensorflow-gpu 2.3.0建立神經網路架構；Scikit-learn 0.23.1切割資料集並進行十折交叉驗證。此外，本研究也使用GPU Driver 466.77和Cuda 11.2.152。

@@ -1,0 +1,32 @@
+使用`tensorflow/tensorflow:nightly-py3-jupyter`镜像为基础，构建一个包含音频、数据处理和中文支持的Docker镜像。
+
+1.  拉取基础镜像：
+
+    `docker pull tensorflow/tensorflow:nightly-py3-jupyter`
+
+2.  创建Dockerfile，安装所需的依赖：
+
+    ```dockerfile
+    FROM tensorflow/tensorflow:nightly-py3-jupyter
+    MAINTAINER janice
+
+    RUN pip install --upgrade pip \
+        && pip install librosa samplerate eyed3 pydub hmmlearn pyAudioAnalysis sklearn pandas tensorflowjs pydotplus
+
+    RUN apt-get update \
+        && apt-get install -y ffmpeg graphviz locales \
+        && locale-gen zh_TW.UTF-8
+
+    ENV LANG zh_TW.UTF-8
+    ENV LC_ALL zh_TW.UTF-8
+
+    CMD /bin/bash
+    ```
+
+3.  构建镜像：
+
+    `docker build . -t tensor_nctu`
+
+4.  运行镜像，并将本地`/Users/janice/Documents/2018NCTU/NCTU_Term/Docker/tensor_nctu/tf/`目录挂载到容器内的`/tf/`目录：
+
+    `docker run -it -p 8888:8888 -v /Users/janice/Documents/2018NCTU/NCTU_Term/Docker/tensor_nctu/tf/:/tf/ tensor_nctu`

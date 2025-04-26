@@ -1,0 +1,16 @@
+Web前端技術已趨成熟，帶來優良的視覺與用戶體驗，這是從早期單純的HTML、CSS、JavaScript演進到現今複雜框架的成果。本文比較市佔率前三的前端框架：Angular、React和Vue，並以2018年GitHub專案數量、工作需求、學習曲線和功能延展性作為比較依據。
+
+Angular是由Google支持，基於TypeScript的JavaScript框架，廣受開發者歡迎，並對架構有較嚴謹的要求。React由Facebook開發維護，提供JavaScript函式庫以構建UI組件，協助企業建立網頁應用程式，許多大型企業如Uber、Netflix等都使用React。Vue則使用HTML、CSS和JavaScript開發，其架構的依賴性和靈活性讓開發者可以用簡潔的程式碼開發應用程式。
+
+雖然三者各有優勢，但Angular提供完整且嚴謹的開發流程及準則（例如資料庫、路由方案），使後續維護和更新更加標準化，因此本研究選擇Angular作為系統開發基礎。
+
+雖然Angular學習門檻較高，但其規範使更新和維護相對容易。下表為三者比較：
+
+| 架構   | 類型         | 創始者       | 學習曲線 | 模型                | 編寫方式 |
+| -------- | ------------- | ------------ | -------- | ------------------- | -------- |
+| Angular | 單一框架     | Google       | 陡峭     | MVC                 | Typescript|
+| React   | UI函式庫     | Facebook維護 | 較Angular容易 | 虛擬文檔對象模型 | JavaScript|
+| Vue     | UI函式庫     | Google前員工 | 平穩     | 虛擬文檔對象模型 | JavaScript|
+
+
+綜合系統架構性、易維護性、未來升級性、系統規模等因素，Angular更適用於架構嚴謹且規模較大的系統。考量到系統維護和升級的難度，本研究採用Angular作為前端框架，並結合RXJS數據傳輸技術和SCSS壓縮技術進行開發。

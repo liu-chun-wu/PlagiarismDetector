@@ -1,0 +1,1 @@
+多層前饋式神經網路(Multilayer Feed-forward Neural Network, MFNN)為經典的類神 經網路之一，屬於監督式學習的神經網路。MFNN 是由1958 年Rosenblatt 所提出的感 知機(Perceptron)[14]演化而來，起初單層的感知機結構對於稍微複雜的資料便無法進行 有效的分類，直到1988 年由Hinton 等人透過倒傳遞演算法(back-propagation, BP)[15] 所改良而出的多層感知機，也就是現在所廣為人知的類神經網路(Neural Network, NN)，多層式前饋結構讓MFNN 面對複雜的資料時也能有效率的進行分類，其優異的 性能表現，在近期捲起類神經網路的浪潮。

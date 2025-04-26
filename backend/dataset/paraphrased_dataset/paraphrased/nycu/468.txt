@@ -1,0 +1,1 @@
+Yolo v3 是一種one-stage learning方法，省略了region proposal階段，單次檢測即可獲得最終結果。雖然準確率通常低於two-stage learning方法，但整體仍在可接受範圍。Yolo v3 將整張影像輸入網路，直接預測bounding box的座標、信心值和類別，因此速度很快。本研究需將影像切割成八張Virtual PTZ影像進行偵測，速度考量下選擇了Yolo v3。Yolo v3 使用Darknet-53提取特徵，並使用13x13、26x26和52x52三種尺度的特徵層分別檢測大型、中型和小型物件。Yolo v3 借鑑FPN的Upsampling和Concatenation方法融合三種尺度特徵，並在不同特徵層獨立進行偵測，提升了小目標檢測效果。

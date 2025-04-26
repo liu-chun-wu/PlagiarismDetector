@@ -1,0 +1,1 @@
+使用pip3安裝youtube-dl即可下載Youtube字幕檔。安裝指令：`pip3 install youtube-dl`，下載指令範例：`youtube-dl --write-sub --sub-format srt --sub-lang zh-TW https://www.youtube.com/watch?v=QwjpmxscJCw`。以民視八點檔大時代為例，下載vtt字幕檔共19個，總字數365,451個，包含2,293個不重複的字。

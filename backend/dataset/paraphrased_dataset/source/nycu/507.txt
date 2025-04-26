@@ -1,0 +1,1 @@
+依據第一章提出的研究動機和研究問題，《COCO Game》遊戲設計機構如 圖13, 《COCO Game》遊戲邏輯流程如圖14。遊戲分為三章，實驗過程中玩 家從第一章開始遊戲。其中第一和第三章為劇情內容(Narrative)。第二章為銜接 前後兩章的有一定難度的遊戲任務(QTE Task)，該任務為賽車遊戲。 圖 13 遊戲設計結構  (圖片來源：本研究製作) Game Start Narrative (Part 1) Task (Car Race) Try Again? Game Over Narrative (Part 2) pass fail 圖 14 遊戲邏輯圖(圖片來源：本研究製作)

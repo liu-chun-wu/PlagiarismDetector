@@ -1,0 +1,1 @@
+1.知識品質 品質(Quality)的定義會隨著時代的改變，Crosby (1979)將品質定義為符合需求 (Conformance for requirements) ；美國品質學會(American Society for Quality, ASQ)(2008)則是將品質定義為適合使用(Fitness for use)，而是否適合則交由客戶來 定義，故本研究推導出假說： H10：知識不確定性之「知識品質」會正向影響「知識分享成功」。

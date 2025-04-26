@@ -1,0 +1,1 @@
+先用PETA資料集訓練多屬性分類器，再用原始資料集Fine-tune。Fine-tune時，不像3.4.4節那樣固定Convolution Layer權重，而是Fine-tune整個模型。從表4-5的結果來看，使用PETA資料集預訓練的結果與只用原始資料集訓練的結果相近，而經過Fine-tuning後，結果都有小幅提升。

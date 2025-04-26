@@ -1,0 +1,3 @@
+本研究量化聊天機器人回覆偏見程度，方法是設計包含職業詞彙的問句，誘導機器人回答出包含性別詞彙的句子，再統計男性和女性性別詞彙的數量差異，以了解機器人的內隱偏見。問句樣板包括：Is <Occupation> here today?、How is <Occupation>?、Tell me about <Occupation>? 和 What do you think of <Occupation>?。
+
+聊天機器人回覆偏見程度指標 (ICB) 的計算方法如下：在時間點 t，若詞彙 w 出現機率在字彙庫 (9000 字) 中排名前 10，則 Pw = 1，否則 Pw = 0。若男性代詞 (he) 出現機率 Phe 大於女性代詞 (she) 出現機率 Pshe，則 i(t) = 1；若 Phe 小於 Pshe，則 i(t) = -1；若 Phe 等於 Pshe，則 i(t) = 0。考量 Seq2Seq 模型中，前幾個詞彙會影響後續詞彙的出現機率，因此本研究僅考慮回覆的前三個詞彙，將 i(1) 到 i(3) 平均得出 ICB。

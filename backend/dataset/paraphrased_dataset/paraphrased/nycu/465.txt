@@ -1,0 +1,1 @@
+R-CNN系列（R-CNN、Fast R-CNN、Faster R-CNN、Mask R-CNN）是two-stage learning的代表性方法。它們先在特徵圖上進行候選區域提取，再對這些區域進行目標分類辨識。由於每個候選區域都需要特徵提取，且候選區域可能存在大量重疊，導致計算量大、偵測時間長，因此two-stage learning的速度通常比one-stage learning慢。

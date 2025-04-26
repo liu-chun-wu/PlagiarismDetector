@@ -1,0 +1,24 @@
+Tsunami UDP Protocol 使用 TCP 控制傳輸，UDP 傳輸數據，旨在長距離、高延遲環境下維持高速率。其概念源於 Mark R. Meiss 博士 2004 年的論文“TSUNAMI: A High-Speed Rate-Controlled Protocol for File transfer”，最新版本為 1.1。Tsunami 的目標是在相同網路條件下超越傳統 TCP 協議的傳輸量，提供免費、簡便、高效的檔案傳輸方式，節省時間成本。
+
+Tsunami 採用 Client-Server 架構。Client 與 Server 建立 TCP 連線進行傳輸控制，傳輸資料塊大小、速率、錯誤閥值、時間戳記等參數。之後，Client 建立 UDP 連線傳輸數據。Server 負責為數據塊編號並依序發送。Client 重組數據塊並寫入磁碟，處理遺失或順序錯誤的數據塊，並要求 Server 重傳。Client 定期計算封包遺失率，調整傳輸速度以最佳化頻寬使用。
+
+Tsunami client 提供多種參數控制傳輸演算法，包括網路層選擇 (IPv4/IPv6)、數據塊大小、目標傳輸速率、封包延遲調整因子、錯誤率計算的歷史數據比例、錯誤率閥值、重傳佇列最大大小、環形緩衝區最大條目數、UDP 發送和接收緩衝區大小以及更新間隔。
+
+Tsunami 存在一些缺陷：程式碼十年未更新、缺乏技術支援、無加密功能、僅支援單線程傳輸。其優勢僅在於傳輸速度快，適用於個人、小規模或臨時數據傳輸及研究，不適合大規模商業用途。
+
+Signiant 公司成立於 2000 年，專注於高速數據傳輸協議開發。其產品 Signiant 與 Tsunami 類似，使用 UDP 傳輸數據，TCP 控制流量和壅塞。在良好網路環境下，UDP 也可同時用於流量和壅塞控制，最大化傳輸效率。
+
+Signiant 採用類似 TCP 滑動視窗的流量控制，但使用不同於 TCP AIMD 演算法的機制，持續測量網路壅塞，盡可能放大視窗，並定期確認數據送達狀態。數據丟失時視窗不會急遽縮小，實現比 AIMD 更好的吞吐量。Signiant 在 UDP 基礎上提供 TCP 的可靠性，確保最佳傳輸速率和數據重傳。
+
+Signiant 提供友善的使用者介面和可重複使用的傳輸任務範本，簡化管理。其頻寬管理功能可限制每個任務的頻寬，提高可預測性，並支援高優先級任務。Signiant 的架構包含 Manager 和 Agent，並可使用 Relay Agent 增強安全性，保護公司內網。
+
+Signiant 授權費用基於端點數量，雲端整合、頻寬管理和工作流程自動化等功能需額外購買。Signiant 支援數據壓縮、身份驗證和傳輸加密，並提供自動化、可視化的管理介面。
+
+Synology Presto File Server (Presto FS) 於 2016 年發佈，使用 SITA (Synology Internet Transfer Accelerator) 技術加速檔案傳輸。SITA 基於 UDP，搭配自有的封包檢查機制和 AES-128 加密。SITA 簡化了 TCP 的完整性檢查機制，定期要求接收端回報未收到的封包，并在空閒時重傳，不強調封包到達順序，確保傳輸效率和檔案完整性。
+
+Presto FS 支援 AES-128 加密，具備傳輸任務管理和頻寬控制功能。Client 端軟體支援 Windows、Mac 和 Linux，介面簡潔易用。Presto FS 授權費用基於頻寬大小，需要進行效能測試以確定採購成本。它並非純軟體方案，Server 端需搭配 Synology 專屬硬體，影響部署彈性。
+
+評比結果顯示，UDP 族群的 Tsunami、Presto FS 和 Signiant 在頻寬利用率方面表現出色，但 Tsunami 管理功能不足。TCP 族群的 SFTP 和 SMB 傳輸效能和管理功能較差。Presto FS 和 Signiant 功能完善，但 Presto FS 需搭配 Synology 硬體，限制部署彈性。最終 Signiant 以更全面的功能和合理的成本勝出。
+
+
+为了验证 UDP 传输加速软件的性能，后续章节将进行实验环境搭建和传输性能测试，包含虚拟机模拟不同网络环境和实际跨国机房测试。

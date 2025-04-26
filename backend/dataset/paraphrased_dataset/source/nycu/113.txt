@@ -1,0 +1,1 @@
+本研究採用Hamming Loss 評價模型做整體評價、f1 score 做單項評價。 Hamming Loss 為多標籤分類（Multi-label classification），Hamming Loss 設計 為對預測分類及實際分類的差集（邏輯互斥）指標，指標越小，代表模型可以更 精準地的執行多標籤分類工作，相對全面地評價中文欄位特徵擷取方法的對模型 的適性及效益以及對分類器準確度的影響。 HammingLoss = N ∑ 𝑋𝑂𝑅(𝑌𝑖,𝑗,𝑃𝑖,𝑗) 𝐿 N i=1 （1）

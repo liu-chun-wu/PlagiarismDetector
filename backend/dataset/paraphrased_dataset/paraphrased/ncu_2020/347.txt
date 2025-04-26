@@ -1,0 +1,1 @@
+本研究開發平台採用 Intel Core i7-7700 CPU (3.60GHz)、16GB DDR4 RAM，作業系統為 Linux Ubuntu 18.04.3。軟體開發工具包含 Python、Intel OpenCV 4.4.0 以及 MMdet 1.0 函式庫。模型基於修改後的 9DoF SE-YOLO 網路架構，使用 Pytorch 深度學習框架，並以 NVIDIA GeForce RTX 1080ti (11GB GDDR5X 記憶體、11Gbps 記憶體速度、1582MHz 加速時脈) 進行訓練。

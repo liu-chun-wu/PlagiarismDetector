@@ -1,0 +1,21 @@
+| 停止運作範圍 | Oracle 提供解決方案 | 優點 |
+|---|---|---|
+| 運作站點失效 (Site Failure) | Data Guard 和應用程序故障移轉 | 資料庫快速移轉、簡單快速數據複製、支持雙資料庫讀寫分離 |
+|  | GoldenGate | 支持雙資料庫讀寫、支援異質平台(MySQL)、僅傳輸異動資料，高效能 |
+|  | 備份恢復管理員 (Recovery Manager) | 可非及時恢復所有資料庫的資料 |
+| 電腦主機故障 (Computer Failure) | Oracle RAC 集群架構 | 整合和應用程序在線故障移轉 |
+|  | Oracle RAC One 集群架構 | 線下故障移轉，優於傳統線下移轉 |
+|  | Cold Failover |  |
+|  | Data Guard 和應用程序故障移轉 | 資料庫快速移轉、簡單快速數據複製、支持雙資料庫讀寫分離 |
+|  | GoldenGate | 支持雙資料庫讀寫、支援異質平台(MySQL)、僅傳輸異動資料，高效能 |
+| 儲存設備失效 (Storage Failure) | 自動存儲管理 (Automatic Storage Management) | 多重鏡像和自動資料、附載平衡 |
+|  | Data Guard 和應用程序故障移轉 | 資料庫快速移轉、簡單快速數據複製、支持雙資料庫讀寫分離 |
+|  | GoldenGate | 支持雙資料庫讀寫、支援異質平台(MySQL)、僅傳輸異動資料，高效能 |
+|  | 備份恢復管理員 (Recovery Manager) | 可非及時恢復所有資料庫的資料 |
+| 數據損壞 (Data Corruption) | 參數功能設定：DB_BLOCK_CHECKING、DB_BLOCK_CHECKSUM、DB_LOST_WRITE_PROTECT | 交叉驗證阻止資料損壞 |
+|  | 參數功能設定：Dbverify, Analyze, Data Recovery Advisor, Recovery Manager, Backup, ASM Scrub with Fast Recovery Area | 執行資料物理區塊和邏輯區塊一致性檢查、Data Recovery Advisor 會自動檢測數據損壞並建議最佳恢復計劃、RMAN 備份操作可進行資料區塊邏輯檢查、ASM 檢測並嘗試使用快速恢復區內資料，修復物理和邏輯數據壞 |
+| 人為失誤 (Human Error) | 資料庫安全機制控管 (Security Features) | 限制權限，防止人員錯誤操作 |
+|  | 資料庫閃回機制 (Flashback) | 非資料媒體損壞的邏輯快速恢復 |
+| 運作遲緩 (Delay or Slowdown) | 資料庫自我管理機制 | 一定範圍內，自動管理記憶體、系統資源、表空間及存儲 |
+|  | 監控管理平台 (Enterprise Manager) | 紀錄並分析運作狀態 |
+| 非資料庫系統檔案保護 (OS Level File System Protection) | 第三方虛擬化主機、第三方備份軟體 | 可搭配虛擬化功能加速恢復作業系統層、可與資料庫備份作完整結合，保證災害恢復 |

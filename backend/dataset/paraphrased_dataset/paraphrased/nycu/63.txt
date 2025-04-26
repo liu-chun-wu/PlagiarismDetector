@@ -1,0 +1,1 @@
+系統開發將使用Visual Studio 2017、Jupyter Notebook與Notepad++作為開發工具。程式語言包含後端C#、前端Typescript及HTML，以及中介層和模型層的Python。系統採用Bootstrap、Ant Design和DevExtreme等第三方UI框架，後端使用ASP.NET MVC框架，前端使用Angular框架，中介層使用Flask框架。模型函式庫則包含SKLearn、Tensorflow和Keras。系統建置於Windows 10 IIS Server，資料來源由本研究整理。

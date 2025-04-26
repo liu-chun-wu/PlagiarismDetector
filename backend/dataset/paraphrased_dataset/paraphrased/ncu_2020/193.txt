@@ -1,0 +1,48 @@
+將3.3節(圖3)中普通名詞(NA)、及物動詞(VC)、名詞(N)、動詞(V)、連接詞(C)、副詞(ADV)、介系詞(P)、語助詞(T)、感嘆詞(I)九種單一或複合詞性的關鍵詞組，分別建立成NA.Keywords.txt、VC.Keywords.txt等九個詞性各自的Keywords.txt文件。接著，使用自行開發的Python程式，讀取這些Keywords.txt文件，將客訴留言文本向量化，以便後續應用於機器學習模型進行預測。程式碼範例如下：
+
+```python
+import os
+import re
+import csv
+from ckip_transformers.nlp import CkipWordSegmenter, CkipPosTagger
+
+# 初始化CKIP斷詞器和詞性標注器
+pipeline = CkipWordSegmenter(level=3) # 斷詞
+# pipeline = CkipPosTagger(level=3) # 詞性標注
+
+
+def removeSymbols(inputString):
+    # ... (removeSymbols 函數的具體實現) ...
+    return processed_string
+
+def FilterCSV(extension='.csv', folder='D:\\Thonny\\'):
+    strEncoding = 'UTF-16LE'
+    for r, d, f in os.walk(folder):
+        for file in f:
+            if file.endswith(extension) and not re.search('out', file):
+                inpath = os.path.join(r, file)
+                outpath = inpath + '.out.csv'
+                kwlist = []
+                kwfile = os.path.join(r, 'Keywords.txt')
+                if os.path.isfile(kwfile):
+                    with open(kwfile, 'r', encoding='UTF-16LE') as txtFile:
+                        reader = csv.reader(txtFile, delimiter=',', quotechar='"')
+                        for row in reader:
+                            kwlist = row
+                            break
+
+                with open(outpath, 'w', encoding=strEncoding) as csvOutput, \
+                     open(inpath, 'r', encoding=strEncoding) as csvFile:
+                    writer = csv.writer(csvOutput, delimiter=',', lineterminator='\n', quotechar='"')
+                    reader = csv.reader(csvFile, delimiter=',', quotechar='"')
+                    firstRow = True
+                    for row in reader:
+                        # ... (向量化處理，參考原程式碼邏輯，省略部分程式碼) ...
+                        writer.writerow(row)
+
+if __name__ == '__main__':
+    FilterCSV('.csv', 'D:\\Thonny\\Input\\')
+
+```
+
+此程式碼將客訴留言向量化處理後，生成新的.out.csv文件。表6為向量化示意圖（省略表格內容）。

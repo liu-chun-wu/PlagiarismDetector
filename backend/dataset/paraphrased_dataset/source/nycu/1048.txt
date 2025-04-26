@@ -1,0 +1,1 @@
+此Data Logger系統為linux system，架構在一個嵌入式Embedded Linux系中，在應用 層加入應用程式，做為雲端系統和Inverter的溝通橋樑，借此，達到雙向互動，智能操控 的即時應用，另外，本系統也提供本機端之Web UI，讓使用者在沒有雲端網路時，可能 簡易控管。 圖4-5 system architecture 圖 圖4-6 Database architecture 圖

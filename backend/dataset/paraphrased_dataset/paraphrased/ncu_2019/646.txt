@@ -1,0 +1,3 @@
+在Simulink中開發DSL時，可運用Fcn、Function Caller、Interpreted MATLAB Function、Level-2 MATLAB S-Function、MATLAB Function、MATLAB System、S-Function、S-Function Builder、Simulink Function等擴充功能塊。這些功能塊各有不同的用途，例如執行MATLAB指令、設計數學函數與邏輯運算，或以MATLAB語法編寫算法並自定義輸入端口數量，構建客製化功能塊進行數學運算。
+
+然而，以Simulink自定義功能塊構建一套完整的DSL系統，需要考量並處理各個功能塊之間的連接端口數量、資料傳遞類型、以及每個功能塊的行為定義等細節，這將耗費大量的開發時間。

@@ -1,0 +1,1 @@
+深度學習(Deep Learning)是機器學習的分支，而機器學習是人工智慧的分 支。深度學習主要是利用多層的類神經網路(Neural Network)對資料進行學習， 而特徵擷取是由多層的類神經網路去決定，替代人工取得特徵。現在已有數種 深度學習框架，如深度神經網路(Deep Neural Networks, DNN)、卷積神經網路 (Convolutional Neural Networks, CNN)、深度置信網路(Deep Belief Networks, DBN)等等，以下小節會介紹一些目標檢測的常見方法及使用於目標檢測的深度 學習神經網路架構。

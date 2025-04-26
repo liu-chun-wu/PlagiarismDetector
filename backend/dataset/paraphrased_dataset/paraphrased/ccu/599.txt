@@ -1,0 +1,3 @@
+ARP缓存中毒或ARP欺骗攻击旨在通过恶意主机改变本地网络上的路由。攻击利用了地址解析协议（ARP）的漏洞。ARP的作用是将主机的IP地址转换为本地网络上对应的MAC地址。当主机要向特定IP地址发送数据时，它会在本地网络广播请求该IP对应的MAC地址。拥有该IP的主机将回复包含其MAC地址的消息。由于ARP是无状态协议，接收方会 readily使用收到的IP-MAC配对更新其ARP缓存，这使得攻击者易于实施攻击，例如结合中间人攻击概念的ARP缓存中毒。
+
+攻击流程如下：Eve向Alice发送ARP回复，谎称IP地址10.0.0.3的MAC地址是EE:EE:EE:EE:EE:EE。Alice收到后更新ARP表。Eve也向Bob发送ARP回复，谎称IP地址10.0.0.2的MAC地址是EE:EE:EE:EE:EE:EE。Bob收到后也更新ARP表。此后，Alice发送给Bob的消息会被送到Eve的MAC地址EE:EE:EE:EE:EE:EE，而不是Bob的MAC地址BB:BB:BB:BB:BB:BB。同样，Bob发送给Alice的消息也会送到Eve的主机。Alice和Bob误以为消息发送给了对方。

@@ -1,0 +1,1 @@
+Colaboratory（也稱為Colab）是一個已經預先安裝Kera 與TensorFlow 且環 境由Jupyter Notebook 架構的雲端服務，最初由Jupyter 開發，但最終由Google 公司接管經營，使用者不僅能隨時隨地取用資源，其程式碼與運算結果都能直 接儲存在Google 雲端硬碟上，與GitHub 的連接也非常的方便。

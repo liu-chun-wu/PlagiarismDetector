@@ -1,0 +1,1 @@
+隨機森林將Bagging技術應用於決策樹。給定訓練集X和目標Y，Bagging重複B次從訓練集中有放回地抽樣。每次抽樣(b=1到B)得到樣本𝑋𝑏和𝑌𝑏 (𝑋𝑏包含訓練集X_train和測試集X_test，𝑌𝑏包含y_train和y_test)。在𝑋𝑏和𝑌𝑏上訓練決策樹模型𝐹𝑏 (例如設定n_estimators為100)。訓練完成後，對新的樣本X進行預測時，將所有B棵樹的預測結果平均，例如test_y_predicted = forest.predict(X_test)。  f = (1/B) * ∑(b=1到B) fb(X')

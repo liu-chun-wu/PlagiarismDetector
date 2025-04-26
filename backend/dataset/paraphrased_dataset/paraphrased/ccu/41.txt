@@ -1,0 +1,9 @@
+主題模型是一種結合機器學習和自然語言處理技術，用於分析大量文本中抽象主題的技術。相較於傳統文字探勘方法難以反映詞彙與不同文檔間詞彙關係的缺點，主題模型運用統計和機率運算，計算語料庫中文件的主題、關鍵字及其分佈機率，廣泛應用於文件分群、推薦系統和資訊檢索等領域。
+
+文本特徵探索早期使用TF-IDF方法觀察關鍵字重要程度 (Salton & McGill, 1986)。之後，基於SVD奇異值分解發展出潛在語意分析LSA (Landauer, Foltz, & Laham, 1998)。LSA進一步發展出機率潛在語意分析PLSA (Hofmann, 1999)。  PLSA結合狄利克里分佈(Dirichlet Distribution)後，衍生出潛在狄利克里分配LDA (Blei, Ng, & Jordan, 2003)。
+
+2003年，Blei等人提出LDA模型原理 (Blei et al., 2003)。LDA採用無監督學習，只需指定主題數量K，無需人工標註資料。模型中的超參數α和β分別控制文章的主題分佈和主題的詞彙分佈，β表示為K(主題)xN(詞彙)的矩陣。θ為給定參數α的機率分佈值，表示文本中各主題出現的機率；z為給定參數θ的機率分佈值，表示主題中各詞彙出現的機率；w則代表文本中的詞彙。每篇文本的θ參數不同，產生的主題z分佈機率也不同，再結合參數β產生詞彙w。
+
+LDA模型運用Gibbs Sampling、Dirichlet Distribution、Dirichlet Multinomial、Gamma Function、Variational Inference、PLSI Modeling、Bayesian Statistical Modeling等數學原理。透過LDA模型，可以從語料庫中找出抽象主題及其對應的關鍵字，近年來在學術界和業界都有許多應用。由於不同領域資料特性不同，衍生出許多LDA的實作版本，例如GibbsLDA、JGibbsLDA以及Python Gensim套件的實作，其適用範圍和模型特性也各有不同。
+
+影響LDA模型運作的指標包含α、β和主題數k，三者之間關係密切。Maskeri等人指出，尋找合適的α和β參數需要充分的實驗觀察 (Maskeri, Sarkar, & Heafield, 2008)。而為了衡量LDA模型主題數k的設定，學者提出了Coherence分數作為評估指標 (Mimno, Wallach, Talley, Leenders, & McCallum, 2011)。

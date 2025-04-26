@@ -1,0 +1,1 @@
+(Sun, Huang, & Qiu, 2019) 通過用觀點詞彙構造輔助句子，以指數級別 數量擴充資料集，將情感觀點分析轉成句子對(sentence-pair)分類任務，模型 使用基於變換器之雙向編碼器表示模型(Bidirectional Encoder Representation from Transformers, BERT)，優點在於BERT 模型很適合處理句子對分類任 務，構造輔助句充分利用了預訓練的BERT 模型。

@@ -1,0 +1,1 @@
+Embroidery traditionally uses stitches on fabric canvases like silk, linen, or cotton, as depicted in Figure 3.20.  These images serve as textures mapped onto the background.

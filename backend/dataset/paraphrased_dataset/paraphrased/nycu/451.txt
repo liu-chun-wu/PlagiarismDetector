@@ -1,0 +1,3 @@
+本研究採用Mask R-CNN架構進行魚眼攝影機下的人物偵測。Mask R-CNN源於Faster R-CNN，在其分類和邊界框分支的基礎上，新增Mask分支以實現實例分割。此Mask分支基於FCN概念，以pixel-to-pixel方式預測每個RoI的分割遮罩。為解決Faster R-CNN中RoIPooling造成的像素偏移問題，Mask R-CNN採用RoIAlign，利用雙線性插值法提升對齊精度。
+
+本研究使用ResNet101+FPN架構實現Mask R-CNN。FPN透過融合高層語義信息和低層位置信息，構建特徵金字塔，實現多尺度目標檢測。ResNet101的五個階段[C1, C2, C3, C4, C5]對應五種尺度特徵圖[P1, P2, P3, P4, P5]。由於P1運算耗時，本研究棄用P1，並對P5下採樣得到P6。[P2, P3, P4, P5, P6]輸入RPN網路生成RoI，經NMS篩選後，對不同尺度的特徵圖進行RoIAlign操作。最終，RoI經全連接層進行分類和邊界框回歸，並通過全卷積網路預測分割遮罩。

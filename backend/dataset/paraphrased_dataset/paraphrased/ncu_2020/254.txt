@@ -1,0 +1,7 @@
+TD-LSTM (Target-Dependent LSTM) 模型由 D.Tang 基於長短期記憶模型(LSTM)提出，用以解決LSTM在多觀點情感分析上的不足 (Tang, Qin, Feng, & Liu, 2015)。該模型利用兩個 LSTM 分別從句子的左端讀取至目標詞彙，以及從右端讀取至目標詞彙。如圖 2.5 所示，句子的詞向量表示為 w，句子長度為 n，目標詞彙為 [Wl+1,Wl+2,…,Wr-1]，上下文分別為 [W1,W2,…,Wl] 和 [Wr,…,Wn-1,Wn]。LSTML 從左至右讀取至目標詞彙，LSTMR 從右至左讀取至目標詞彙。兩個 LSTM 最後的隱藏層向量拼接後，經過 softmax 函數計算情感極性，softmax 函數運算式如公式(1)所示。
+
+
+softmax = exp(𝑥𝑖) / ∑ exp(𝑥𝑖)  (i=0 到 n)
+
+
+(圖 2.5  目標取向之長短期記憶模型架構圖(Tang et al., 2015))

@@ -1,0 +1,16 @@
+前端App開發環境：
+
+* 筆記型電腦：Asus G56JK (CPU: Intel Core i5 4200H, 顯示卡: NVIDIA GeForce GTX850M, 記憶體: 16GB, 硬碟: KINGMAX SSD 240GB)
+* 作業系統：Windows 10 教育版
+* 開發軟體：Unity 2017.3.0f3 (64-bit), Visual Studio 2013, Java SDK, Android SDK, Vuforia SDK
+* 程式語言：C#
+* 測試手機：Asus ZenFone 3 (GPU: Adreno 506, 記憶體: 4GB LPDDR3, 螢幕: FHD 1920x1080)
+
+
+後端Web Service開發環境：
+
+* 網頁伺服器：IIS
+* 資料庫伺服器：Microsoft SQL Server 2012 Express
+* 作業系統：Windows 10 教育版
+* 開發軟體：Visual Studio 2013, Java SDK
+* 程式語言：C# (推測)

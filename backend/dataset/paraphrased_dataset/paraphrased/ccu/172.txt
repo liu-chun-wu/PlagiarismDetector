@@ -1,0 +1,9 @@
+本研究整理了LINE Pay、Apple Pay、街口支付和Google Pay四種主流行動支付軟體，介紹其開發公司、付款方式及流程。
+
+LINE Pay由LINE開發，內建於其通訊軟體中，利用龐大的用戶基礎和LINE Point點數回饋吸引使用者。使用者下載LINE app後，註冊信用卡並驗證即可設定完成，付款時開啟app驗證後，出示條碼或QR code供店家掃描即可完成交易。
+
+Apple Pay是蘋果公司的行動支付服務，整合於Apple Wallet應用程式中，僅限於iPhone、Apple Watch和iPad等蘋果裝置使用。使用者在錢包app中掃描信用卡，並依銀行指示填寫資料即可加入卡片。付款時以Touch ID或按兩側按鈕驗證，將iPhone靠近讀卡機即可完成交易。
+
+街口支付由街口網絡股份有限公司推出，主打在地化策略，從夜市攤販拓展至實體店面，並提供儲值、轉帳等電子支付服務。使用者下載街口支付app，註冊會員、綁定信用卡、設定付款密碼並完成實名驗證後即可使用。付款時開啟app輸入付款密碼，並出示條碼或QR code供店家掃描即可完成交易。
+
+Google Pay是Google推出的行動支付服務，整合了Android Pay和Google電子錢包。使用者需使用Android KitKat以上版本的裝置。 (因原文未提供Google Pay付款流程，故此處略過)

@@ -1,0 +1,5 @@
+三個Relay Node各自將Feedback轉發至Provider所在區域的不同Verifier節點進行驗證。由於系統採用基於隨機的區域路由，每個Relay Node轉發到的Verifier都不同。Verifier驗證Feedback是否介於(mean-SD, mean+SD)之間。若介於此區間，則Feedback可接受的機率為Max(Ri, Min(Rj, 1-Rj))，否則為Min(Ri, Min(Rj, 1-Rj))，其中Ri為Requester的信譽值，Rj為Provider的信譽值。
+
+Feedback可接受時，Verifier計算Provider的新信譽值並廣播。其他節點檢查三個Verifier的驗證結果是否一致，一致則更新信譽值表（包含Verifier獎勵）並執行信譽值表更新程序： mean = (mean * n + F) / (n + 1)；n = n + 1；若 r > 0.9 且 mean > 0.9，則 sd = 0.2；若 r < 0.6 且 mean < 0.7，則 sd = 0.4；否則 sd = 0.5。結果不一致則扣除結果不同節點的信譽值。
+
+基於賽局理論，Verifier為避免受罰，不會輕易造假驗證結果。Verifier將驗證結果回傳至Relay Node，Relay Node計算Requester的新信譽值並廣播。其他節點檢查三個Relay Node提供的Requester新信譽值是否一致，一致則更新信譽值表（包含Relay Node獎勵）並執行上述信譽值表更新程序，不一致則扣除結果不同節點的信譽值。

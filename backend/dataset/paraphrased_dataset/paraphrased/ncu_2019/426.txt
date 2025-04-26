@@ -1,0 +1,11 @@
+實驗三結合Pure NN和Rule Based NN，以α和1-α比例混合兩者結果模擬量測值並計算平均誤差，期望結合專業知識獲得更低誤差。
+
+去除極端值但未去除low variance的訓練資料結果(圖4-12、表4-10)顯示，Max補值方法誤差範圍較小，Median補值方法平均誤差較小，整體平均誤差介於Pure NN和Rule Based NN之間。
+
+去除low variance但未去除極端值的訓練資料結果(圖4-13、表4-11)顯示，小於1的數值難以比較，但Median補值誤差範圍較大，Max補值誤差範圍較小，Min補值平均誤差最小，整體平均誤差同樣介於Pure NN和Rule Based NN之間。
+
+同時去除low variance和極端值的訓練資料結果(圖4-14、表4-12)顯示，Median補值方法誤差範圍較小，Max補值方法誤差範圍較大，Min補值平均誤差最小，整體平均誤差依然介於Pure NN和Rule Based NN之間。
+
+實驗三的結論：手動權重模型未能顯著降低平均誤差；同時去除low variance和極端值比只去除一項效果更好；去除極端值比去除low variance影響更大；Median補值且同時去除low variance和極端值，模型預測結果最接近目標值。
+
+實驗三結果與預期不符，手動權重模型並未有效結合Pure NN和Rule Based NN的經驗降低平均誤差，僅使其維持在兩者之間。

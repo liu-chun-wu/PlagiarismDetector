@@ -1,0 +1,6 @@
+實驗資料來自四個場景：學校實驗室 (LAB)、商店A (Shop A)、Bomni-DB (DB) 和模擬商店B (Shop B)。七支頂照式魚眼攝影機分別於不同場景錄製影片，因場景、光源和影像大小的差異，使資料集具多樣性。表4-1列出資料集資訊，包含影像大小、影片幀數、整體、中央區域和周邊區域的人數。
+
+4.2 偵測準確度評分方法使用IoU (Intersection over Union) 判斷True Positive (TP)、False Positive (FP)、True Negative (TN) 和False Negative (FN)。IoU >= 0.5 則視為TP，否則為FP。Precision = TP/(TP+FP)，Recall = TP/(TP+FN)。模型評測採用Pascal VOC Challenge 2010年後的AP (Average Precision) 計算方法，AP等同於Precision-Recall曲線下面積。
+
+4.3 實驗結果
+本節比較第三章的實驗方法，並呈現結果。訓練採用Finetune方式。使用GTX 1080Ti偵測速度約5 FPS，使用CPU則約0.2 FPS。

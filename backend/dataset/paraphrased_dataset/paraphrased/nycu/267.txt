@@ -1,0 +1,9 @@
+嵌入式Linux系統泛指基於Linux核心的嵌入式作業系統，並非單一系統。舉凡將Linux系列系統（如CentOS、Fedora、Android等）移植到嵌入式裝置，皆可稱為嵌入式Linux系統。  Linux本身即為開源軟體的代表，而嵌入式Linux亦是當今重要的嵌入式應用之一，廣泛應用於個人數位助理（PDA）、智慧型手機、多媒體播放器及眾多消費性電子產品。
+
+一個完整的嵌入式Linux系統包含Bootloader、Linux Kernel和Root File-system三大組成部分。
+
+Bootloader是設備啟動時最先執行的程式碼，負責CPU和硬體初始化，識別作業系統檔案格式並載入核心至記憶體執行。由於不同作業系統的檔案格式和CPU架構不同，因此Bootloader也各異，鮮有通用的Bootloader。
+
+Linux Kernel實質上是一個檔案，包含驅動硬體的偵測程式和驅動模組。硬體是裝置運作的基礎，而Linux Kernel則負責驅動這些硬體，例如硬碟、顯示卡、音效卡、網卡等等。Linux很早就採用模組化設計，將不常用的驅動程式編譯成模組，無需修改核心即可載入和使用。
+
+Root File-system包含Linux開機所需的所有資料，例如系統架構、工具、函式庫，以及/etc、/dev、/proc等基礎資料夾，這些資料都位於根目錄下。

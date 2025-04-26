@@ -1,0 +1,63 @@
+縣市主檔:
+欄位名稱 | 欄位說明 | 資料型態
+---|---:|---:
+county_code | 縣市代碼 | CHAR(10)
+county_desc | 縣市名稱 | CHAR(20)
+
+鄉鎮區主檔:
+欄位名稱 | 欄位說明 | 資料型態
+---|---:|---:
+district_code | 鄉鎮區代碼 | CHAR(10)
+district_desc | 縣市名稱 | CHAR(20)
+village_code | 村里代碼 | CHAR(10)
+village_desc | 村里名稱 | CHAR(20)
+
+各年度行政區域男女年齡人口數:
+欄位名稱 | 欄位說明 | 資料型態
+---|---:|---:
+year | 年度(民國年) | CHAR(05)
+village_no | 村里代碼 | CHAR(10)
+sex_type | 性別 (1:男 2:女) | CHAR(01)
+age | 年齡 (0 到110 歲) | INTEGER
+people_cnt | 人口數 | INTEGER
+
+各年度生育率推估:
+欄位名稱 | 欄位說明 | 資料型態
+---|---:|---:
+year | 年度(民國年) | CHAR(05)
+total_birth_rate | 總生育率(人) | INTEGER(5,2)
+age_group | 年齡組 | CHAR(01)
+age_birth_rate | 各年齡組生育率 (‰) | INTEGER(5,2)
+
+各年度死亡率推估:
+欄位名稱 | 欄位說明 | 資料型態
+---|---:|---:
+year | 年度(民國年) | CHAR(05)
+total_death | 男女合計死亡人數(人) | INTEGER(8,0)
+male_death | 男性死亡人數(人) | INTEGER(8,0)
+female_death | 女生性死亡人數(人) | INTEGER(8,0)
+death_reate | 粗死亡率(‰) | INTEGER(5,2)
+
+各年度年齡別死亡人數統計:
+欄位名稱 | 欄位說明 | 資料型態
+---|---:|---:
+year | 年度(民國年) | CHAR(05)
+total_death | 所有年齡組男女性死亡人數(人) | INTEGER(5,0)
+male_death | 所有年齡組男性死亡人數(人) | INTEGER(5,0)
+female_death | 所有年齡組女性死亡人數(人) | INTEGER(5,0)
+age_group | 年齡組 | CHAR(10)
+total_death_by_age | 該年齡組男女性死亡人數(人) | INTEGER(5,0)
+male_death_by_age | 該年齡組男性死亡人數(人) | INTEGER(5,0)
+female_death_by_age | 該年齡組女性死亡人數(人) | INTEGER(5,0)
+
+年度各縣市淨遷入人數:
+欄位名稱 | 欄位說明 | 資料型態
+---|---:|---:
+year | 年度(民國年) | CHAR(05)
+county_code | 縣市代碼 | CHAR(10)
+immigrants_all | 當年度男女性遷入人數合計 | INTEGER(8,0)
+emmigrants_all | 當年度男女性遷出人數合計 | INTEGER(8,0)
+immigrants_male | 當年度男性遷入人數合計 | INTEGER(8,0)
+emmigrants_male | 當年度男性遷出人數合計 | INTEGER(8,0)
+immigrants_female | 當年度女性遷入人數合計 | INTEGER(8,0)
+emmigrants_female | 當年度女性遷出人數合計 | INTEGER(8,0)

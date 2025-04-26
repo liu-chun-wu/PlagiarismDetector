@@ -1,0 +1,1 @@
+實驗環境如下: 硬體與設備 Intel® Core™ i5-8250U 1.8GHz 處理器搭載8G 記憶體 作業系統 64 位元Microsoft 10 開發軟體 資料抓取與處理使用Python、excel、Java script、Visual Studio Code Open Source FOL Inference Engine (Python) on GitHub 表 2 實驗環境 資料來源: 本研究整理

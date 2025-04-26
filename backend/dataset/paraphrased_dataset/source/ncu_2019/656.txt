@@ -1,0 +1,1 @@
+MasonPy內建已提供設置Start、End、Process、Decision、Loop，這五種基本的功能 塊，仿效現實中流程圖Start、End、Process、Decision外，另外設置Loop，在程式設計中 循環是很常見的應用，所以外此另外增設Loop，其將可以設定循環的終止條件或是設定 循環次數，如此可以簡化流程圖的部分設計，以上述五種功能塊可以實作一張基本的流 程圖。

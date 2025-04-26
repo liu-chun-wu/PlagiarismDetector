@@ -1,0 +1,1 @@
+Requester 查詢自身信譽值表，隨機挑選三個信譽值0.7 以上之節點作為Relay Node。若Provider 位於其他區域，則Relay Node 確定Requester 的信譽值是否大於 0.5，若是則轉發下載請求至Provider，否則丟棄請求；若Provider 位於自身區域則 直接轉發下載請求至Provider。 Provider 收到來自三個不同節點的Relay Node 請求轉發後，若訊息相同則開始 遞送檔案給Requester，以避免單一Relay Node 可能謊稱低於信譽值0.5 的Requester 為0.5 以上。Requester 下載完畢後，將Feedback 發送給Relay Node，並開始進行評 價驗證與信譽值更新程序。示意圖如下所示： 圖 14  中繼關係建立示意圖 資料來源：本研究整理

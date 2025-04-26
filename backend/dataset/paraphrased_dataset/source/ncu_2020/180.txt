@@ -1,0 +1,1 @@
+TF-IDF 是一種統計方法，用以評估一字詞對於一個檔案集或一個語料 庫中的其中一份檔案的重要程度也是本文探勘常用的加權技術。一般較常使用的 方法有詞頻Term-Frequency， TF、反向文件頻率 Inverse-Document-Frequency， IDF、詞頻與反向文件頻率Term-Frequency - Inverse-Document-Frequency， TF-IDF TF：某個詞彙在某篇文件中出現的次數多寡，其值愈高表示愈重要 IDF：某個詞彙在全部文件中出現的次數多寡，其值愈高表示愈重要 TF-IDF：以某一特定文件內的高單詞頻率，乘上該單詞在文件總數中的低文 件頻率便可以產生 TF-IDF 權重值，且 TF-IDF 傾向於過濾掉常見的單詞，保 留重要的單詞．

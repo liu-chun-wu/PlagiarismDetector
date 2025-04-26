@@ -1,0 +1,23 @@
+This study evaluates the proposed Dec_NMF model against traditional MF, NMF, and varying time decay functions using TensorFlow.  Six metrics are used: Mean Squared Error (MSE), Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), Accuracy at K (ACC@K), Precision at K (P@K), Recall at K (R@K), and F1 score at K (F1@K), where K = 100.  Experiments were conducted on the MovieLens 100K and 1M datasets from Grouplens [42].
+
+Initially, the MovieLens datasets contained 943 users and 1,682 movies for 100K and 6,040 users and 3,706 movies for 1M, with ratings ranging from 1-5.  MovieLens 100K covers 8 months (1997/09-1998/04) and MovieLens 1M covers 36 months (2000/04-2003/03).  Preprocessing involved filtering users with fewer than 30 interactions and movies with fewer than 20 ratings, resulting in 590 users and 4,569 movies for 100K and 6,034 users and 3,260 movies for 1M.
+
+ACC@K is calculated as the average of instances where the item is within the top-K recommendations. P@K, R@K, and F1@K are calculated as follows:
+
+P@K = (1/|U|) * Σ (|Recom_set_ui ∩ Test_rating_ui| / |Recom_set_ui|) for all ui ∈ U
+
+R@K = (1/|U|) * Σ (|Recom_set_ui ∩ Test_rating_ui| / |Test_rating_ui|) for all ui ∈ U
+
+F1@K = (1/|U|) * Σ (Precision + Recall) for all ui ∈ U
+
+where  `Test_rating_ui` represents the set of rated items in the testing data for user `ui` and `Recom_set_ui` represents the set of recommended items for user `ui`.
+
+MSE, RMSE, and MAE are defined as:
+
+MSE = (1/|U|) * Σ(r_ij - p_iq_j) for all ui ∈ U
+
+RMSE = sqrt((1/|U|) * Σ(r_ij - p_iq_j)) for all ui ∈ U
+
+MAE = (1/|U|) * Σ|r_ij - p_iq_j| for all ui ∈ U
+
+The impact of latent factor numbers {50, 100, 200, 500} was also evaluated.

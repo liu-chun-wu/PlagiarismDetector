@@ -1,0 +1,1 @@
+使用者測試以肝癌數據驗證，比較不同機器學習模型的準確度。結果顯示SVM模型在該數據集上表現最佳。此外，透過平台的線性回歸分析及回歸特徵消除(RFE)，所有使用者皆得到一致結果：Total Protiens、Albumin和Albumin and Globulin Ratio對肝癌發生機率影響較小。此結論與Abdar et. al(2017)的研究結果相符。

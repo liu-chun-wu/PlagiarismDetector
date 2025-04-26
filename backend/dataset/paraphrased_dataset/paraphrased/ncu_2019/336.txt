@@ -1,0 +1,1 @@
+研究利用專屬指令透過無線網路將資訊傳送至BMC系統，使其在智慧居家環境的區域網路中獲取資訊。測試腳本部署於樹梅派第三代系統和Ubuntu系統主機，設定相關資訊及執行次數後執行，觀察BMC系統是否接收資訊並導入管理數據。腳本需提供以下資訊：循環次數（設定為0則持續執行）、BMC系統網路IP位址、網路功能代碼（Net Function Code，例如40h代表特定廠牌指令集）、指令代碼（Command Number）、感知器或裝置身分代碼（Sensor Number）、網路延遲容許值（Network Delay Time，建議初始值為3秒，可依網路環境和設備重要性調整）、傳送資料長度（Data Length，單位為Byte）、裝置或感知器資料（Device Data/Sensor Value，單一指令大小不超過256 Bytes）。

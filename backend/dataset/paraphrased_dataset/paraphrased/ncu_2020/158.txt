@@ -1,0 +1,11 @@
+TCP 是一種可靠的連接導向式通訊協定。連接導向表示通訊雙方會建立一條專用的虛擬線路（Virtual Circuit）來傳輸資料，確保資料傳輸的可靠性。TCP 負責連接的建立、維持和結束，應用程式無需處理網路的複雜性。
+
+TCP 使用資料段（Segment）傳輸訊息。資料段中包含確認序號（Acknowledgment Number）表示下次預期接收的資料序號，視窗（Window）欄位表示接收端剩餘的緩衝空間。序號（Sequence Number）標示資料段中第一個位元組的序號，用於資料排序和確認號碼計算。目的埠（Destination Port）和來源埠（Source Port）分別指示接收端和發送端的應用程式。校驗和（Checksum）用於檢查資料段的完整性。
+
+為了確保可靠通訊，TCP 處理資料損毀、封包遺失、重複和亂序等問題。它使用檢查碼、封包序號、確認回應、重傳控制、連接管理和視窗控制等機制實現可靠傳輸，並通過流量控制和壅塞控制提高網路效率。
+
+TCP 使用定序（Sequencing）處理封包亂序，通過流水號碼排序和快取機制確保正確順序。重傳（Retransmission）機制處理封包遺失，計時器和確認訊息（ACK）共同作用，超過重傳次數上限則宣告傳輸失敗。
+
+流量控制方面，TCP 使用滑動視窗（Sliding Window）限制發送端在收到確認前可傳送的資料量，避免接收端緩衝區溢位。接收端延遲確認會導致發送視窗縮小，降低傳輸流量。
+
+壅塞控制採用慢啟動（Slow Start）和壅塞視窗 cwnd（Congestion window）機制。慢啟動初期 cwnd 設為 1，指數級增加直到慢啟動閥值 ssthresh。達到閥值後，cwnd 線性增長。封包遺失時，cwnd 減半，ssthresh 設為 cwnd，傳輸速率降低並線性增長。此演算法稱為 AIMD（Additive Increase and Multiplicative Decrease），能有效緩解網路壅塞。

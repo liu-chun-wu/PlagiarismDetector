@@ -1,0 +1,1 @@
+在Google Colab上，參考TensorFlow官方文字生成教學範例(連結：https://raw.githubusercontent.com/tensorflow/docs/master/site/en/r2/tutorials/text/text_generation.ipynb)以及Youtube民視戲劇館搜尋"大時代"的結果(連結：https://www.youtube.com/results?search_query=大時代great+time+ep) 進行訓練。

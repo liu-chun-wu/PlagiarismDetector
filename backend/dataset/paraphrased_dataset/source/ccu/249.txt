@@ -1,0 +1,1 @@
+完成從Science Direct 電子期刊網路平台期刊資料蒐集後，為了提高每篇文章與 資訊安全研究議關聯性，本研究使用TF-IDF 技術，將每篇文章摘要內容進行關鍵字 權重計算，過濾關聯性較低的文章。 Driver Spark Content Cluster Manager Worker Executor Cache Task Task Worker Executor Cache Task Task 透過大數據與資料視覺化建構學術期刊於資訊安全研究演進

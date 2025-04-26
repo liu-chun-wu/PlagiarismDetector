@@ -1,0 +1,1 @@
+Unity是由Unity Technologies開發的跨平台遊戲引擎，於2005年6月在蘋果全球開發者大會上首次亮相，最初是OS X獨佔。到2018年，已支持27個平台。它可用於創建3D和2D遊戲，適用於Windows、MacOS和Linux平台的單機遊戲，PlayStation、Xbox、Wii、3DS和任天堂Switch等主機遊戲，以及iOS和Android等行動裝置遊戲。Vuforia允許Unity開發者創建引人入勝的AR體驗，並觸及廣泛用戶。AR應用程式可部署到iOS、Android和UWP的各種手持和頭戴式裝置上，藉由在真實3D物體上疊加數位內容來實現。圖13展示了Unity AR的功能。(資料來源：Unity)

@@ -1,0 +1,1 @@
+本研究採用遞迴最小平方法(RLSE)訓練類神經模糊系統模型後鑑部參數。Li and Wu [33]、李俊賢與江泰緯 [34]以及Tu and Li [31]等研究也採用類似方法，並廣泛應用於各領域。其中，Li and Wu [33]提出的PSO-RLSE複合式學習演算法，具體比較了PSO-RLSE與PSO的效能差異。該研究利用PSO與RLSE分別訓練前鑑部和後鑑部的參數，前鑑部參數包含模糊集合參數，後鑑部參數則為近似函數所需參數。實驗結果顯示PSO-RLSE複合式學習演算法能有效提升模型學習效能，因其將系統參數劃分， effectively reduces the parameter search space, making it easier to find the optimal solution [33, 35]。

@@ -1,0 +1,9 @@
+H.264編碼資料會先以Trailing bits補齊成RBSP，再封裝至NALU，最後作為RTP Payload。由於網路MTU限制，單個NALU常被分割成多個RTP封包傳輸。RFC3984定義了三種RTP Payload格式：Single NAL Unit Packet、Aggregation packet和Fragmentation Unit。NAL Unit Type佔5 bits，最多32種。NALU Header佔1 Byte。
+
+常見NALU類型有：1(非IDR片)、5(IDR片)、6(SEI)、7(SPS)、8(PPS)、9(AUD)和28(FU-A)。FU-A用於分割過大的NALU，僅Single NAL Unit可被分割。每個NALU片段包含連續的整數位元組，且每個位元組必落在單一片段中。相同NALU的片段需連續傳輸，RTP sequence number遞增，並以此重組。
+
+FU-A包含FU indicator和FU header，各佔1 Byte。原始NALU Type記錄於FU Header的Type欄位。FU Header中的start bit和end bit標示片段的起始和結束。中間片段的start bit和end bit皆為0。所有屬於同一個NALU的Fragmentation Unit，其RTP Timestamp相同。
+
+生成MP4的stts box時，只記錄一次sample delta time。時間差由相鄰frame的RTP Timestamp計算，並以SDP中的clock rate(通常為90000)換算成秒。相同時間差的NAL Unit可合併記錄於單個stts record。
+
+H.264串流通常使用UDP傳輸，並在每個GOP前傳送SPS和PPS。然而，不同廠牌攝影機的RTP封裝方式不同，可能導致HTML5原生播放器無法播放。本研究分析MP4 moov box中的stts、stsz、stsc、stco和stss box，比較可播放和不可播放檔案的Metadata差異，並嘗試在不重新編碼的情況下調整Metadata以解決播放問題。最後，將歸納問題原因和修正流程。

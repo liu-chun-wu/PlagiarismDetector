@@ -1,0 +1,1 @@
+根據[9]指出Attribute-based Credentials 主要功能是透過使用公正第三方CA 發行憑 證金鑰給使用者與Server 確保身分的真實性，透過加密的方式的來確保Token 的安全 性，透過只要User 的個人資料其中一個屬性來販售票券，例如 age, location, disability, profession 等使用這屬性，不需要User 額外提供隱私資訊就可以購買。 擴充防止詐欺及保護隱私功能之帳戶式票務系統研究-以大眾運輸為例 圖5  Attribute based Credentials 流程圖 資料來源: 【本研究整理】 以圖5 為例，Attribute  based 在學生票特價屬性定義為 “年齡” 2[16;22] ，Alice 是 一位 “年齡”23 歲的年輕人，但不符合 16~22 學生票的定義就不能享有。

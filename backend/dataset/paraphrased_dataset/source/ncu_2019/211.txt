@@ -1,0 +1,1 @@
+本研究共使用了10 個來自UCI 與KEEL 上的公開資料集，資料集中皆包含 連續型的資料屬性，以供本論文做離散化的實驗探討。所使用資料集之資料筆數 的範圍，約為700 至30000 筆，屬性數量介於2 到85 個變數，其中，資料集的 分類問題部分，包含了二分類與多分類之資料集，最高的分類問題達到5 類。 表4-1 實驗資料集特性 No. Dataset #Ex. #Atts. #Class #IR pima 1.86 waveform banana 1.23 page_blocks 175.46 twonorm coil2000 15.73 magic 1.844 census 3.0173 eeg_eye_state online_shoppers_intention 5.4594 （表格來源：本研究）

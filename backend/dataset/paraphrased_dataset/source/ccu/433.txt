@@ -1,0 +1,1 @@
+本研究專注於提高表情辨識率與降低辨識錯誤貢獻率，藉由結合固定存在的距離 與角度特徵和暫時出現的紋路特徵(Permanent and Transient Feature, PTF)、區塊式局部 二值模式(Block-based Local Binary Pattern, B-LBP)與方向梯度直方圖(Histogram of Oriented Gradient, HOG)等三種臉部特徵萃取的方法以達到目標，其中高維度特徵是 使用主成分分析(Principal Components Analysis, PCA)來降低維度與提高分類精度。換 句話說，本研究以結合基於幾何特徵萃取與基於外觀特徵萃取的方式，最後預期獲得 大幅度提高表情辨識率與降低辨識錯誤貢獻率的成效。 多特徵自動化表情辨識系統 第二章 文獻探討

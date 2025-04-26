@@ -1,0 +1,1 @@
+We used a database containing 3D models of physical objects, reference images generated from these objects at different 3D viewpoints, and template data restructured as a large matrix from the reference images.  The following paragraphs detail the reconstruction process for these datasets.

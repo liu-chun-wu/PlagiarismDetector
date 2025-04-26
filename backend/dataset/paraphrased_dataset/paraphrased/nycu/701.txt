@@ -1,0 +1,1 @@
+Anaconda是一個免費的Python發行版本，提供便捷且完整的功能，簡化了Python的安裝流程。安裝Anaconda即可獲得Python開發環境、編譯環境以及環境管理功能，可用於大規模數據處理、預測分析和科學計算。Anaconda致力於簡化軟體包的管理和部署，並使用Conda作為其軟體包管理系統。 圖 10 ANACONDA 軟體  出處：https://anaconda.org/

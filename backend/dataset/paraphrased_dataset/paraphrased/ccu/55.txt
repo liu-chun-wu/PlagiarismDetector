@@ -1,0 +1,28 @@
+此步驟將主題關鍵字與科技和遵循字典知識庫比對，過濾無關關鍵字，產生科技與遵循領域關鍵字。先建立遵循和科技領域，將含科技關鍵字的主題歸類為科技領域，再將主題關鍵字與兩領域比對，最後整理關鍵字回主題。比對結果如下表所示(2018/2019年本體論關鍵字建立)。
+
+**2018年:**
+
+**遵循領域:**
+
+* Topic1: mifid, artificial_intelligence, user_interface, personal_data, user_experience, video, evidence, mobile_device
+* Topic2: know_your, risk_assessment, identity_verification, payment, anti_money, data_source, financial_crime, prevention
+
+**科技領域:**
+
+* Topic3: regulatory_change, risk_assessment, trading, threat, governance, plan, fund
+* Topic4: investor, know_your, screening, based_approach, anti_money, sanction_list, customer_onboarding, sanction_screening
+
+
+**2019年:**
+
+**遵循領域:**
+
+* Topic1: gdpr, anti_money, privacy, identity_verification, enhanced_diligence, customer_onboarding, credit, anti
+* Topic2: audit_trail, regulatory_change, best_practice, trail, mifid, officer, ongoing_basis, evidence
+* Topic3: portfolio, corporate, credit, ownership
+
+**科技領域:**
+
+* Topic4: risk_assessment, screening, identity_verification, program, sanction_list, anti_money, anti, money_laundering
+* Topic5: fund, video, program, trading, testing
+* Topic6: payment, artificial_intelligence, authentication, user_experience, case_management, detection, investigation

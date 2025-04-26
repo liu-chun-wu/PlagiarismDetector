@@ -1,0 +1,7 @@
+殭屍網路依據與控制者(Botmaster)的連線方式，可分為IRC、HTTP和P2P三種協定。
+
+IRC-based殭屍網路利用IRC協議，主機感染後會連線至預設的IRC伺服器和頻道，接收Botmaster的指令並回傳攻擊結果。例如GTbot、SDbot和Spybot。
+
+HTTP-based殭屍網路則透過惡意HTML程式碼或強迫下載等方式感染主機，以HTTP協議傳輸指令和數據，難以偵測。例如Zeus、BlackEnergy和Clickbot.A。
+
+P2P-based殭屍網路沒有固定的伺服器，每個節點都可作為控制端，Botmaster可任意選擇一個節點控制整個網路，具備避免單點失效的優點，但架構較複雜。例如Agobot和Phatbot。

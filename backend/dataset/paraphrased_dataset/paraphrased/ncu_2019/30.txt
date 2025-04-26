@@ -1,0 +1,1 @@
+本研究使用Windows 10 企業版作業系統，硬體配置為Intel Core i5-8400 CPU (2.8GHz)、16GB 記憶體以及Nvidia GeForce GTX 1070 Ti 顯示卡。

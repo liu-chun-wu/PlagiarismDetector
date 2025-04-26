@@ -1,0 +1,11 @@
+KNN分類器搭配樣本選取與離散化方法的實驗結果顯示：
+
+1.  對於二分類和多分類資料集，樣本選取搭配離散化通常能提升平均正確率、AUC和Kappa值。DROP3搭配MDLP或ChiMerge離散化在先執行樣本選取再執行離散化的情況下(IS + D + KNN)效果較佳。
+
+2.  二分類資料集使用KNN分類器時，IS + D + KNN的整體平均AUC優於D + IS + KNN。其中，DROP3 + MDLP + KNN的平均AUC最高，其次為GA + MDLP + KNN。
+
+3.  多分類資料集使用KNN分類器時，D + IS + KNN的整體平均Kappa略優於IS + D + KNN。DROP3搭配MDLP不論執行順序，平均Kappa值均有提升。
+
+4.  整體而言，KNN分類器下，IS + D + KNN的整體平均正確率略高於D + IS + KNN。DROP3 + ChiMerge + KNN的正確率最高，其次為DROP3 + MDLP + KNN。
+
+顯著性檢定結果表明，DROP3 + MDLP與其他方法相比在平均正確率上無顯著差異，但運算時間較短。類似地，在二分類資料集中，DROP3 + MDLP和IB3+ MDLP的平均AUC表現相當，但前者運算時間更短。 因此，在選擇資料前處理方法時，除了考慮效能指標外，運算時間也是重要的參考依據。

@@ -1,0 +1,4 @@
+本研究利用大數據技術與資料視覺化方法，探討資訊安全研究在學術期刊上的演進趨勢。研究蒐集電子期刊網站資料，並以Apache Hadoop叢集環境進行處理，其中Apache Spark作為運算核心。  建置環境基於Windows 10專業版，使用Oracle VM VirtualBox虛擬化軟體建立一個Master虛擬主機及三個Slave虛擬主機，並透過Secure Shell協定確保主機間安全連線。  Hadoop版本為2.6.4，Spark版本為2.0.0-bin-hadoop2.6，Java版本為JDK 7u201。虛擬環境配置詳見下表：
+
+Master：Ubuntu 14.04 LTS 64位元，2核心CPU，8GB記憶體，40GB儲存空間。
+Data1/Data2/Data3：Ubuntu 14.04 LTS 64位元，1核心CPU，4GB記憶體，20GB儲存空間。

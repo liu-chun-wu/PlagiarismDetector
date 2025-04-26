@@ -1,0 +1,1 @@
+由於 bond0 網路卡是由 eth0 與 eth1 組合的虛擬裝置，且 bond0 綁定對外服務的 Public IP，因此測試 bond0。測試方法為檢查 IP 狀態後，使用 Windows Client 連線資料庫，並在 eth0 斷線後觀察連線狀態，詳見附錄十四。測試結果顯示，eth0 斷線時，Client ping 資料庫主機雖有短暫的封包遺失，但資料庫連線不受影響，證明 Linux 網路 Bond 機制可有效達成備援。

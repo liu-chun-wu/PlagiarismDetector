@@ -1,0 +1,7 @@
+反編譯模組提取apk檔案的Opcode、API及Permission後，特徵向量化模組會將這三種特徵分別轉換成特徵向量。Opcode特徵向量表示應用程式使用的Opcode種類及呼叫順序。每個Opcode皆有特定涵義，以十六進制儲存於dex檔案中，例如"invoke-virtual"(6E)用於呼叫非private、static、final及constructor的方法。
+
+Opcode特徵向量由apk檔案中的Opcode序列轉換而來。序列中的每個Opcode會從十六進制轉換為0至255之間的十進制。特徵向量的長度與Opcode序列長度相同，每個索引位置對應序列中的Opcode，索引值則為Opcode的十進制表示。例如，"sget-object"(62)轉換為十進制98，"invoke-virtual"(6E)轉換為110，"move-result"(0A)則為10。
+
+API特徵向量表示應用程式對特定API class的依賴程度。API class由Object和Method組成，Method負責操作物件及執行邏輯。特徵向量中的每個索引代表一個Android官方API class，索引值則為應用程式呼叫此API class中Method的次數。例如，索引值為8表示應用程式呼叫了"WifiP2pService"中8個Method。
+
+Permission特徵向量基於API與Permission的對應關係生成。每個索引代表一個Permission，索引值則為應用程式使用了多少個需要此Permission的API method。例如，索引值為12表示應用程式使用了12個需要"MODIFY_PHONE_STATE"的API method。

@@ -1,0 +1,1 @@
+隨機森林演算法是將bagging 技術應用到tree 的學習，首先給定訓練集X =X1, ..., XN 和目標Y = Y1, ...,Yn，bagging 重複B 次從訓練集中有放回地採樣，然後在這些樣本上訓 練樹模型： For b=1，…B; 1. 樣本可替換，來自X，Y 的n 個訓練集，稱為𝑋𝑏，𝑌𝑏，𝑋𝑏包括X_train、 X_test，𝑌𝑏有y_train、y_test。 2. 在𝑋𝑏，𝑌𝑏上訓練分類或回歸樹𝐹𝑏，參數n_estimators 設定100。 3. 訓練結束後，可對X 上所有的單迴歸樹預測求平均來對未知樣本X 預測，如 研究的test_y_predicted = forest.predict(X_test)。 ^ f = B ∑ fb(X′) B b=1

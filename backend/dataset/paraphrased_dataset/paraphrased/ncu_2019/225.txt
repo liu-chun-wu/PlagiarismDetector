@@ -1,0 +1,1 @@
+本研究使用 Standard & Poor's Research Insight Compustat 資料庫與 Yahoo! Finance 作為財務資料來源。Compustat 資料庫包含紐約證券交易所、美國證券交易所、那斯達克和店頭市場等上市及停業公司的財務報表和數據，數據最早可追溯至 1979 年，並可按日、季、年等不同時間點搜尋及輸出 Excel 報表。美國股價資料則透過 Python 套件 FinMind 從 Yahoo! Finance 爬取樣本公司歷史股價，作為後續分析資料來源。

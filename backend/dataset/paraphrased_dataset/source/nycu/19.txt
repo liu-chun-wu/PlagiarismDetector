@@ -1,0 +1,1 @@
+硬體部分：  中央處理器：Intel Core i7-8700k @ 3.20GHz  記憶體大小：Transcend 8GB DDR3 1600 兩條，共 16GB  顯示卡：NVIDIA GeForce GTX 1060 with 6GB Memory  硬碟大小：WD Blue 1TB 軟體部分：  作業系統：ubuntu 16.04 LTS 64-bit  OpenCV 版本：3.4.3  CUDA 版本：9.2  cuDNN 版本：7.1.2  Python 版本：3.5.2  PyTorch 版本：0.4.1

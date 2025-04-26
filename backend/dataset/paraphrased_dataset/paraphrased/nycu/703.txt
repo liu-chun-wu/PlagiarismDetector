@@ -1,0 +1,1 @@
+Scikit-learn (又稱Sklearn)是Python機器學習領域的模組，它模組化許多演算法，方便使用者在程式中調用，並透過參數調整，使演算法更適於使用者資料分析。Scikit-learn包含多種類型的機器學習演算法，例如分類、迴歸、分群、資料降維、模型選擇和資料預處理。 (參考來源：http://scikit-learn.org/stable/index.html#)

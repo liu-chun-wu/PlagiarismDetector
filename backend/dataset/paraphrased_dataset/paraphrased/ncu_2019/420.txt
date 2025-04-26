@@ -1,0 +1,1 @@
+為提升Pure Neural Network Model的準確度，本研究除模型參數調整外，亦嘗試調整模型架構。參考現有數學模型建構流程(圖3-4)，為保留人工挑選參數的經驗價值，本研究將其在資料前處理後分離，並用於訓練Rule Based Improved Neural Network Model。預測結果反標準化後，將作為最終預測參考。修改後的架構如圖3-5所示：所有資料用於訓練Pure Neural Network Model，同時，人工挑選參數的資料子集用於訓練Rule Based Improved Neural Network Model。兩模型預測結果分別反標準化後，以權重𝛼和1-𝛼結合，得到最終預測結果，其中𝛼為人工調整的權重。

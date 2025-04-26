@@ -1,0 +1,1 @@
+In our approach, we propose three stitch styles, fishbone stitch, satin stitch, and flower stitch. As mentioned before, from the perspective of computer graphics, how to embroider is a problem of how to arrange stitches.

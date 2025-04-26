@@ -1,0 +1,1 @@
+協同過濾演算法透過計算使用者對歌曲的喜好分數進行推薦。以往研究多採用均方根誤差 (RMSE) 評估預測分數的準確性，但實際應用中，推薦結果通常只呈現前 k 個項目，因此推薦的準確性更為重要。本研究雖計算 RMSE，但最終選擇協同過濾基準參數時，採用 Mean Average Precision at Top k item (MAP@k) 評估前 k 個推薦結果的準確率。本實驗使用 Spark MLlib 中的 RankingMetrics.meanAveragePrecision 計算 MAP 值。

@@ -1,0 +1,1 @@
+Service Layer 與Model Layer 需要一個中介層作為整合，本論文 稱之為Transform Layer，此中介層有2 項必要功能：(1)需要提供 Service Layer 進行資料傳遞與呼叫服務；(2)需要能呼叫Model Layer 的演算法或是函式功能。為此，本研究選擇使用Python 目前最廣為 使用的Flask 網頁框架實作Web API 服務，並透過JSON 的格式進行 資料交換，而因為與Model Layer 同為Python 語言，故可以完美串接 與整合，另外由於Python 會有單工的程式特性，所以為了解決此特 性衍生之問題，所以採用了gevent 套件函式庫，它主要可以提供 Transform Layer 支持非同步之功能，如圖3-6 所示。 圖3-4 同步與非同步差異 第四章、平台功能建置與驗證

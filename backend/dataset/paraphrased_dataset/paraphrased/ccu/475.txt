@@ -1,0 +1,5 @@
+本研究使用MetaMap連結UMLS Metathesaurus資料庫，擷取出院病歷摘要中的醫學概念。輸入腫瘤病人診斷敘述後，MetaMap利用自然語言處理規則比對UMLS資料庫及專業辭典，透過語意網路回饋對應的醫療關鍵詞彙，包含距離分數、CUIs、匹配詞彙、最佳詞彙及語義類型等資訊。例如，輸入"Upper left lip squamous cell carcinoma"，MetaMap會匹配到"Lip Squamous Cell Carcinoma"，CUI為"C0280302"，距離分數為901，最佳詞彙為"Squamous cell carcinoma of lip"，語義類型為"Neoplastic Process"。
+
+本研究設定MetaMap使用2018AA版本知識來源、USAbase資料版本及Strict Model資料模型。為取得文本對應的CUIs，啟用"Show CUIs"選項。為消除詞義歧義，啟用"Use Word Sense Disambiguation"選項。
+
+使用CUIs取代原始文本中的同義詞，確保詞義一致性。每個CUI代表唯一的生物醫學概念，由"C"加上七位數字組成。詞義消歧功能解決了自然語言中常見的詞彙多義性問題，例如"cold"可指疾病、溫度感覺或環境條件，MetaMap能根據上下文選擇最合適的語義類型。

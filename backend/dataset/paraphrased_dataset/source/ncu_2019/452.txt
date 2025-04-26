@@ -1,0 +1,1 @@
+本實驗所使用的電腦設備，如下表 4-2。 表4- 2 單一實體機器硬體資訊 Processor Intel（R）Core（TM）i7-3770CPU@3.4GHz Memory Memory 16.0GB Operating System Windows 10 64  位元作業系統 （表格來源：本研究）

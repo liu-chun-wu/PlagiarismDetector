@@ -1,0 +1,1 @@
+在資料庫運作期間，刪除硬碟Hard Disk 5後，FreeNAS Web管理介面顯示硬碟損壞警告，da4也從磁碟中消失。FreeNAS Console本地管理介面中使用`zpool status`命令檢查RAID狀態，確認vol1的RAID Z組態由4顆硬碟組成。將硬碟重新加入vol1磁碟陣列後，重新啟動資料庫，並透過`srvctl stop database -d rac`和`srvctl start database -d rac`命令以及SQL查詢`SELECT NAME FROM v$controlfile;`驗證資料庫運作正常。測試結果顯示狀態正常，證明RAID的保護機制對資料庫系統至關重要，它不僅可以分散I/O讀寫提升效能，還能提供一定程度的資料保護。

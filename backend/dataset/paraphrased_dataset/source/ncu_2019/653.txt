@@ -1,0 +1,1 @@
+是不是能有好用的錯誤資訊或除錯的環境、會影響DSL 使用、開發的便利。Debugger 分成兩個層面去看，一個是提供給領域程式設計專家(DSL developer)，另一個是提供給 非程式專家(GUI 端使用者)。DSL 設計端的Debugger，有助於DSL developer，輔助除 錯，有時底層程式回傳某種錯誤的exceptions，DSL developer 可能不能直接了解底層語 言那些錯誤訊息表達什麼意思，該如何修改它DSL 的設計錯誤；另一方面是GUI 端使 用者用的Debugger，前面提及End-User 多為非專業程式設計者，他們無法讀懂底層程 式執行時Debugger 所回傳的底層錯誤訊息，這些訊息往往可能是帶有一些程式設計的 術語名詞，這無法有效的提供End-User 進行除錯修正。

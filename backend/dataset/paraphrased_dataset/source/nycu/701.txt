@@ -1,0 +1,1 @@
+Anaconda 是python 語言的免費軟體包，非常方便且功能齊全，安裝此 軟體就可免去許多python 安裝的繁雜程序，就具備python 語言開發環境、 編譯環境、與環境管理等功能。可用於進行大規模數據處理，預測分析，和 科學計算，致力於簡化包的管理和部署，Anaconda 使用軟體包管理系統 Conda 進行包管理[6]。 圖 10 ANACONDA 軟體 出處：https://anaconda.org/

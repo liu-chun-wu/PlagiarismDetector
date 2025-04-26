@@ -1,0 +1,1 @@
+我們使用weka 的DecisonTree 功能挑選出11個重要特徵後如圖26，經過general artificial data 轉換，使用J48方法、在分類時進行10-Fold Cross-validation，針對Class 即 是否違約欄位預測，即可得到決策樹結果，圖27預測結果為0.77、圖28為決策樹視覺化 效果。 圖 26 特徵挑選資料轉換分佈 圖 27 決策樹預測 圖 28 決策樹

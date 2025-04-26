@@ -1,0 +1,5 @@
+本研究與Zhiwu等人[19](2019)的研究進行比較，[19]使用Apktool提取smali文件，並以人工方式提取CFG和DFG特徵，加權後輸入深度學習模型進行20個Drebin惡意家族分類。[19]實驗測試了僅CFG、僅DFG、垂直合併CFG與DFG以及水平合併CFG與DFG的分類效果。本研究使用相同數據集，包含Adrd、BaseBridge、DroidDream、DroidKungFu、ExploitLinuxLotoor、FakeDoc、FakeInstaller、FakeRun、Gappusin、Geinimi、GinMaster、GoldDream、Iconosys、Imlog、Kmin、MobileTx、Opfake、Plankton、SendPay和SMSreg等家族。
+
+[19]的CFG、DFG、垂直合併和水平合併的準確度分別為89.56%、90.97%、89.90%和94.71%。本研究則達到97.26%的準確度，比[19]最佳結果高出2.55%。
+
+此外，本研究無需人工篩選特徵。[19]使用Apktool提取smali文件後，人工提取CFG和DFG特徵並加權後輸入模型。本研究則使用Androguard[73]從smali和AndroidManifest文件中提取Opcode、API和Permission特徵，直接轉換為向量並合成RGB圖像輸入卷積神經網絡進行分類，省去了特徵工程步驟。

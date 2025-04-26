@@ -1,0 +1,3 @@
+為減少MP4 metadata冗餘，stsc box儲存每個chunk的sample數量資訊，若前後chunk的sample數量相同，則合併記錄 (ISO/IEC/JTC 1/SC 29, 2005)。例如，第一個chunk包含15個sample，第二、三個chunk都包含18個sample，第四個chunk包含17個sample，因與前兩個chunk的sample數量不同，故單獨成列。stts box記錄每個sample（或幀）的顯示時間，同樣地，若連續sample的顯示時間相同，則合併記錄 (ISO/IEC/JTC 1/SC 29, 2005)。例如，第一、二個sample的顯示時間都是998單位，故合併成列，並在sample count欄位填入相同時間單位的sample數量。第三個sample的sample delta為1072單位，與前兩個sample不同，故獨立成列。為方便後續程式碼修改，會將精簡的stsc和stts box還原。
+
+不同網路攝影機產生的錄製檔案，皆透過RTSP協定訪問安控攝影機而得。攝影機在RTSP DESCRIBE回應中返回RTP協定連接埠資訊，供客戶端連線獲取壓縮影像資料。本案攝影機使用H.264壓縮技術。客戶端接收串流資料後，需依ISO/IEC-14496-12標準新增Meta Data，才能以MPEG-4格式儲存。資料依賴RTP Header資訊和RTP Payload中NALU的NALU Type資訊。後續將說明Media Server訪問安控攝影機並將串流封裝成MPEG-4的過程。本章包含研究流程、資料集擷取、資料解析以及最終找出無法播放原因。

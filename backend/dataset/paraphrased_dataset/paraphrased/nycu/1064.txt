@@ -1,0 +1,13 @@
+下表列出目前市面上常見的AR SDK，評分越高、功能越多，代表該SDK功能較佳。基於下表，本研究選擇Vuforia + Unity Editor作為主要的開發工具。
+
+| AR SDK        | Supported platforms                                      | 2D Recognition | 3D Recognition | Geo-Location | Cloud Recognition | SLAM | Recognition stability of immovable marker | Recognition stability of movable marker | Minimum angle recognition |
+|---------------|--------------------------------------------------------|----------------|----------------|-------------|-------------------|------|---------------------------------------|--------------------------------------|--------------------------|
+| Vuforia      | Android, iOS, UWP and Unity Editor                   | ✓              | ✓              | –           | ✓                 | –    | ✓                                     | ✓                                    | ✓                         |
+| EasyAR       | Android, iOS, UWP, Windows, Mac and Unity Editor        | ✓              | –              | –           | –                 | –    | ✓                                     | ✓                                    | ✓                         |
+| Wikitude     | Android, iOS, tablets, smart glasses                   | ✓              | ✓ (beta)       | ✓           | ✓                 | ✓    | ✓                                     | ✓                                    | ✓                         |
+| ARToolKit    | Android, iOS, Linux, Windows, Mac OS and smart glasses | ✓ (bordered)   | –              | –           | –                 | –    | ✓                                     | ✓                                    | ✓                         |
+| Kudan        | Android, iOS                                          | ✓              | ✓              | –           | –                 | ✓    | ✓                                     | ✓                                    |                           |
+| MaxST        | Android, iOS, Windows, Mac OS                          | ✓              | –              | –           | –                 | ✓    | ✓                                     | ✓                                    |                           |
+| NyARToolKit  | Android, iOS                                          | ✓              | –              | –           | –                 | –    | ✓                                     | ✓                                    |                           |
+
+資料來源：[21]、[22]、本研究整理

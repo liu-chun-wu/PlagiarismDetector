@@ -1,0 +1,1 @@
+許多科技和法遵領域的關鍵詞，是由兩個字元 (bigram)、三個字元 (trigram) 或更多字元組成的詞語，才能完整表達其含意。例如，"due diligence"、"mifid ii"、"machine learning" 等，單獨的 "due" 則難以表達完整意義。利用 N 元語法 (n-gram) 並配合平滑處理，可以自動從文本中探索這些關鍵詞。本研究分別以 bigram 和 trigram 進行關鍵詞探索，結果顯示 (如表3-1)，bigram 比 trigram 更能有效表達科技和法遵領域關鍵詞的含意。本研究整理 bigram 關鍵詞，以便後續建構科技和法遵領域的本體論及其關鍵字詞。

@@ -1,0 +1,3 @@
+上一節已建置完成實驗所需的區塊鏈，接下來將在Mist上撰寫評分優化系統的智慧合約。以太坊智慧合約使用Solidity程式語言，語法類似JavaScript，主要用於編寫智慧合約。後續實驗將在區塊鏈上使用Solidity部署評分優化系統。
+
+實驗流程為先在Remix線上編輯器編寫Solidity程式，再放到Mist執行。Solidity程式在Mist編輯完成後，需使用geth挖礦 (miner.start()) 將資料寫入區塊鏈儲存及運算。挖礦結束後，使用 miner.stop() 指令停止挖礦。

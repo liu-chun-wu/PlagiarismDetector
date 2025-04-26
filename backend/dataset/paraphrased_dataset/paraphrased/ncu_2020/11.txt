@@ -1,0 +1,1 @@
+RTP Payload Type (PT) 用於識別RTP負載的資料類型，其數值在RTSP協商過程中，由設備端在SDP描述中指定（例如表11第四行顯示，影片通道PT為96，音訊通道PT為97）。當接收端發送RTSP TEARDOWN指令時，會夾帶Session ID（例如表11第十一行），通知攝影機發送端停止傳輸資料。後續將以IP/UDP/RTP方式獲取攝影機影像串流，並使用MP4 Reader解析MP4封裝結果。

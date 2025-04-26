@@ -1,0 +1,1 @@
+本研究以Jupyter Notebook作為系統展示平台，動態呈現分析結果。Jupyter Notebook支援markdown、mathjax等語法，可將說明文件、程式碼及輸出結果整合於單一頁面，方便分享 (林政道，2016)。其支援40種以上程式語言，本研究主要使用Python，並搭配資料視覺化套件Plotly offline版本，呈現可互動的績效分析結果。

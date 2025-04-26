@@ -1,0 +1,1 @@
+Ronald Azuma 在1997年的「A Survey of Augmented Reality」中，定義擴增實境需具備結合真實與虛擬、即時互動和3D定位三項特性。Milgram & Kishino則提出了Reality-Virtuality continuum來定義擴增實境，將真實環境和虛擬環境置於連續光譜的兩端，之間的部分稱為混合實境 (Mixed Reality)，包含擴增實境和擴增虛境。靠近真實環境，實境成分高於虛擬成分的稱為擴增實境；反之，虛擬成分佔比較高的稱為擴增虛境。(資料來源：Milgram & Kishino, 1994)

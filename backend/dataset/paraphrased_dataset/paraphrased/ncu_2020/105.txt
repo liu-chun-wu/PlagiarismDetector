@@ -1,0 +1,1 @@
+本研究提出FP-ABT架構，並包含兩個主要貢獻：(1)  擴充ABT，加入基於K-Star演算法的機器學習詐欺偵測模組，提升交易安全性。此模組能有效偵測交易中的詐欺模式並預測潛在詐欺。(2)  擴充ABT使用者Token，加入K-Anonymity Plus Attribute-based Credentials模組，提升隱私保護能力。此模組參考Ahmad-Reza Sadeghi, Ivan Visconti, and Christian Wachsmann (2015)提出的隱私保護模式，確保使用者隱私和位置資訊不被洩露給任何第三方。

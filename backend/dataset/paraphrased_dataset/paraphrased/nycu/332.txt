@@ -1,0 +1,9 @@
+使用youtube-dl下載台語和國語Youtube音訊及字幕：
+
+安裝：`pip3 install youtube-dl`
+
+下載字幕（繁體中文）：`youtube-dl --write-sub --sub-format srt --sub-lang zh-TW <影片網址>`
+
+下載音訊（m4a格式）：`youtube-dl -x --audio-format m4a <影片網址>`
+
+範例影片網址：`https://www.youtube.com/watch?v=mwB6dAksXR4`

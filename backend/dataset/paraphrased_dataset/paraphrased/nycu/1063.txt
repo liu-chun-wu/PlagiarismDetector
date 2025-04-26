@@ -1,0 +1,39 @@
+取得「地點搜尋」的 place_id 後，可呼叫「地點詳細資料」服務，獲取特定機構或興趣點的詳細資訊，例如完整地址、電話號碼、用戶評分和評論。
+
+「地點詳細資料」服務 API 介面：
+
+URL：https://maps.googleapis.com/maps/api/place/details/output?parameters
+
+output：json 或 xml，代表回傳格式。
+
+必要參數：
+
+1. Key：應用程式的 API 金鑰。
+2. Placeid：地點的唯一文字型識別碼。
+
+搜尋回應：根據 URL 中 output 指定的格式回傳。JSON 回應的根元素：
+
+1. status：包含與要求相關的中繼資料。
+2. results：包含所要求地點的詳細資訊。
+3. html_attributions：包含必須顯示給使用者的相關資料引用標示。
+
+
+透過「靜態地圖」服務 (Maps Static API)，可在網頁嵌入 Google Map 圖片，無需 JavaScript 或動態頁面加載。此服務根據 HTTP 請求的 URL 參數創建地圖，並以圖片格式返回。
+
+「靜態地圖」服務 API 介面：
+
+URL：https://maps.googleapis.com/maps/api/staticmap?parameters
+
+
+參數：
+
+1. key：應用程式的 API 金鑰。
+2. center：地圖中心點，格式為"{緯度,經度}"或字串地址。
+3. zoom：地圖縮放級別。
+4. size：地圖圖像的尺寸。
+5. scale：影響返回的像素數。預設值為 1。
+6. format：結果圖像的格式，預設為 PNG，可選 GIF、JPEG。
+7. maptype：地圖類型，包括 roadmap、satellite、hybrid 和 terrain。
+8. markers：在地圖上添加一個或多個標記。
+
+

@@ -1,0 +1,1 @@
+We render the embroidery model using a fiber-appropriate Bidirectional Scattering Distribution Function (BSDF) based on its light scattering properties. Global illumination is used to achieve the final result. Figure 3.17 depicts the flower stitch modeling: (a) flower contour, (b) stitch locations and directions, and (c) the final embroidery model.

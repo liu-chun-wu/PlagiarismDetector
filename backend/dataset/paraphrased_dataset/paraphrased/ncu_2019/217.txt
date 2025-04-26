@@ -1,0 +1,21 @@
+本節探討先離散化再執行樣本選取的結果，實驗流程參見3.4.3的圖3-8。
+
+以MDLP離散化搭配KNN分類器的平均正確率為基準(Baseline)，與(MDLP + IB3)、(MDLP + DROP3)和(MDLP + GA)比較（圖4-13）。結果顯示，這些方法的平均正確率皆未超過基準。
+
+二元分類資料集的實驗結果(圖4-14)顯示，以MDLP搭配KNN的平均AUC為基準，與(MDLP + IB3)、(MDLP + DROP3)和(MDLP + GA)比較，這些方法皆未得到更高的AUC。
+
+多元分類資料集的實驗結果(圖4-15)顯示，以MDLP搭配KNN的平均Kappa為基準，(MDLP + DROP3)提升了Kappa值。
+
+
+以ChiMerge離散化搭配KNN分類器的平均正確率為基準(圖4-16)，與(ChiMerge + IB3)、(ChiMerge + DROP3)和(ChiMerge + GA)比較。(ChiMerge + DROP3)略微提升了正確率，(ChiMerge + GA)略低於基準，(ChiMerge + IB3)的正確率最低。
+
+
+二元分類資料集的實驗結果(圖4-17)顯示，以ChiMerge搭配KNN的平均AUC為基準，(ChiMerge + IB3)略微提升了AUC，而(ChiMerge + DROP3)和(ChiMerge + GA)皆未超過基準。
+
+多元分類資料集的實驗結果(圖4-18)顯示，以ChiMerge搭配KNN的平均Kappa為基準，(ChiMerge + DROP3)提升了Kappa值。
+
+綜合圖4-13和圖4-16(表4-7、圖4-19)，先執行MDLP離散化，不論搭配何種樣本選取方法，平均正確率皆低於基準。但(ChiMerge + DROP3)略高於基準。在D + IS + KNN架構下，若先用MDLP，搭配GA的平均正確率優於其他樣本選取方法(IB3、DROP3)；若先用ChiMerge，搭配DROP3的平均正確率最高(圖4-20)。IB3不論與MDLP或ChiMerge搭配，平均正確率皆最低。
+
+綜合圖4-14和圖4-17(表4-8、圖4-21)，僅(ChiMerge + IB3)提升了二元分類資料集的平均AUC。在D + IS + KNN架構下，不論先執行何種離散化方法，IB3的平均AUC皆高於其他樣本選取方法(圖4-22)。除了MDLP + DROP3 低於 ChiMerge + DROP3 外，其餘先執行MDLP離散化再執行樣本選取的平均AUC較高。
+
+綜合圖4-15和圖4-18(表4-9、圖4-23)，不論先執行MDLP或ChiMerge，搭配DROP3都能提升多元分類資料集的平均Kappa。在D + IS + KNN架構下，先執行MDLP離散化再執行樣本選取的平均Kappa皆高於先執行ChiMerge(圖4-24)。

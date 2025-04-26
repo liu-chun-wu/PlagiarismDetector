@@ -1,0 +1,1 @@
+實驗使用的電腦硬體資訊：Intel(R) Core(TM) i7-3770 CPU @ 3.4GHz 處理器、16.0GB 記憶體，以及 64 位元 Windows 10 作業系統。

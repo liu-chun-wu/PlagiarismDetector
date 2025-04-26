@@ -1,0 +1,1 @@
+本研究使用Kaggle的Fake News数据集，其中包含train.csv和test.csv两个文件。由于test.csv缺少人工标注信息，无法进行判断和准确率预测分析，因此本研究仅使用train.csv进行建模分析。train.csv包含20,800条记录，用于模型训练和评估。  Fake News数据集的字段属性如下：id为新闻文章的唯一标识符；title为新闻标题；author为新闻作者；text为新闻正文，可能不完整；label为文章的可靠性标签，1代表不可靠，0代表可靠。

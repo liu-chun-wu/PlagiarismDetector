@@ -1,0 +1,1 @@
+MasonPy的自定義功能塊允許DSL開發者基於其設計特定領域的DSL。由於MasonPy基於Python，開發者可以利用豐富的Python模組輔助DSL設計，提供廣泛的工具支援。Simulink和LabVIEW也能透過自定義程式方塊圖實現擴展，例如Simulink可以編寫算法構建自定義Block，LabVIEW則可使用formula node或SubVI。  MasonPy的設計更進一步，預先考量了流程圖所需的常用功能，並提供可自定義的功能塊模板，方便開發者設定功能塊的敘述、參數和公式。此外，MasonPy還支援功能塊間的參數索引、輸入變更，以及Decision和Loop功能塊的變數抓取和條件設定，簡化了領域專家的使用流程。

@@ -1,0 +1,12 @@
+實驗使用的作業系統為Windows 7，顯示卡為NVIDIA GeForce GTX 1060 6GB，CPU 為i5-4690 @ 3.5GHz，RAM 為16GB。測試資料使用S1、S2和S3資料庫，影片詳情請參考第三章。
+
+實驗將比較GVP轉換後的影像與線段取樣壓縮影像，使用四種收斂方法：方法[18]以及本論文提出的三種改良自[18]的收斂方法。
+
+評估方式為比較預估位置與手動標記的真實位置，使用Recall和Precision指標。計算方式如下：
+
+recall = true positive / (true positive + false negative)   (1)
+precision = true positive / (true positive + false positive) (2)
+
+true positive 指預估位置與真實位置距離小於30公分。false positive 指預估位置有人，但實際沒人。false negative 指預估位置沒人，但實際有人。
+
+執行速度以FPS (每秒畫面數) 和 ms/frame (每幀毫秒數) 衡量。除執行時間外，其他指標越高越好。最佳結果以紅色標記，次佳結果以藍色標記。

@@ -1,0 +1,1 @@
+Training Data Set 總筆數是20,800 筆，但在Training Data Set 裡面卻存在不少空值 的情形，如下是以圖表的方式將有空值資料的Feature 分別呈現它占總筆數的比率，從 圖4 可以明確的看到在author、title、text 都有空值的情形，以author 的空值最高，在表 4 是呈顯Training set 的空值筆數。 圖 4 空值比率圖 表 4 Training Data 空值筆數 欄位名稱 空值筆數 id title author 1,957 text label 為了避免這些有空值的資料影響到後續的分類及預測，首先在一開始就先對Training Data Set 進行Data Cleaning 的動作，將這些空值先刪除。

@@ -1,0 +1,1 @@
+在3.3.7 節訓練過程，當觀察avg. loss 不再下降時就可終止訓練。將儲存各 個weights 檔以下列指令做驗證，取mAP 最好的.weights。 最後我們取YOLO-charArea_27000.weights，下面為其驗證結果。 class_id = 0, name = Character, ap = 90.91 % for thresh = 0.25, precision = 1.00, recall = 1.00, F1-score = 1.00 for thresh = 0.25, TP = 10403, FP = 3, FN = 24, average IoU = 94.17 % mean average precision (mAP) = 0.909073, or 90.91 % 以27000 run儲存的weights。

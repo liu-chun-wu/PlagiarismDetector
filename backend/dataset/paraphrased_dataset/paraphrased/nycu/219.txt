@@ -1,0 +1,5 @@
+HG產品測試環境，以T公司為例，分為手動與Boardfarm自動化兩種。
+
+手動測試環境包含四個部分：待測物(DUT)、LAN/WLAN Client、WAN Client，以及真實網路(Real network)。DUT的WAN端連接外部交換器，LAN端連接有線用戶，並設置WiFi供無線用戶連接。LAN/WLAN Client用於設定HG和測試管理功能。WAN Client則用於測試FTP、效能、靜態路由等功能，以及Port Forwarding、DMZ、Firewall等進階功能。真實網路則用於P2P、DDNS等需要連外網的測試，以及使用真實網路上的SNTP、SMTP等服務，簡化測試環境搭建。
+
+Boardfarm自動化測試環境包含一個LAN Client，一個2.4GHz WLAN Client，一個5GHz WLAN Client，和一個WAN Client，所有設備都以Linux為作業系統並安裝Boardfarm軟體。Boardfarm主機透過程式語言控制這些設備執行測試步驟，並透過console和網路行為確認結果，自動產生測試記錄和報告。此環境可以滿足大部分測試項目需求。

@@ -1,0 +1,1 @@
+經五次交叉驗證，並根據4.5.1.3 的綜合結果，採用抽樣方式3，置信度為60%。男性模型參數設定為Support 0.3%、Lift 1.7，根據表12，平均Sensitivity為80%、Specificity為70%、Accuracy為72%。女性模型參數設定為Support 0.4%、Lift 1.7，根據表13，平均Sensitivity為84%、Specificity為72%、Accuracy為74%。表12和表13分別顯示了男性和女性模型的五次交叉驗證結果。

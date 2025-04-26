@@ -1,0 +1,1 @@
+Porter Stemming Algorithm，由馬丁·波特博士於1979年發明，至1999年廣泛應用，旨在去除單詞詞性變化，例如run、ran、runner和running，皆源於詞幹run。該演算法的官方網站提供多種程式語言版本。學術期刊資訊安全研究演進的建構，可運用大數據和資料視覺化技術。Porter Stemming Algorithm 的步驟包含：(1) 處理複數（如s、ies）和ed、ing、at、bl、iz等詞尾；(2) 將y詞尾改為i；(3) 簡化雙後綴，例如ational和fulness改為ate和ful；(4) 去除ant、ence等後綴；(5) 移除詞尾e。期刊文章摘要須進行詞幹提取，否則會影響TF-IDF值計算，進而影響資料視覺化結果的準確性。

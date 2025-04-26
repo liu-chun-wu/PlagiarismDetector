@@ -1,0 +1,9 @@
+本研究使用 Python 進行開發，NetDraw 進行視覺化，Ucinet 進行社群網絡分析，作業系統為 Windows 10 64 位元。硬體環境包含 Intel(R) Core(TM) i5-8400 CPU @ 2.81GHz 處理器和 16.0GB 記憶體。開發工具使用 JetBrains PyCharm Community Edition 2018.2.1。研究流程包含：
+
+1. **資料擷取**: 手動從 Regtech100 網站收集法遵科技企業產品服務資料，儲存為 TXT 檔。
+2. **文字探勘**: 使用 Python 的 NLTK 套件進行英文斷字與去除停用字。
+3. **N 元語法**: 使用 Python 探勘文件中出現頻率高的雙字詞。
+4. **主題計算與關鍵字提取**: 使用 Python 的 Gensim 套件計算最佳主題數並生成關鍵字。
+5. **本體論建置**: 使用 Dictionary of Finance and Banking 和 Computer Dictionary of Information Technology 比對關鍵字，過濾非領域字詞並建置本體論。
+6. **關鍵字詞相關係數計算**: 使用 Microsoft Excel 2016 計算關鍵字詞出現頻率與關係係數。
+7. **視覺化呈現與社群網絡分析**: 使用 NetDraw 和 Ucinet 進行視覺化呈現和社群網絡分析。

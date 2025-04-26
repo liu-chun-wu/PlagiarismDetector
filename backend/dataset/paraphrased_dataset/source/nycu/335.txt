@@ -1,0 +1,1 @@
+預強調通過⾼通濾波器對信號進⾏濾波，可以達到平衡頻譜的作⽤並且改善信號噪 聲⽐（SNR），公式如公式1,2。如圖⼀，預強調後噪⾳從0.001~0.0005降到0.0002以下。預 強調會影響⾳節切割，如圖⼆。 H（z） = 1- a*  在時域實作為    S_2（n） = S（n） - a * S（n-1） a 介於0.9⾄1。程式預設為0.95。 z−1 S2(n) = S(n) −a * S(n −1) 15 Syllable start-points and end-points without pre-emphasis Syllable start-points and end-points with pre-emphasis kin-á-ji ̍t （今 kin-á-ji ̍t （今

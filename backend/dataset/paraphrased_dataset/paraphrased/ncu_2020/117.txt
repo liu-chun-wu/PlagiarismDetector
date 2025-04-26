@@ -1,0 +1,1 @@
+K-Star 模型的 Matthews Correlation Coefficient (MCC) 值較其他模型更接近 +1，表明其在該數據集上的效能最佳。因此，本研究選擇 K-Star 作為詐欺偵測演算法。 (Powers, 2011)

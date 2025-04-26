@@ -1,0 +1,1 @@
+ERC-721非同質化代幣標準，是一個免費開放的標準，用於代表獨一無二的數位資產。由Dieter Shirley等人於2018年底創立，它允許不同價值代幣的交易，並確保每個數位資產的所有權都被個別追蹤和驗證。雖然一定數量的同類代幣價值相同，ERC-721賦予每個代幣獨特的價值，使其可交易且具有不同的價值，如同房屋或小貓一樣。CryptoKitties是ERC-721的成功案例，每隻虛擬貓都是一個獨立的代幣，其價值由市場和玩家決定。ERC-721定義了十個函數，包括name、symbol、totalSupply、balanceOf、ownerOf、approve、takeOwnership、transfer、tokenOfOwnerByIndex和tokenMetadata，以及Transfer和Approval兩個事件。

@@ -1,0 +1,1 @@
+為了盡可能的汲取數據中的有用資訊以重現時間序列事件的完整性，本研究 導入Tu and Li [36]所提出的特徵挑選（Feature selection）將不同來源的多樣化數據 集合轉化為多個特徵，從中篩選出對預測目標有利的特徵進入模型中進行訓練。特 徵挑選的架構可被歸類為三大階段，依序為：資料矩陣（Data matrix）、影響資訊 矩陣（Influence information matrix, IIM）與多目標特徵挑選（Multi-target feature selection），以下將逐步進行詳細的說明。

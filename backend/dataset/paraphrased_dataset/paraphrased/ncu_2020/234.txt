@@ -1,0 +1,7 @@
+本研究以Drebin数据集，与文献[17]比较，探讨使用Opcode、API和Permission作为特征，转换为RGB图像后，利用深度卷积生成对抗网络（DCGAN）生成扩增样本，提升Android少样本恶意家族检测能力的效果。
+
+实验使用与[17]相同的10个恶意家族组合及评估方法（十折交叉验证，F1-score指标），并将样本数不足100的家族 (Adrd, DroidDream, Geinimi，样本数分别为91、81和15) 视为少样本家族，使用DCGAN等倍扩增少样本家族样本。
+
+结果显示，本研究在使用DCGAN扩增样本后，卷积神经网络对少样本家族的分类能力有所提升。  Adrd、DroidDream和Geinimi的F1-score分别从[17]的83.04%、83.37%和84.00%提升至85.41%、92.68%和93.14%。其他家族的F1-score也均有提升，GinMaster提升幅度最高(19%)。
+
+此外，本研究替换了[17]中的Adrd和Geinimi家族为Gappusin和Glodream家族（样本数分别为58和66），进行相同实验。结果表明，本研究在所有10个家族的F1-score都高于[17]。DroidDream、Gappusin和Glodream的F1-score分别提升了8%、11%和7%，DroidKungFu和GinMaster分别提升了9%和22%。

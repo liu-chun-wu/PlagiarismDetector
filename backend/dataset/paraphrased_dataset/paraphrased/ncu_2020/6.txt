@@ -1,0 +1,7 @@
+MP4是一種基於MPEG-4 Part 14標準（ISO/IEC 14496-14）的多媒體容器格式，通常用於儲存視訊和音訊流媒體數據。此標準源於Apple的QuickTime格式，並增加了IOD（起始物件描述）等特性。MP4在ISO基本媒體檔案格式的基礎上，定義了額外的項目以支援MPEG-4系統特性，例如物件描述和場景描述。媒體數據（影像/聲音）可以與元數據儲存在同一個檔案或不同的檔案中。MP4將每個位元流資訊儲存在獨立的單軌中，每個單軌記錄時間資訊和數據類型，並有自己的識別符號。單軌包含多個樣本，例如，一個視訊樣本代表一個VOP（Video Object Planes）。
+
+MP4檔案的基本單元是Box（或Atom），包含大小和類型資訊，類型以四位ASCII碼表示。Box可以是階層式架構，作為容器存放其他Box。最上層的Box包括ftyp、mdat、moov和free。影音資料儲存在mdat box中，元數據定義在moov Box中。
+
+ftyp atom識別檔案類型，包含Major_Brand、Minor_Version和Compatible_Brands等欄位。mdat Box存放視訊幀和音訊樣本等媒體數據。moov atom通常包含mvhd box（影片標頭）和一個或多個trak box（單軌資料）。mvhd box包含创建时间、时间比例、总长度和播放速率等信息。trak box定義影片的單軌，每個單軌有獨立的時間和空間資訊。
+
+stts box（Time-to-Sample Box）儲存每個樣本的持續時間（delta time）。stss box（Sync Sample Box）定義關鍵幀（例如H.264的I-Frame），I-Frame不依赖前一帧解码，用于重新同步和快速跳跃播放。GOP（Group of Picture）由一个I-Frame和后续的P-Frame组成。P-Frame（predictive coded picture）記錄與前一幀的殘差以減少資訊量。stsc box（Sample-to-Chunk Box）儲存資訊塊資訊，用於定位樣本在資訊塊中的位置。stsz atom（Sample Size Atom）記錄每個樣本的大小。stco box（Chunk Offset Box）記錄每個資訊塊從檔案開頭的偏移值，結合stsc和stsz可以計算每個樣本在檔案中的偏移位址。

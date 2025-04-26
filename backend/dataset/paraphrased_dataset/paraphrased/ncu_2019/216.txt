@@ -1,0 +1,19 @@
+本研究探討樣本選取結合離散化的影響，以先執行樣本選取再執行離散化的方式進行實驗，流程參考圖3-6 (3.4.2節)。
+
+以MDLP離散化搭配KNN分類器的平均正確率為基準(Baseline)，比較IB3、DROP3和GA三種樣本選取方法搭配MDLP的效果(圖4-1)。結果顯示，DROP3+MDLP的正確率高於Baseline。
+
+針對二元分類資料集，以MDLP搭配KNN分類器的平均AUC指標為基準(圖4-2)。結果顯示，三種樣本選取方法搭配MDLP的AUC指標皆高於Baseline。
+
+針對多分類資料集，以MDLP搭配KNN分類器的平均Kappa指標為基準(圖4-3)。結果顯示，DROP3+MDLP的Kappa指標高於Baseline。
+
+以ChiMerge離散化搭配KNN分類器的平均正確率為基準，比較IB3、DROP3和GA三種樣本選取方法搭配ChiMerge的效果(圖4-4)。結果顯示，DROP3+ChiMerge的正確率高於Baseline。
+
+針對二元分類資料集，以ChiMerge搭配KNN分類器的平均AUC指標為基準(圖4-5)。結果顯示，三種樣本選取方法搭配ChiMerge的AUC指標皆低於Baseline。
+
+針對多分類資料集，以ChiMerge搭配KNN分類器的平均Kappa指標為基準(圖4-6)。結果顯示，DROP3+ChiMerge的Kappa指標高於Baseline。
+
+綜合圖4-1和圖4-4 (表4-4、圖4-7)，DROP3搭配MDLP或ChiMerge的平均正確率皆高於單獨使用MDLP或ChiMerge的Baseline；而IB3和GA搭配MDLP或ChiMerge的結果皆低於Baseline。DROP3的平均正確率也高於IB3和GA (圖4-8)，且搭配ChiMerge的結果通常優於MDLP，但IB3則相反。
+
+綜合圖4-2和圖4-5 (表4-5、圖4-9)，樣本選取搭配MDLP的AUC指標皆高於單獨使用MDLP的Baseline，而搭配ChiMerge則皆低於Baseline。IB3搭配MDLP或ChiMerge的AUC指標皆高於其他樣本選取方法(圖4-10)。
+
+綜合圖4-3和圖4-6 (表4-6、圖4-11)，DROP3搭配MDLP或ChiMerge的Kappa指標皆高於單獨使用MDLP或ChiMerge的Baseline；而IB3和GA搭配MDLP或ChiMerge的結果皆低於Baseline。DROP3的平均Kappa指標也高於IB3和GA (圖4-12)，且搭配MDLP的結果通常優於ChiMerge。

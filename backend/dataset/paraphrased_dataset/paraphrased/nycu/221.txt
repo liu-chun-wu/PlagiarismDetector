@@ -1,0 +1,7 @@
+根據3.3節的描述，Boardfarm測試環境需要根據不同使用者類型進行調整，以利於自動化測試。以下列出三種類型的測試環境架構：
+
+第一類：採用2.4.2節介紹的最基本的Boardfarm自動化測試環境（參考圖24），也是目前最簡潔的架構。
+
+第二類：與第一類的主要區別在於增加了Mesh功能。待測物以群組形式呈現，包含一台主要的控制主機CAP（Control AP）和多台延伸的副機RE（Range Extender）。CAP負責聯外，WAN端與CAP相連，CAP和RE之間使用5GHz無線技術通訊。Boardfarm則透過console分別連至CAP和RE進行控制。
+
+第三類：主要針對WAN端不是標準Ethernet端口的情況，可分為有線（VDSL或PON，參考圖26）和無線（LTE，參考圖27）兩種。這種類型在WAN端增加了一台Server，Boardfarm通過console或SSH控制該Server，以實現自動化測試。

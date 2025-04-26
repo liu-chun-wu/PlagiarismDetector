@@ -1,0 +1,11 @@
+此研究旨在不重新編碼H.264影片的前提下，僅調整MP4檔案metadata，也就是moov box內的video track box下stts、stsz、stsc、stco與stss五個box的內容，藉此提升處理速度。修改後的moov box會寫回原始檔案的偏移位址。  程序主要分析處理moov box和mdat box，透過讀取moov box的metadata得知每個sample的讀取偏移位置，並檢查每個sample包含VCL-Unit和Non-VCL-Unit的狀況，以決定後續修正方式。
+
+MP4檔案依循ISO/IEC 14496-12標準封裝，media data封裝於mdat box中。moov box作為其他sub box的容器，以巢狀結構存放metadata。
+
+為定位moov box的檔案偏移量，需了解box在MP4檔案中的結構。每個box都有一個header，以big-endian形式記錄box大小(4 bytes)和box type(4 bytes ASCII code)。box size包含header的8 bytes。透過box header，可以快速找到moov box的檔案偏移位址。
+
+mdat box存放影音碼流，其中Video Chunk和Audio Chunk以交錯方式存放。每個chunk在檔案中的偏移量記錄於moov box內對應trak box的stco box。stco box以多筆記錄方式處理連續多個Audio Chunk或Video Chunk的情況。
+
+每個Video Chunk內，Video sample連續存放。每個Video sample的呈現時間記錄於stts box，大小記錄於stsz box，而每個Video Chunk包含的Video Sample數量則記錄於stsc box。透過stco、stsz和stsc box的資訊，可以計算出每個video sample在檔案中的偏移位址。
+
+stsc box以精簡方式描述sample數量與chunk的關係，例如，若第一個chunk有3個samples，第二、三個chunk各有5個samples，第四個chunk有2個samples，stsc box會合併第二、三個chunk的描述。由於本研究需合併chunk內的sample，此精簡表達方式不利於後續處理sample數量變動，因此實作修正前會先展開stsc box的內容。

@@ -1,0 +1,12 @@
+本研究開發環境包含軟體、硬體及開放資源軟體。軟體開發為核心，透過軟體設計與開發驗證研究可行性並建構模擬測試環境，搭配使用IPMI智慧平台管理介面開放資源軟體Ipmitool。硬體方面，採用信驊科技AST2500作為BMC系統核心處理器，並以Linux架構系統或樹梅派三代模擬智慧家電。
+
+1. 軟體
+    (1) BMC系統開發：基於Linux架構，使用美商安邁科技(American Megatrends Incorporated)開發的MegaRAC® SP-X BMC Firmware，主要以C語言開發，並以此語言撰寫及開發客製化服務與內容。
+    (2) 測試和腳本(Shell Script)開發：同樣基於Linux架構，利用Shell Script開發，自動執行相關指令和IPMI智慧平台管理介面開放資源軟體Ipmitool，傳遞資訊並運用BMC系統開發的功能。
+
+2. 硬體
+    (1) AST2500：信驊科技(ASPEED Technology Inc.)於2014年12月開發、2015年量產的第六代伺服器管理處理器IC。
+    (2) 樹梅派三代(Raspberry Pi 3)：英國樹莓派基金會開發的Linux架構單晶片電腦，採用開放資源Linux系統(如Debian、ArchLinux)，可滿足基本網路瀏覽、文字處理及程式執行需求。本研究採用B型。
+
+3. 開放資源軟體(Open Source)
+    主要使用Ipmitool或Ipmiutil，透過安裝這兩款免費軟體完成指令傳送及管理介面呈現。兩者皆有Windows和Linux版本，本研究主要使用Ipmitool，建議版本1.8.15以上。

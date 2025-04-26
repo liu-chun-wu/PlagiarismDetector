@@ -1,0 +1,1 @@
+一般目標檢測均採用AP 作為評估標準，在計算AP 之前須先得出precision 及recall。 Precision 即準確率，計算公式為 è 預測樣本中實際正樣本數 / 所有的正樣本數 Recall 即召回率，計算公式為 è 預測樣本中實際正樣本數 / 預測的樣本數 Precision = TP / (TP+FP) Recall = TP / (TP+FN) AP 即Average Precision 平均精確度，每一個類別都可以根據recall 和precision 繪製PR 曲線，AP 就是該曲線下的面積，mAP 則是多個類別AP 的平均值。

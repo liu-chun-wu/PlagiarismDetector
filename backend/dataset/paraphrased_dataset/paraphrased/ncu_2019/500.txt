@@ -1,0 +1,7 @@
+圖25、26和27分別展示了上傳、搜尋上傳紀錄和搜尋交易紀錄的流程。
+
+圖25 (上傳)：供應者在upload.html頁面填寫版權資訊後，系統通過upload函式將資訊上傳至GCP Firebase，同時發送交易至UploadInfoContract智能合約。成功後，系統會將uploadID返回給供應者。
+
+圖26 (搜尋上傳紀錄)：供應者在record.html頁面輸入uploadID，系統即返回相關的版權資訊。
+
+圖27 (搜尋交易紀錄)：供應者在record.html頁面輸入transactionID，系統即返回相關的交易資訊。

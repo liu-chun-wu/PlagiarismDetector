@@ -1,0 +1,1 @@
+Colab 是一個以 Jupyter Notebook 為基礎的免費專案開發服務。使用者只需註冊 Google 帳號，即可在 Google 雲端硬碟建立 Colab Notebooks 空間，進行 Python 程式開發。Colab 的優點是不需要安裝眾多 Python 套件和 Anaconda3 環境，開發的 Python 程式會儲存在 Google 雲端硬碟，不怕遺失。使用者只要使用能連上網際網路的電腦，就能隨時隨地進行程式開發。

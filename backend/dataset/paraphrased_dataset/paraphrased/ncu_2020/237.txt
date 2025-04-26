@@ -1,0 +1,5 @@
+為驗證方法的魯棒性，本研究使用19個Drebin惡意家族（其中10個樣本數少於100的少樣本家族：Adrd (91), DroidDream (81), FakeRun (61), Gappusin (58), Geinimi (15), Glodream (66), Imlog (43), MobileTx (69), SendPay (58), SMSreg (41)）進行測試，並與以提升Android少樣本惡意家族檢測能力為目標的文獻[17]比較。本研究探討結合多特徵（Opcode, API, Permission）並轉換為RGB圖像，是否優於[17]僅使用Opcode特徵轉換為灰階圖像的方法。實驗採用十折交叉驗證（訓練/測試比例為9:1），並以十折平均F1-score作為評估指標。
+
+實驗結果顯示，本研究在10個少樣本家族中，7個家族的F1-score皆高於[17]：Adrd (提升5%: 62.18% -> 66.71%)，DroidDream (3%: 79.19% -> 82.22%)，Gappusin (11%: 53.91% -> 64.57%)，Glodream (20%: 48.02% -> 67.86%)，Imlog (1%: 93.17% -> 94.6%)，MobileTx (1%: 98.32% -> 99.23%)，SendPay (5%: 90.88% -> 95.9%)。 然而，SMSreg的F1-score略低於[17] (下降5%: 84.17% -> 78.69%)。 Geinimi 和 FakeRun 的 F1-score 則分別略微下降和持平。
+
+

@@ -1,0 +1,1 @@
+本研究係透過提出FP-ABT 架構透過擴充增加詐欺偵測與K-Anonymity Plus Attribute-based Credentials 模組增強對使用者交易時的安全與隱私保護，其主要貢獻有 下列3 點: 1. 提出於ABT 擴充增加機械學習詐欺偵測模組，透過使用機器學習演算法偵 測可能之詐欺交易，提升交易安全性。 2. 提出於ABT 使用者之Token 上擴充增加K-Anonymity Plus Attribute-based Credentials 模組以提升隱私保護能力，以確保使用者的隱私或位置資訊不 會洩漏給使用者以外的任何第三方。 3. 提出新FP-ABT 架構，提升原有ABT 架構之安全性與隱私保護力。

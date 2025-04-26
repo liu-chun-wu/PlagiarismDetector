@@ -1,0 +1,7 @@
+Algorithm 1 describes a linear time decay process for a rating matrix R.  Given a rating rij and its timestamp tij, the algorithm calculates a time-decayed rating r'ij based on the current time cur_time, the user's average rating ui_avg, and a time decay function D.  The algorithm first calculates the time difference Δt between the current time and the rating time.  It then checks if the rating is above or below the user's average.
+
+If rij is above ui_avg, the rating decays towards the average. The decay is calculated using the time decay function D(Δt).  However, the decayed rating is capped at ui_avg, preventing it from crossing below the average.
+
+Similarly, if rij is below ui_avg, the rating increases towards the average, again using the time decay function. The increase is also capped at ui_avg.
+
+The paper explores three linear time decay functions: half-time decay, full-time decay, and double-time decay.  These functions determine the decay rate, with a larger parameter ∂ indicating a stronger decay effect.  Full time decay is represented by D(Δt) = 1 - (∂ * Δt).  Half-time decay uses D(Δt) = 1 - (2 * ∂ * Δt), resulting in a faster decay.  Double time decay uses a slower decay, although the exact formula isn't provided in the given text.  Figure 4 visually demonstrates these decay functions.

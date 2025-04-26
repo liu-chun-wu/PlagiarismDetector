@@ -1,0 +1,1 @@
+研究環境使用Python 3.7.0，搭配NumPy、Pandas以及基於TensorFlow引擎的深度學習套件庫Keras。運行環境為Google Colaboratory虛擬線上伺服器，提供免費的NVIDIA K80等級GPU、Xeon 2.2GHz雙核心CPU、50GB儲存空間和12GB記憶體，並提供類似Jupyter Notebook的介面供使用者運行Python。

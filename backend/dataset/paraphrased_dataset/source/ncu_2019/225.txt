@@ -1,0 +1,1 @@
+本研究使用的財務資料來源為Standard & Poor’s Research Insight Compustat 資料 庫，此資料庫包含現行與停業的公司財務報表、財務數據等資訊，收錄數據可回朔至 1979 年，公司涵蓋範圍有NYSE、AMEX、NASDAQ 及OTC 等，可依照日、季、年 等不同時間點搜尋歷史資料，並輸出成Excel 報表。 美國股價資料來源則是Yahoo! Finance，使用Python 套件FinMind 提供之方法爬 取選股樣本中所有公司歷史股價做為本研究後續分析資料來源。

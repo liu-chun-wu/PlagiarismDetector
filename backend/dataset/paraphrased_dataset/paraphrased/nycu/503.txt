@@ -1,0 +1,7 @@
+Unity3D是由Unity Technologies開發的跨平台遊戲引擎，方便使用者創建3D遊戲、建築視覺化、即時3D動畫等互動內容。它提供圖形化開發環境，類似Director、Blender game engine、Virtools和Torque Game Builder等軟體。編輯器可在Windows和Mac OS X上運行，並能將遊戲發佈到Windows、Mac、Wii、iPhone、WebGL、Windows Phone 8和Android平台，也支援網頁遊戲發佈。
+
+
+網路爬蟲是自動提取網頁的程式，作為搜尋引擎的重要組成部分，負責從網路上下載網頁。它從一個或多個初始網頁URL開始，獲取網頁上的URL列表，並持續抓取新URL加入待爬行隊列，直到滿足停止條件。
+
+
+中文分詞是將漢字序列切分成單個詞的過程。分詞演算法主要分為基於字串匹配、基於理解和基於統計三類。隨著大規模語料庫的建立和統計機器學習的發展，基於統計的方法成為主流。結巴分詞是一個Python中文分詞組件，支援三種分詞模式、繁體分詞和自訂字典，採用基於詞典、HMM模型、Viterbi演算法等技術實現分詞和詞性標注，並能基於tfidf和textrank模型提取關鍵字。

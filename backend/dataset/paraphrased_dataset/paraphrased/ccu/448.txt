@@ -1,0 +1,1 @@
+將檢測窗口中所有重疊塊的HOG特徵收集起來，組合成最終特徵向量用於分類。本研究使用OpenCV的resize函數，將擷取的圖像大小固定為148x226像素。HOG特徵提取採用10x10像素的cell大小，4x4個cell組成一個block，方向區分為9個bins， resulting in 1881 features per image. 最後, these features are dimensionally reduced using PCA and then fed into an SVM classifier.

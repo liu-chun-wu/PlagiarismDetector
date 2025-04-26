@@ -1,0 +1,1 @@
+混淆矩陣（Cofusion Matrix）： 實際值 (透過情緒模組所輸出結果) 預測結果 (測試樣本所得到結果) 樂觀 悲觀 樂觀 悲觀 表 8 NativeBayes Classfication 混淆矩陣 資料來源：本研究整理 各項指標值： accuracy_score precision_score recall_score f1_score 0.8399 0.8420 0.8551 0.8485 表 9 NativeBayes Classfication 各項指標 資料來源：本研究整理

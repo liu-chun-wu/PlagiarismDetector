@@ -1,0 +1,21 @@
+硬體與環境需求：
+
+處理器：Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz 1.80 GHz
+記憶體：12.0 GB
+系統類型：64 位元作業系統 (x64)
+作業系統：Windows 7 以上版本 (64 位元)
+Python 版本：3.5 - 3.7
+Python 套件：pip 19.0 以上版本 (需 manylinux2010 支援)
+
+套件安裝：
+
+Orange V3.27.1 與 Text Mining 套件 V1.2.0
+PyCharm、CKIP 相關套件、Tensorflow V1.15
+Python 3.7.8
+
+開發工具、資料集與詞庫：
+
+開發工具程式：HandleAndroidFeedback-NoPOSShift.py
+資料集：reviews_reviews_com.polstargps.polnav.mobile_201XXX.csv
+關鍵詞庫：Keywords.txt
+預測模型：使用本文探勘技術於 Google Play 商店客訴留言建立的客訴問題分類模型

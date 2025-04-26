@@ -1,0 +1,1 @@
+CryptoKitties 的商業模式參考 Osterwalder & Pigneur（2010）的商業模式圖整理歸納而成 (圖 4-8)，以下將逐一探討其各關鍵要素並進行分析。

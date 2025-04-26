@@ -1,0 +1,1 @@
+表格4.2至4.7展示了五個資料集在數值型預測中的最低誤差值組合。這些表格比較了K-means、C-means、EM分群演算法，Chi Square、Mutual Information、Information Gain特徵選取演算法，以及Linear Regression、Support Vector Regression、Multi-layer Perceptron回歸預測方法的組合效果。表格欄位從左至右依次為：訓練集樣本數量、測試集樣本數量、資料集特徵數量、資料集名稱，以及使用的演算法組合。由於篇幅限制，RMSE和MAE均未勝出的演算法組合未在圖中展示。

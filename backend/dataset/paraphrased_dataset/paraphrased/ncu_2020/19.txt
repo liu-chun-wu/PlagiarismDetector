@@ -1,0 +1,9 @@
+這段文字描述了針對4.1節提到的四種情境，如何修正MP4檔案中video sample的範例與方法。
+
+情境一(4.1.1)與情境二(4.1.2)的範例(圖39)中，第15號sample位於第一個video chunk的末尾，由於與第二個video chunk不連續，因此將其大小合併到前一個sample(第14號)。第16和17號sample分別包含sps和pps，由於與前一個chunk不連續，因此將它們的大小合併到後一個sample(第18號)。這些合併動作需要調整stsz, stts和stsc box，並且由於影響了sample的順序，stss box中的I-Frame索引也需要更新。
+
+情境三(4.1.3)的範例(圖41)中，第2868號sample位於最後一個video chunk，由於無法合併，因此直接刪除這個sample以及相關的box資訊(stsc, stsz, stts, stco)。
+
+情境四(4.1.4)的範例(圖42)中，第15號sample位於第一個video chunk末尾，但與第二個video chunk連續，因此將其合併到後一個sample(第16號)。這需要調整stco, stsz, stsc和stts box，並更新stss box中的I-Frame索引。
+
+值得注意的是，這些修正只改變了MP4檔案的描述結構，H.264碼流本身並沒有被修改。

@@ -1,0 +1,1 @@
+本研究採用 Prakash et al. (2016) 提出的四層堆疊 Res LSTM 網路。實驗發現，若 Res LSTM 中的 residual connection 使用恆等映射，模型容易出現梯度消失問題。因此，本研究在 residual connection 中加入了與 TCN 模型相同的啟動函數。模型最後連接一個線性輸出層，包含單一神經元且不使用啟動函數。Res LSTM 的殘差連接每兩層透過逐點加法併入主網路，因此輸入資料和隱藏狀態 ℎ𝑡 必須具有相同維度。全連接層和 LSTM 層的神經元數量與 TCN 模型的濾波器深度相同，分別為 32、128 和 512。所有層的權重初始化方法均使用 he_uniform [8]，LSTM 層另外加入 30% 的 recurrent dropout。

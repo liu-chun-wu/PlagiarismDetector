@@ -1,0 +1,1 @@
+Ox-vgg/keypoint_detection[3]是由史丹佛大學的Visual Geometry Group 所開 發的開源模型，使用ConvNet model 來預測在2D 影像中人體的身體節點，他們使用 MPII Human Pose Dataset 做訓練，訓練出的模型可以辨識出包含「頭上下緣、脖 子、雙肩、雙肘、雙腕、雙屁股、軀幹中心、雙膝以及雙踝」的十六個節點，如下圖 所示。 圖 7: Ox-vgg/keypoint_detection 節點示意 除了輸出包含節點的圖像之外，ox-vgg/keypoint_detection 也會把各個節點的 座標 (x, y) 儲存下來，本研究將會使用這些座標來進行實驗。

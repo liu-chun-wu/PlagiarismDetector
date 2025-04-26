@@ -1,0 +1,1 @@
+使用者透過網路瀏覽器存取數位版權管理應用程式，其前端介面藉由Web3.js（一個Javascript撰寫的Ethereum API）與以太坊網路溝通並獲取區塊鏈資料。考量圖檔資料龐大及區塊鏈儲存成本(GAS)高昂，圖檔儲存於Google Cloud Platform的Firebase資料庫，而以太坊區塊鏈僅記錄交易資訊。

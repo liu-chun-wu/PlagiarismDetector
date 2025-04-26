@@ -1,0 +1,14 @@
+從YouTube隨機抓取1500部影片，經人工篩選後保留1217部帶有情緒的影片，並由專家標記為六類情緒：生氣、厭惡、開心、恐懼、傷心、驚訝，每類約200部。影片標題、標籤、描述和評論作為文字特徵。
+
+使用10-fold cross-validation驗證情緒分類模型，比較text-CNN、Bi-LSTM與傳統機器學習方法（Naive Bayes、J48決策樹、SVM搭配TFIDF）的效能，並以準確率和F-Measure評估。傳統機器學習方法將四個文字特徵區塊視為單一文件，使用TFIDF構建向量。深度學習方法中，標題、標籤、描述文本長度限制為20字，評論限制為500字。
+
+實驗方法包括：
+M1：TFIDF + Naive Bayes
+M2：TFIDF + J48決策樹
+M3：TFIDF + SVM
+M4：單一text-CNN處理四個特徵
+M5：單一Bi-LSTM處理四個特徵
+M6：四個text-CNN分別處理四個特徵，SoftMax整合結果
+M7：四個Bi-LSTM分別處理四個特徵，SoftMax整合結果
+M8：三個text-CNN處理標題、標籤、描述，text-CNN+Bi-LSTM處理評論，SoftMax整合結果
+M9：三個Bi-LSTM處理標題、標籤、描述，text-CNN+Bi-LSTM處理評論，SoftMax整合結果。所有深度學習方法使用Word2Vec構建詞向量。

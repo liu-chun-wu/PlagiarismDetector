@@ -1,0 +1,1 @@
+使用決策樹 (Decision Tree)、隨機森林 (Random Forest)、羅輯斯迴歸 (Logistic Regression) 三種演算法比較醫療特徵組與機器挑選特徵組在各種預測模型上的差 異，二組特徵組分別以第1 年、第2 年、第3 年、第4 年、第5 年為分界存活率模 型。使用準確率(Accuracy)、敏感度(Sensitivity)、特異性(Specificity)來評估各分類 器準確度；此外，也將AUC 來評估模型效能，實驗結果如表10 〜表11。

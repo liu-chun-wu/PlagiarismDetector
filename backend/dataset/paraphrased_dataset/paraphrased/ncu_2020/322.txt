@@ -1,0 +1,1 @@
+本研究採用近年自動文本摘要常用的評估方法Rouge值(Recall-Oriented Understudy for Gisting Evaluation) (Lin, 2004) 作為評估指標。Rouge-N計算摘要與參考摘要詞彙的重複率，N=1時以一元語法檢視摘要是否包含原文關鍵字，N=2則以二元語法檢視流暢度。Rouge-L則使用最長公共子序列(Longest Common Subsequence)比較摘要相似度。評估研究產生的導言時，以原始新聞導言作為參考，使用Rouge-1、Rouge-2和Rouge-L三種指標，分別衡量訊息量、流暢性和原文涵蓋率，並以F-measure呈現結果。

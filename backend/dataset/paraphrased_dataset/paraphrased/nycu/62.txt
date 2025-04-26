@@ -1,0 +1,1 @@
+Service Layer 與 Model Layer 之間建立一個 Transform Layer，負責：(1) 提供 Service Layer 資料傳遞與呼叫服務；(2) 呼叫 Model Layer 的演算法或函式。本研究使用 Flask 網頁框架實作 Web API 服務，並以 JSON 格式進行資料交換。Transform Layer 與 Model Layer 使用相同語言 Python，可順利整合。為解決 Python 單工特性造成的問題，採用 gevent 套件以支援非同步功能。

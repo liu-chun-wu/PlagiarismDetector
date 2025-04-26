@@ -1,0 +1,13 @@
+硬體：
+中央處理器：Intel Core i7-8700k 3.20GHz
+記憶體：Transcend 8GB DDR3 1600 x2 (共 16GB)
+顯示卡：NVIDIA GeForce GTX 1060 6GB
+硬碟：WD Blue 1TB
+
+軟體：
+作業系統：Ubuntu 16.04 LTS 64-bit
+OpenCV：3.4.3
+CUDA：9.2
+cuDNN：7.1.2
+Python：3.5.2
+PyTorch：0.4.1

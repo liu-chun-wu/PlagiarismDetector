@@ -1,0 +1,1 @@
+本研究使用Python語言編寫程式，並在Anaconda環境下進行模擬。開發環境參數如下：處理器為Intel(R) Core(TM) i7-6700HQ CPU 2.60 GHz，記憶體為8GB，作業系統為Windows 10，顯示卡為NVIDIA GeForce GTX 950M，軟體工具為Tensorflow 1.12.0和Jupyter Notebook。

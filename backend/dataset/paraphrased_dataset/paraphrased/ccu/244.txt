@@ -1,0 +1,5 @@
+TF-IDF用於確定單詞在特定文章中的相對重要性，其計算方式結合了詞頻 (TF) 和逆向文件頻率 (IDF)。TF計算單詞在文件中出現的頻率，公式為 TF<sub>i,j</sub> = n<sub>i,j</sub> / Σ<sub>k</sub> n<sub>k,j</sub> ，其中 n<sub>i,j</sub> 是詞語 i 在文件 j 中的出現次數，Σ<sub>k</sub> n<sub>k,j</sub> 是文件 j 中所有詞語的總數。IDF 則衡量詞語在整個語料庫中的稀有程度，公式為 IDF<sub>i</sub> = log |D| / (1 + |{j: t<sub>i</sub>∈d<sub>j</sub>}| )，其中 |D| 是語料庫中文檔總數，|{j: t<sub>i</sub>∈d<sub>j</sub>}| 是包含詞語 i 的文檔數量，加 1 是為了避免分母為零。TF-IDF 的計算公式為 TF-IDF<sub>i,j</sub> = TF<sub>i,j</sub> × IDF<sub>i</sub>。通過計算 TF-IDF 值，可以判斷單詞與文章的相關程度。
+
+資料視覺化是將資料以視覺方式呈現，有效傳達資訊。它需要兼顧美感和功能性，將複雜的資料集轉化為直觀易懂的圖表。資料視覺化的過程包括：獲取、分析、過濾、發掘、呈現、調整和互動。選擇合適的可視覺化方法取決於數據特徵，例如數據結構、時間特徵或空間特徵，以便清晰地展現數據之間的關係和規律。
+
+D3.js (Data-Driven Documents) 是一個 JavaScript 函式庫，可以用於創建互動式資料視覺化圖表。它支援 CSV、JSON 和 GeoJSON 等資料格式，並能充分利用 HTML、SVG 和 CSS 的功能。D3.js 在 GitHub 和 Stack Overflow 等平台上擁有豐富的資源和社群支援，因此被選用於本研究的互動式視覺化圖表呈現。先前在 GitHub 平台上比較了 ploytl.js、nvd3、Chart.js、D3 和 recharts 等 JavaScript 圖表套件，發現 D3 的討論度相當高。

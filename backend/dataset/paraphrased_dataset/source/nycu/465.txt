@@ -1,0 +1,1 @@
+Two-stage learning 最具代表性的是R-CNN 系列，從R-CNN[18]、Fast R-CNN[16]、 Faster R-CNN[17]、Mask R-CNN[5]一路發展上來，均先在feature map 上經過region proposal 後，再針對選出候選區域目標進行目標分類辨識，此種分兩個步驟做目標辨識 的稱為two-stage learning。但這種方法通常需花費較多的時間，若region proposal 選出 的候選區域過多，每個候選區域都要經過特徵提取，且選出的候選區域重疊部分大，容 易造成計算量大且偵測時間長，相較於one-stage learning 速度較慢。

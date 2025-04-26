@@ -1,0 +1,1 @@
+Colab是一個基於Jupyter Notebook的雲端服務，預先安裝了Keras和TensorFlow。最初由Jupyter開發，後由Google接管經營。Colab允許使用者隨時隨地存取資源，並將程式碼和運算結果直接儲存到Google雲端硬碟，同時也能方便地與GitHub連接。

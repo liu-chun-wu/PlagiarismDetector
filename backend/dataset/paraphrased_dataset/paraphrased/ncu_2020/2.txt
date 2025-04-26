@@ -1,0 +1,1 @@
+一般網路攝影機在RTSP DESCRIBE回應中會提供RTP連接埠資訊，告知訪問端如何取得H.264/AVC壓縮影像資料。攝影機可選擇使用現有RTSP的TCP連線或新的UDP連線傳輸串流。訪問端需根據ISO/IEC-14496-12標準，添加Meta Data後以MPEG-4格式儲存串流資料。串流資料依賴RTP Header和NALU的資訊。H.264/AVC本身不含時間資訊，畫面幀的停留時間由RTP Header的時間戳記決定。本研究探討MPEG-4結構中stss、stsc、stco、stsz和stts box資訊對HTML5播放器的影響，並歸納如何在Chrome、Firefox等主流瀏覽器中以HTML5播放器正常呈現的封裝方式，以及如何在不重新編解碼的情況下修復無法在網頁播放的錄影檔。

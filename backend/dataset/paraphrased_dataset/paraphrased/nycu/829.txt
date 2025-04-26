@@ -1,0 +1,1 @@
+We extract the outermost contours from the previously processed binary image. Small contours, likely not belonging to the main embroidery object (the flower), are removed.  The resulting flower contour image is shown in Figure 3.4(b).

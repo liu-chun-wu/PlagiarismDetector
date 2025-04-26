@@ -1,0 +1,1 @@
+Word2vec是由Google發表的淺層深度學習模型，用於文字探勘，找出字詞間的相關性。其原理是設定一個固定字數窗口（windows K），統計句子中每個字前後K個字，建立共現矩陣（co-occurrence matrix），計算每個字的n維向量，進而計算字詞相似度。例如，KING + MAN - WOMAN = QUEEN。Word2vec主要有兩種模型：CBOW（Continuous Bag of Words）透過上下文預測缺漏的字，Skip-gram則透過一個字預測上下文。過去研究曾應用Word2vec判斷網路文章內容以推薦背景音樂，但未應用於歌曲相似度研究。本研究將使用者每日評分歌曲清單按時間排序視為字組，套用Skip-gram模型預測每首歌鄰近的歌曲。

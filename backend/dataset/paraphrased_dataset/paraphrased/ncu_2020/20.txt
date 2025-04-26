@@ -1,0 +1,1 @@
+因Wireshark解析發現，不同廠牌攝影機（海康、晶睿、安迅士、奇偶、大華、利凌）傳送影像串流時，會夾帶SPS、PPS、SEI等Non-VCL-NALU，其RTP Timestamp與後續video frame的RTP Timestamp相同，導致封裝成MP4後，stts box中出現delta time為0的項目。由於stts box紀錄每個video frame的顯示時間，且與media server接收到的RTP timestamp相關，此問題影響HTML5原生播放器播放。本研究驗證市佔率超過70%的攝影機（Tschudi, 2020），提出修正流程，無需重新編解碼即可修正MP4錄影檔，使其能直接於網頁瀏覽器播放，達成單一平台收容與播放不同廠牌攝影機歷史串流之目的。

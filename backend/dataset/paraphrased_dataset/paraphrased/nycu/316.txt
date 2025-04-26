@@ -1,0 +1,1 @@
+使用篩選後的特徵，分別以隨機森林(RandomForestClassifier)、XGBoost(XGBClassifier)、高斯樸素貝氏(GaussianNB)和邏輯迴歸(LogisticRegression)建立模型並訓練，選取其中成效最佳的模型作為最終實驗模型。訓練過程中，使用sklearn.model_selection.train_test_split將資料以0.75和0.25的比例分割成訓練集和測試集。

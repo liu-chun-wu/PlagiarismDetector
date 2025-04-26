@@ -1,0 +1,1 @@
+本研究的開發平台使用 Intel ®  Core(TM) i7-7700 CPU @ 3.60GHz 及 16 GB DDR4 RAM，作業系統是 Linux Ubuntu 18.04.3，程式語言使用 Python 語言、Intel ®  開源電腦視覺庫 (open source computer vision) OpenCV 4.4.0 及 MMdet 1.0 函式庫作為軟體開發工具。另外我們使用 9DoF SE-YOLO 網路架構為基底並修改，使用 Pytorch 深度學習開發框 架，訓練時使用的平行處理器 (GPU) 為 NVIDIA GeForce RTX 1080ti，記 憶體大小11GB GDDR5X，記憶體速度11Gbps，加速時脈1582MHz。

@@ -1,0 +1,17 @@
+Square與K-means分群演算法搭配Chi Square，以及EM分群演算法搭配Mutual Information，在k=2的分群表現較佳 (圖4.10 資料集Energy, RMSE)。
+
+Super資料集在RMSE評估下，C-means分群演算法搭配Chi Square和Information Gain，於k=3有最佳平均表現，其他分群和特徵選取演算法組合表現略差 (圖4.11 資料集Super, RMSE)。
+
+Slice資料集在RMSE評估下，K-means、C-means、EM分群演算法搭配Chi Square，於k=3表現較差；相同分群演算法搭配Mutual Information和Information Gain，於k=3則表現較佳 (圖4.12 資料集Slice, RMSE)。
+
+Facebook Comment資料集在RMSE評估下，K-means、C-means、EM分群演算法搭配Chi Square，於k=4表現較差；相同分群演算法搭配Mutual Information和Information Gain，於k=4則表現較佳 (圖4.13 資料集Facebook, RMSE)。
+
+Blogfeedback資料集在MAE評估下，K-means、C-means、EM分群演算法搭配Chi Square，於k=2表現較差；相同分群演算法搭配Mutual Information和Information Gain，於k=2則表現較佳 (圖4.14 資料集Blogfeedback, MAE)。
+
+Energy資料集在MAE評估下，K-means分群演算法搭配Mutual Information和Information Gain，於k=2表現最佳；其他分群演算法搭配三種特徵選取的表現較差 (圖4.15 資料集Energy, MAE)。
+
+Super資料集在MAE評估下，C-means分群演算法搭配Chi Square和Information Gain，於k=3表現最佳；其他分群演算法搭配三種特徵選取的表現不理想 (圖4.16 資料集Super, MAE)。
+
+Slice資料集在MAE評估下，K-means、C-means、EM分群演算法搭配Chi Square，於k=3表現非常差；其他分群演算法搭配三種特徵選取的表現較好 (圖4.17 資料集Slice, MAE)。
+
+Facebook資料集在MAE評估下，K-means、C-means、EM分群演算法搭配Chi Square，於k=5表現非常差；其他分群演算法搭配三種特徵選取的表現較好 (圖4.18 資料集Facebook, MAE)。

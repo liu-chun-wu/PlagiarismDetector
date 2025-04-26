@@ -1,0 +1,1 @@
+經過比較 Kaggle、UCI Machine Learning Repository、Netflix Prize 和 Yahoo Webscope Program 的 Yahoo! Music Webscope_C15 資料集，本研究選擇 Yahoo! Music Webscope_C15 作為研究資料集。原因在於其資料完整度最高，擁有最多的使用者數、歌曲數和評分數，並包含歌曲屬性資料和精細至時分秒的評分資料，適合更深入的研究。此資料集包含 1999-2009 年間 Yahoo! Music 去識別化後的 1,000,990 位使用者對 624,961 首歌曲的 262,810,175 筆評分資料，每位使用者至少有 10 筆評分資料，每首歌至少被評分 20 次。

@@ -1,0 +1,1 @@
+The database we utilized consist of 3D models of physical objects, reference images, which are generated from objects with different views of three-dimension, and templates data recomposed as large matrix by reference images. In the following paragraphs, we will describe how to reconstruct all these datasets.

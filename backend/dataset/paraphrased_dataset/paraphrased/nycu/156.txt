@@ -1,0 +1,1 @@
+實驗環境分為硬體、系統及程式撰寫套件三部分。硬體包含Intel® Core™ i7-8700處理器、32GB RAM及NVIDIA GeForce RTX 2080顯示卡。系統為64位元Windows 10，並安裝CUDA v10.1及cuDNN v7以支援GPU加速運算。程式撰寫使用Python v3.6及Keras v2.2.4，透過GPU加速模型建置。

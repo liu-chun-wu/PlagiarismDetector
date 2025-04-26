@@ -1,0 +1,1 @@
+MetaMask 是一款瀏覽器以太坊錢包管理擴充套件，其做為瀏覽器上直接與 以太坊區塊鏈（Ethereum ）和去中心化應用程式（Decentralized Applications， DApp）互動的橋梁。MetaMask 可以直接連接支援大部分的去中心化交易所以及 DApp 遊戲，替DApp 使用者簡化很多繁複的動作，並可以快速提升交易的速度。 圖34 MetaMask 瀏覽器套件 資料來源：本研究整理

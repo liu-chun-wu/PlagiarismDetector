@@ -1,0 +1,20 @@
+本研究採用ROUGE(Recall-Oriented Understudy for Gisting Evaluation) (Lin, 2004)評估摘要品質，使用ROUGE-1 (Unigram)、ROUGE-2 (Bigram)和ROUGE-L (Longest Common Subsequence)作為指標。ROUGE-N計算公式如下：
+
+ROUGE-N = ∑<sub>S∈Reference</sub>∑Count<sub>match</sub>(gram<sub>n</sub>) / ∑<sub>S∈Reference</sub>∑Count(gram<sub>n</sub>)
+
+
+部分研究 (Hu et al., 2015) 使用混淆矩陣計算f-1值作為比較基準：
+
+f1 = 2 * Precision * Recall / (Precision + Recall)
+
+以「待測摘要Y: 有隻貓被發現在床下」和「參考摘要X: 有隻貓在床下」為例，ROUGE-1計算如下：參考摘要和待測摘要皆出現的單字數為6，參考摘要單字總數為6，因此ROUGE-1 = 6/6 = 1。此指標反映待測摘要的涵蓋率。若使用混淆矩陣，Precision = 6/9，f1 = 0.8。
+
+ROUGE-2計算如下：參考摘要和待測摘要皆出現的雙字詞數為4，參考摘要雙字詞總數為5，因此ROUGE-2 = 4/5 = 0.8。此指標反映待測摘要的流暢度和語序與參考摘要的相似度。使用混淆矩陣計算f1 = 0.615。
+
+ROUGE-L計算最長共同子序列(LCS)：
+
+R<sub>lcs</sub> = LCS(X,Y) / m
+P<sub>lcs</sub> = LCS(X,Y) / n
+ROUGE-L = F<sub>lcs</sub> = (1+β²)R<sub>lcs</sub>P<sub>lcs</sub> / (R<sub>lcs</sub>+β²P<sub>lcs</sub>)
+
+其中，m為參考摘要字數，n為待測摘要字數，β = P<sub>lcs</sub>/R<sub>lcs</sub>。以上述例子而言，LCS(X, Y) = 6，R<sub>lcs</sub> = 6/6 = 1，P<sub>lcs</sub> = 6/9，β = 6/9，ROUGE-L = 0.74286。ROUGE-L同時考量涵蓋率和語序，但僅考慮最長子序列，忽略其他子序列。

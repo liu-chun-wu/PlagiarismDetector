@@ -1,0 +1,3 @@
+在3.1節用於微調YOLOv3訓練的空拍影像資料庫，是由DJI Phantom 4四軸空拍機拍攝，影像解析度為4000 × 3000，拍攝影片時每幀解析度為3840 × 2160。
+
+實驗使用的電腦硬體配置為NVIDIA TITAN Xp顯示卡、Intel i7-6700 CPU和16GB RAM。軟體方面，採用Ubuntu 16.04作業系統，並使用Darknet深度學習框架。Darknet是一個由YOLO系列作者Joseph Redmon開發的開源深度學習框架，以C語言和CUDA編寫，執行速度快，並支援CPU和GPU運算。本研究的物件偵測部分使用YOLOv3，並使用原作者在Darknet框架下的原始碼進行開發和實驗。

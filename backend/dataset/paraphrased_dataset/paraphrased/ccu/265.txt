@@ -1,0 +1,1 @@
+實驗環境：Intel Core i5-8250U 1.8GHz 處理器、8GB 記憶體、64 位元 Microsoft 10 作業系統。開發軟體：Python、Excel、JavaScript、Visual Studio Code。Open Source FOL Inference Engine (Python) on GitHub。

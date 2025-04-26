@@ -1,0 +1,15 @@
+當MP4檔案中僅包含攝影機影像時，video chunk會連續排列。合併相鄰sample時，若sample隸屬不同chunk，則需調整後續chunk的偏移量（圖 37）。圖 38所示修正程序說明如下：
+
+項目1至5：同4.1.1節的項目1至5。
+
+項目7：移除stts box中delta time為0的紀錄，這些紀錄對應的video sample位於video chunk的末尾。
+
+項目10：由於只包含攝影機影像，video chunk在檔案中連續擺放。
+
+項目12：移除delta time為0的紀錄後，stts box表示的video sample數量減少，因此需更新stsc box中每個video chunk的video sample數量資訊。同時，將stsz box中delta time為0的sample大小加到下一個delta time大於0的sample大小中，并将下一個video chunk的offset調整到当前video sample的偏移位置，最後刪除原stsz box中delta time為0的紀錄。
+
+項目14至15：同4.1.1節的項目14和15。
+
+圖 37  修正示意圖——狀況四：跨chunk，且chunk連續  資料來源：本研究
+
+圖 38  修正流程圖——狀況四  資料來源：本研究

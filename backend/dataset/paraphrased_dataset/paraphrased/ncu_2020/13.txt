@@ -1,0 +1,7 @@
+HTML5播放器無法播放MP4影片，關鍵在於Non-VCL-NALU（例如SPS、PPS）單獨以RTP封包傳輸時，因其非畫面資訊，RTP時間戳記與後續VCL-NALU（例如I-Frame）相同。構建MP4檔案時，stts box記錄每個樣本的顯示時間長度，其值為後一個樣本的RTP時間戳記減去當前樣本的RTP時間戳記。由於Non-VCL-NALU和後續VCL-NALU的時間戳記相同，導致stts box中出現delta time為零的記錄。
+
+監控攝影機通常在每個GOP前重複傳送SPS和PPS，以適應參數變化。這些SPS和PPS以單獨RTP封包傳輸時，其時間戳記與後續I-Frame相同，最終導致MP4檔案的stts box出現delta time為零的記錄。
+
+分析Wireshark擷取的RTP封包，並設定H.264 Payload Type，可以觀察到SPS、PPS與後續I-Frame的時間戳記相同。透過解析MP4檔案的stts、stsc、stco和stsz box，可以定位並確認delta time為零的樣本確實對應SPS和PPS。
+
+此種metadata在MP4檔案中的存在方式，經實證會導致部分HTML5播放器播放中斷。解決方案是在MP4封裝過程中，修正stts box中的delta time，避免出現零值。個案研究中，透過在串流收容軟體的錄影檔關檔事件中嵌入修正程序，實現自動化檢查和修復歷史影像錄影檔。

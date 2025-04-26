@@ -1,0 +1,1 @@
+We propose three embroidery stitch styles: fishbone, satin, and flower.  As previously noted, generating embroidery computationally translates to determining stitch arrangement.

@@ -1,0 +1,12 @@
+MapReduce由Google提出，是一種用於大規模數據平行計算的模型，分為Map和Reduce兩個階段。以商場盤點為例，每個人負責盤點特定貨架即為Map，盤點人員越多，耗時越短；匯總所有盤點數據即為Reduce。
+
+MapReduce執行流程如下：
+
+1.  將任務提交給Master，並將資料上傳至HDFS。Master運行JobTracker（管理MapReduce任務）和Namenode（管理HDFS）。
+2.  JobTracker分配Map/Reduce任務給Worker。
+3.  檔案被分割成多個區塊，分配給各Worker執行Map任務。
+4.  Map結果寫入Worker本地硬碟。
+5.  執行Reduce任務的Worker讀取Map中間結果，進行彙整排序。
+6.  結果以指定格式存入HDFS。
+
+Google在2008年使用1000台電腦，耗時68秒完成1TB數據排序。Yahoo在2013年使用2100台Hadoop主機，耗時72分8.053秒排序102.5TB數據，創下當時的世界紀錄。Databricks在2014年使用207個節點的Spark叢集，耗時23分25.98秒排序100TB數據，打破了Hadoop的紀錄。

@@ -1,0 +1,9 @@
+特徵建構包含以下步驟：
+
+(1) **作者屬性特徵**:  FakeNews 資料集包含 id、author、title、text 和 level 五個屬性。建模時，id 與 level 不影響特徵值，因此不予採用。title 和 text 分別使用主題特徵和情感特徵建立特徵值，再評估其適用性。level 作為假新聞標籤，最終僅保留 author 特徵。
+
+(2) **主題特徵**: 使用 gensim 的 LdaModel 建立 title 和 text 的主題模型，並以 pyLDAvis 視覺化呈現各主題的群聚情形。主題數量設定為 11 個。特徵選取階段再決定採用哪個特徵。
+
+(3) **語詞特徵**: 使用 sklearn.feature_extraction.text.TfidfTransformer 和 CountVectorizer 將 title 和 text 轉換為詞語矩陣。title 的詞語矩陣較稀疏，經評估後對建模沒有幫助，因此僅保留 text 的詞語矩陣。
+
+(4) **情感特徵**: 使用 NLTK 的 SentimentIntensityAnalyzer 計算文本的正面 (pos)、負面 (neg)、中性 (neu) 和複合情緒值 (compound)。根據 compound 值判斷情感傾向：大於期望門檻值為正面，小於負值期望門檻值為負面，介於兩者之間為中性。分別對 title 和 text 進行情感分析。

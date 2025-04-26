@@ -1,0 +1,1 @@
+利用上一步驟的特徵建立及選取後所產生出來的特徵，如此就可以將這些特徵拿來 建立模型及訓練，本研究將分別使用RandomForestClassifier（RF）、XGBClassifier（XGB）、 GaussianNB（NB）、LogisticRegression（LR）做為建模並加以進行訓練，最後再從中挑 出最好成效評估的模型，作為本實驗的模型。 使用sklearn.model_selection.train_test_split 將Train、Test 做0.75、0.25 的Split Rate 進行Mode 的訓練。

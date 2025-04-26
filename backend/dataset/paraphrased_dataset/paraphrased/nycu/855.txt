@@ -1,0 +1,20 @@
+電影分數平均值 (RSC) 和標準差 (RST) 分別由公式 (3) 和 (4) 計算：
+
+RSC<sub>j</sub> = (∑<sup>n</sup><sub>i=1</sub> V'<sub>ij</sub>) / n     (3)
+
+RST<sub>j</sub> = √(∑<sup>n</sup><sub>i=1</sub> (V'<sub>ij</sub> - RSC<sub>j</sub>)<sup>2</sup> / (n-1))    (4)
+
+利用 RSC 和 RST 計算每位評分人的信用評分，以防止惡意評分影響系統準確性。  將調整後的分數標準化，公式如下：
+
+x = |V'<sub>ij</sub> - RSC<sub>j</sub>| / RST<sub>j</sub>    (5)
+
+若標準化分數 x 小於 α 倍標準差，則積分 1 分；否則不積分。α 值設為 1、2 或 3，代表不同倍數的標準差：
+
+f(x) = { 1,  x ≤ α × RST<sub>j</sub>
+        { 0,  x > α × RST<sub>j</sub> ,  α = 1 或 2 或 3     (6)
+
+最後，將所有積分加總後除以該評分人評分次數 k，得到信用評分 (credit)：
+
+credit<sub>i</sub> = (∑<sup>k</sup><sub>j=1</sub> f(x)) / k     (7)
+
+此信用評分將影響每位評分人對電影評分的影響力。

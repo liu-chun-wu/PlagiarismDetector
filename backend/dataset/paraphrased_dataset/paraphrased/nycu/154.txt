@@ -1,0 +1,35 @@
+ChestX-ray14数据集的研究成果随着技术进步不断提升。下表比较了三项使用该数据集的研究方法：
+
+| 相关设定 | Wang et al. | Yao et al. | Rajpurkar et al. |
+|---|---|---|---|
+| 初始权重 | ImageNet | ImageNet | ImageNet |
+| 基础架构 | ResNet50 | DenseNet | DenseNet |
+| 删减/新增架构 | 1. 刪除原本作為輸出的全連接層<br>2. 新增Trasition Layer<br>3. 新增Gobal Pooling Layer | 1. 將DenseNet中的Dense block中的Conv block數量減至4<br>2. 使用LSTM方法取代原本CNN最後連接的神經網路 | 1. 刪除原本作為輸出的全連接層<br>2. 新增14維的全連接層作為輸出層 |
+| 輸入影像大小 | 1024x1024 | 512x512 | 224x224 |
+| 激勵函數 | - | Sigmoid | Sigmoid |
+| 損失函數 | 自定義損失函數 | W-CEL | Wang et al.提出的 W-CEL / 二元交叉熵 |
+| 優化演算法 | - | Adam | Adam |
+
+
+下表以AUC ROC作为评估指标，比较了三项研究在ChestX-ray14数据集上的结果。Rajpurkar等人提出的CheXNet算法在各项异常检测中均取得最佳结果。随着时间推移，新技术和CNN架构的出现使得研究结果不断进步，更复杂强大的CNN架构能够更深层地学习影像特征。表中也显示，输入影像大小与预测结果并非成正比，表明复杂的CNN架构也能从较小影像中提取有效特征。
+
+| 异常名称 / 研究 | Wang et al. (ResNet50) | Yao et al. (LSTM) | Rajpurkar et al. (CheXNet) |
+|---|---|---|---|
+| Atelectasis (肺不张) | 0.716 | 0.772 | 0.8094 |
+| Cardiomegaly (心脏肥大) | 0.807 | 0.904 | 0.9248 |
+| Effusion (肺积液) | 0.784 | 0.859 | 0.8638 |
+| Infiltration (肺浸润) | 0.609 | 0.695 | 0.7345 |
+| Mass (肿块) | 0.706 | 0.792 | 0.8676 |
+| Nodule (结节) | 0.671 | 0.717 | 0.7802 |
+| Pneumonia (肺炎) | 0.633 | 0.713 | 0.7680 |
+| Pneumothorax (气胸) | 0.806 | 0.841 | 0.8887 |
+| Consolidation (肺实变) | 0.708 | 0.788 | 0.7901 |
+| Edema (肺水肿) | 0.835 | 0.882 | 0.8878 |
+| Emphysema (肺气肿) | 0.815 | 0.829 | 0.9371 |
+| Fibrosis (纤维化) | 0.769 | 0.767 | 0.8047 |
+| Pleural_thickening (胸膜增厚) | 0.708 | 0.765 | 0.8062 |
+| Hernia (疝气) | 0.767 | 0.914 | 0.9164 |
+| 平均 | 0.738 | 0.802 | 0.8413 |
+
+
+本研究使用ChestX-ray14数据集，构建了一个可识别AP和PA影像的二元分类模型，并复现了Rajpurkar等人提出的CheXNet模型进行验证。此外，基于CheXNet架构，将数据按AP和PA影像分类，分别训练了识别14种胸腔异常的AP和PA模型。

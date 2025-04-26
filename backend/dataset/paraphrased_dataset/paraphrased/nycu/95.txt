@@ -1,0 +1,1 @@
+Tomas Mikolov 認為文本的向量表示應包含詞序或語義資訊，否則相同詞組的句子會被表示為相同的向量。Word2vec 考慮了詞序，將相似詞聚合。Doc2vec 借鑒 Word2vec 的訓練方法，衍生出處理文本的策略。PV-DM (Paragraph Vector: A distributed memory model) 和 DBOW (Distributed bag of words) 是 Doc2vec 的兩種主要模型，分別源自 Word2vec 的 CBOW 和 Skip-gram。它們在 Word2vec 模型的基礎上加入文章 ID 作為輸入，並從隱藏層權重中獲取標記向量。通過訓練詞序關係，得到文章向量矩陣，定義每個文章在空間中的位置。

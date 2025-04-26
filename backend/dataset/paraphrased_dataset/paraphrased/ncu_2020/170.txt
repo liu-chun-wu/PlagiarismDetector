@@ -1,0 +1,1 @@
+透過100Mbps頻寬網路傳輸100MB檔案，圖4-22顯示，基於TCP協定的SFTP和SMB在高延遲環境下傳輸時間增加，彼此差距不大。而採用UDP的Presto FS、Tsunami和Signiant，相比SMB，傳輸時間分別縮短了66%、76%和85%，Signiant效能最佳。圖4-23比較了WANem模擬與MPLS網路在0.1%封包遺失率下的效能差異。結果顯示，WANem模擬網路的傳輸時間與實際MPLS網路差異較大，表明MPLS網路的短期封包遺失率遠低於官方SLA(0.01%)。比較TCP軟體SFTP與UDP軟體Tsunami，SFTP在WANem與MPLS網路的效能差異明顯，而Tsunami因完成時間短，兩者差異不大，顯示UDP在嚴苛網路環境下表現良好。

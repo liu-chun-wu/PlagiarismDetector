@@ -1,0 +1,22 @@
+系統建置流程請參考圖12。首先，根據家用無線路由器的型號，至DD-WRT官方網站下載對應韌體(圖13)，並參考官方文件刷新路由器韌體。DD-WRT預設使用192.168.0.1作為有線網路IP，並自動分配Client IP。首次登入需設定帳號密碼(圖14)，建議避免使用安全性低的密碼。
+
+接著，進入設定->基礎設定->網路設定，根據表4.2設定基礎有線網路，並將OpenDNS的IP設定至DHCP上(圖15)。在無線網路->基礎設定中，啟用2.4G的Net Isolation以隔離出簡易DMZ區(圖16)。然後，進入伺服器->PPTP->PPTP伺服器，啟用PPTP伺服器並設定DHCP IP和使用者帳號(圖17)。
+
+在系統管理->指令中，輸入以下指令以強制DNS服務導向設備，避免使用者規避防禦機制(圖18)：
+
+```
+iptables -t nat -A PREROUTING -i br0 -p udp --dport 53 -j DNAT --to &(nvram get lan_ipaddr)
+iptables -t nat -A PREROUTING -i br0 -p tcp --dport 53 -j DNAT --to &(nvram get lan_ipaddr)
+iptables -t nat -A PREROUTING -i ath0 -p udp --dport 53 -j DNAT --to &(nvram get lan_ipaddr)
+iptables -t nat -A PREROUTING -i ath0 -p tcp --dport 53 -j DNAT --to &(nvram get lan_ipaddr)
+```
+
+並新增以下指令，實現對受限網路的單方向存取：
+
+```
+iptables -I FORWARD -s 192.168.0.0/24 -j logaccept
+iptables -I FORWARD -s 10.0.100.0/24 -j logaccept
+```
+點擊儲存防火牆指令。
+
+完成DD-WRT設定後，至OpenDNS官方網站(https://www.opendns.com/)申請帳號並設定策略(圖19)。根據IP類型(固定或動態)將家用IP新增至帳戶，設定安全策略並開啟Botnet、Malware和釣魚網站防禦功能(圖20)。

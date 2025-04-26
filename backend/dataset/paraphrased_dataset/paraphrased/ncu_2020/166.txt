@@ -1,0 +1,30 @@
+本研究使用 VMware Player 的 NAT 網路，以 Ubuntu 12.4 系統的 Client 與 Server，搭配 WANem 模擬廣域網路環境。Client、Server 和 WANem 位於相同網段，IP 分別為 192.168.190.131、192.168.190.130 和 192.168.190.132。
+
+
+為使 Client 與 Server 的網路流量通過 WANem，需設定路由：
+
+
+在 Server 執行：`route add -host 192.168.190.131 netmask 0.0.0.0 gw 192.168.190.132`
+
+在 Client 執行：`route add -host 192.168.190.130 netmask 0.0.0.0 gw 192.168.190.132`
+
+
+透過 `traceroute 192.168.190.130` (Client) 和 `traceroute 192.168.190.131` (Server) 可驗證封包經由 WANem (192.168.190.132)。
+
+
+設定 WANem：
+
+
+1. 瀏覽器開啟 http://192.168.190.132/WANem
+2. 選擇 Basic Mode
+3. 設定 Delay time（ms）為 100，模擬 100ms 網路延遲
+4. 點擊 "Apply settings"
+
+
+驗證延遲：
+
+
+在 Client 和 Server 分別 ping 對方 IP，預期延遲時間超過 200ms，因為封包往返皆經過 WANem，各增加 100ms 延遲。
+
+
+至此，實驗環境建置完成，可開始進行軟體測試。

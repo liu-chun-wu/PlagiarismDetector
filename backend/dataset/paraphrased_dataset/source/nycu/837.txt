@@ -1,0 +1,1 @@
+In real embroidery, stitches are sewed in fabric canvas. People usually use silk, linen, cotton cloth as embroidery canvas as shown in Figure 3.20. We use these images as texture and map to background.

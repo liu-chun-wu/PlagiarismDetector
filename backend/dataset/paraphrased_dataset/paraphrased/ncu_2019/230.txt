@@ -1,0 +1,1 @@
+因研究中各評估指標尺度不同，為便於比較，將數據正規化，使其成為純數值且落在特定區間。正規化方法包括Min-max scaling和Z-score normalization。Min-max scaling將數據線性轉換至0到1之間，適用於最大值和最小值固定的數據。Z-score normalization則基於統計概念，以標準差為單位，適用於最大值和最小值未知或存在離群值的情況。本研究因已知所有投資組合評估指標數值，故採用Min-max scaling。

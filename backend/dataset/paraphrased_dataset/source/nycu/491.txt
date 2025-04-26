@@ -1,0 +1,1 @@
+本論文的實驗參數設定如下：  Batch Size 為30  訓練的Epoch 為60，每次Epoch 會包含394 個Mini Batch  訓練時的Learning Rate 設為0.0001，Decay Rate 設為0.99  Fine-tuning 時Learning Rate 設為0.0001，Decay Rate 設為0  Loss Function 中所使用的𝑁∗，若是沒有特別提及時則是設為3。

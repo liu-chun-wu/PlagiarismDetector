@@ -1,0 +1,1 @@
+本研究以python 語言撰寫程式，於Anaconda 環境下進行模擬。開發環 境參數如所示 表 4.1 開發環境參數 項目 規格 處理器 Intel(R) Core(TM)i7-6700HQ CPU2.60 GHz 記憶體 8GB 作業系統 Window 10 顯示卡 NVIDIA GeForce GTX 950M 軟體工具 Tensorflow 1.12.0 Jupyter Notebook

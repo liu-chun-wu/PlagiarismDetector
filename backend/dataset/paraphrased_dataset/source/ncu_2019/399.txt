@@ -1,0 +1,1 @@
+本研究採用自適應網路的架構，總共有六個階層，依序為：輸入層（Input layer）、 球型複數模糊集合層（Sphere complex fuzzy set layer）、前鑑部層（Premise layer）、 正規化層（Normalization layer）、後鑑部層（Takagi-Sugeno layer）與輸出層（Output layer），系統架構如圖3 所示，各層的功能將於以下進行詳細的說明。 特徵選取對智慧型時間序列預測之效能研究 研究方法 研究生：陸怡廷 指導教授：李俊賢博士 圖 3：球型複數類神經模糊系統架構

@@ -1,0 +1,1 @@
+本研究基於Linux系統的Ubuntu 16.04作業系統，使用搭載GTX 1080顯示卡的環境進行開發。程式語言採用Python 2.7，並使用深度學習套件PyTorch (版本0.4.0) 建構模型。資料預處理則運用自然語言處理套件NLTK和數值處理套件Numpy。研究結果以Matplotlib繪製成折線圖和散佈圖，最後使用Python的Pickle套件匯出保存數據。PyTorch是Facebook於2017年發佈，以Python為主的深度學習框架。相較於當時TensorFlow 1.4.0及以前版本僅支援靜態計算圖，PyTorch發佈初期即支援動態計算圖，更具彈性與自由度。其API與Numpy相似，易於上手。因此，PyTorch迅速受到歡迎，尤其在學術研究領域被廣泛使用。

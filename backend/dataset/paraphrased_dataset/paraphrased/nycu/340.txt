@@ -1,0 +1,1 @@
+Batch Normalization (Ioffe & Szegedy, 2015)利用小批量標準化加速深度學習網絡訓練。Dropout則用於防止模型過擬合，它在每次訓練過程中隨機捨棄一部分神經元。過擬合的現象是在訓練集上表現良好，但在測試集上表現較差。Early Stopping通過監控驗證集上的loss，當loss開始增加時提前結束訓練，避免浪費時間和資源。

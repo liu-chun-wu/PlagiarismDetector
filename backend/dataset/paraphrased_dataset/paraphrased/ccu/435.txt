@@ -1,0 +1,3 @@
+Cristinacce and Cootes (2006) 提出的 Template Selection Tracker (TST) 臉部特徵偵測方法，首先手動標記訓練資料庫，生成形狀並計算平均形狀。處理新影像時，先將平均形狀套用至影像，接著 (1) 使用 KNN 找出資料庫中最相近的 K 個 template，並以正規化影像相關找出其中紋理最相似者；(2) 使用 Shape Constrained Template Search 方法，根據訓練資料參數優化影像，更新形狀參數；重複 (1)(2) 直到座標點收斂。
+
+之後，Cristinacce and Cootes (2006) 將 KNN 改為 Constrained Local Appearance Models，將訓練資料參數化，以公式 x = x̅ + 𝑃𝑠𝑏𝑠, 𝑔 = g̅ + 𝑃𝑔𝑏𝑔  (2.4) 表示，其中 x̅ 為平均形狀，g̅ 為平均灰階向量，𝑃𝑠 為正交形狀變化量，𝑏𝑠 為形狀參數，𝑃𝑔 為正交灰階變化量，𝑏𝑔 為灰階參數。結合兩者，得到公式 b = 𝑃𝑐𝑐, 𝑃𝑐 = (𝑃𝑐𝑠 𝑃𝑐𝑔), 𝑏 = (𝑊𝑠𝑏𝑠 𝑏𝑔) (2.5)。調整 c 的權重即可得到不同的人臉模型。
