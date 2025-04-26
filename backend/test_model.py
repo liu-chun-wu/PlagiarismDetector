@@ -2,9 +2,9 @@ import os
 from dotenv import load_dotenv
 from model.check_rephrase_content import *
 from model.check_generate_content import *
-from pdf_processor.pdf_cutter import *
-from pdf_processor.json_to_array import *
-from pdf_processor.array_to_json import *
+from pdf_processor_SogoChang.pdf_cutter import *
+from pdf_processor_SogoChang.json_to_array import *
+from pdf_processor_SogoChang.array_to_json import *
 # ✅ 初始化：讀取環境變數與定義全域常數
 load_dotenv()
 

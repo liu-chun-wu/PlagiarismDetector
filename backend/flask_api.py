@@ -5,9 +5,9 @@ import random
 from dotenv import load_dotenv
 from model.check_rephrase_content import *
 from model.check_generate_content import *
-from pdf_processor.pdf_cutter import *
-from pdf_processor.json_to_array import *
-from pdf_processor.array_to_json import *
+from pdf_processor_SogoChang.pdf_cutter import *
+from pdf_processor_SogoChang.json_to_array import *
+from pdf_processor_SogoChang.array_to_json import *
 import logging
 
 from flask import request, jsonify

@@ -17,6 +17,7 @@ services:
       - BACKEND_API_URL_PDF_REPHRASE=${BACKEND_API_URL_PDF_REPHRASE}
     volumes:
       - ./backend:/app
+      - ./nginx_logs:/var/log/nginx  # 🔥 將容器內的 log 掛載到本機
     working_dir: /app
     entrypoint: ["/bin/bash", "/app/entrypoint.sh"]
     env_file:
@@ -31,6 +32,11 @@ services:
     runtime: nvidia
     networks:
       - plagiarism-detector-network
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: backend.log
 
   frontend:
     build:
@@ -50,10 +56,51 @@ services:
       - backend
     volumes:
       - static_volume:/usr/share/nginx/html/static
+      - ./nginx_logs:/var/log/nginx  # 🔥 將容器內的 log 掛載到本機
     env_file:
       - .env
     networks:
       - plagiarism-detector-network
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: frontend.log
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    networks:
+      - plagiarism-detector-network
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.0
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - SERVER_PUBLICBASEURL=http://140.115.54.123:5601  # 👈 就加這行
+    networks:
+      - plagiarism-detector-network
+
+  fluentd:
+    build: ./fluentd
+    container_name: fluentd
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    volumes:
+      - ./fluentd/fluent.conf:/fluentd/etc/fluent.conf
+      - ./nginx_logs:/fluentd/nginxlog:ro  # 🔥 提供 log 給 fluentd
+    networks:
+      - plagiarism-detector-network
+
 
 volumes:
   static_volume:

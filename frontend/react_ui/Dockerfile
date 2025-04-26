@@ -47,6 +47,8 @@ COPY --from=builder /app/dist .
 # 複製自訂的 Nginx 設定（確保 React 路由工作）
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+RUN mkdir -p /var/log/nginx
+
 # 開放 8080 端口（HTTP）
 EXPOSE 8080
 
