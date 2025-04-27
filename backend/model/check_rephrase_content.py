@@ -23,8 +23,8 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 # For calling GPT-4o
 from openai import OpenAI
 
-device = torch.device("cuda:0")
-torch.cuda.set_device(0)
+device = torch.device("cuda:1")
+torch.cuda.set_device(1)
 print(f"Using device: {device}")
 
 # ========== DEMO AI Detector Model Setup ==========
@@ -163,7 +163,7 @@ def build_vector_db(dirs_list: List[str]):
 
     embedding_model = HuggingFaceEmbeddings(
         model_name="intfloat/multilingual-e5-base",
-        model_kwargs={"device": "cuda:0"})
+        model_kwargs={"device": "cuda:1"})
 
     for pages_dir in dirs_list:
         processed_files = 0
@@ -200,7 +200,7 @@ def build_vector_db(dirs_list: List[str]):
 # 5) CrossEncoder for re-ranking
 # ===============================================================
 cross_encoder_model = "BAAI/bge-reranker-v2-m3"
-cross_encoder = CrossEncoder(cross_encoder_model, device="cuda:0")
+cross_encoder = CrossEncoder(cross_encoder_model, device="cuda:1")
 
 
 # ===============================================================

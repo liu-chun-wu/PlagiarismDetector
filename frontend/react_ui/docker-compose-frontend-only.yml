@@ -12,6 +12,7 @@ services:
         VITE_API_URL_PDF_REPHRASED: ${VITE_API_URL_PDF_REPHRASED}
         VITE_API_URL_PDF_GENERATED: ${VITE_API_URL_PDF_GENERATED}
     container_name: react-frontend
+    restart: always
     ports:
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
     env_file:

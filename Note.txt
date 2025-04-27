@@ -9,14 +9,9 @@ docker run -d -p 8080:8080 --name front1 frontend:v1
 
 docker-compose -f docker-compose-backend-only.yml up --build -d
 docker-compose -f docker-compose-backend-only.yml down
-docker logs flask-backend
 
 docker-compose -f docker-compose-frontend-only.yml up --build -d
 docker-compose -f docker-compose-frontend-only.yml down
-docker logs flask-backend
-
-docker logs plagiarismdetector-backend
-docker logs plagiarismdetector-frontend
 
 docker ps -a
 docker images -a
@@ -24,7 +19,14 @@ docker images -a
 docker rm $(docker ps -aq)
 docker rmi $(docker images -q)
 
+# 1. 清掉 dangling images (build 後沒用到的 image 本身)
 docker images -f "dangling=true" -q | xargs docker rmi -f
+
+# 2. 清掉 build cache (build 時的 intermediate layer)
+docker builder prune -f
+
+# 3. 清掉沒用的 containers/images/volumes(要小心)
+docker system prune -a --volumes -f
 
 docker start vm1
 docker stop vm1
@@ -47,3 +49,9 @@ docker push jeffery426/plagiarismdetector-frontend:latest
 
 docker pull jeffery426/plagiarismdetector-backend:latest
 docker pull jeffery426/plagiarismdetector-frontend:latest
+
+docker logs plagiarismdetector-backend
+docker logs plagiarismdetector-frontend
+docker logs fluentd
+docker logs elasticsearch
+docker logs kibana

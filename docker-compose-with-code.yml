@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.8"
 
 services:
   backend:
@@ -17,7 +17,7 @@ services:
       - BACKEND_API_URL_PDF_REPHRASE=${BACKEND_API_URL_PDF_REPHRASE}
     volumes:
       - ./backend:/app
-      - ./nginx_logs:/var/log/nginx  # 🔥 將容器內的 log 掛載到本機
+      - ./nginx_logs:/var/log/nginx
     working_dir: /app
     entrypoint: ["/bin/bash", "/app/entrypoint.sh"]
     env_file:
@@ -37,6 +37,13 @@ services:
       options:
         fluentd-address: localhost:24224
         tag: backend.log
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      fluentd:
+        condition: service_started
+      kibana:
+        condition: service_healthy
 
   frontend:
     build:
@@ -53,10 +60,11 @@ services:
     ports:
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
     depends_on:
-      - backend
+      backend:
+        condition: service_started
     volumes:
       - static_volume:/usr/share/nginx/html/static
-      - ./nginx_logs:/var/log/nginx  # 🔥 將容器內的 log 掛載到本機
+      - ./nginx_logs:/var/log/nginx
     env_file:
       - .env
     networks:
@@ -77,6 +85,12 @@ services:
       - "9200:9200"
     networks:
       - plagiarism-detector-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
 
   kibana:
     image: docker.elastic.co/kibana/kibana:7.17.0
@@ -85,9 +99,18 @@ services:
       - "5601:5601"
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      - SERVER_PUBLICBASEURL=http://140.115.54.123:5601  # 👈 就加這行
+      - SERVER_PUBLICBASEURL=http://140.115.54.162:5601
     networks:
       - plagiarism-detector-network
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5601/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
 
   fluentd:
     build: ./fluentd
@@ -97,10 +120,12 @@ services:
       - "24224:24224/udp"
     volumes:
       - ./fluentd/fluent.conf:/fluentd/etc/fluent.conf
-      - ./nginx_logs:/fluentd/nginxlog:ro  # 🔥 提供 log 給 fluentd
+      - ./nginx_logs:/fluentd/nginxlog:ro
     networks:
       - plagiarism-detector-network
-
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
 
 volumes:
   static_volume:
