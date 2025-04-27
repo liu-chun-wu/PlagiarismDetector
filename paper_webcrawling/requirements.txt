@@ -43,7 +43,7 @@ requests @ file:///croot/requests_1730999120400/work
 ruamel.yaml @ file:///croot/ruamel.yaml_1727980156079/work
 ruamel.yaml.clib @ file:///croot/ruamel.yaml.clib_1727769819935/work
 safetensors==0.5.3
-scikit-learn==1.3.1
+scikit-learn==1.5.1
 scipy==1.15.1
 setuptools==75.1.0
 six==1.17.0
