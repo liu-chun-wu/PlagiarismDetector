@@ -141,33 +141,52 @@ def extract_sections(pdf_path, output_dir, text_counter, toc_sections, all_texts
     return text_counter
 
 def merge(f_counter, t_counter, output_dir, all_texts):
+    result = []
+    content = ""
     end_counter = t_counter - 1
     cut1 = end_counter // 3
     cut2 = cut1 * 2
     
-    txt_filename = f"{f_counter}.txt"
-    txt_path = os.path.join(output_dir, txt_filename)
-    with open(txt_path, "w", encoding="utf-8") as txt_file:
-        for i in range(cut1):
-            txt_file.write(all_texts[i].strip() + "\n\n")
-    print(f"Section saved to {txt_path}")
-    f_counter += 1
+    for i in range(cut1):
+        content = content + all_texts[i].strip() + "\n\n"
+    result.append(content)
+    content = ""
 
-    txt_filename = f"{f_counter}.txt"
-    txt_path = os.path.join(output_dir, txt_filename)
-    with open(txt_path, "w", encoding="utf-8") as txt_file:
-        for i in range(cut1, cut2):
-            txt_file.write(all_texts[i].strip() + "\n\n")
-    print(f"Section saved to {txt_path}")
-    f_counter += 1
+    for i in range(cut1, cut2):
+        content = content + all_texts[i].strip() + "\n\n"
+    result.append(content)
+    content = ""
 
-    txt_filename = f"{f_counter}.txt"
-    txt_path = os.path.join(output_dir, txt_filename)
-    with open(txt_path, "w", encoding="utf-8") as txt_file:
-        for i in range(cut2, end_counter):
-            txt_file.write(all_texts[i].strip() + "\n\n")
-    print(f"Section saved to {txt_path}")
-    f_counter += 1
+    for i in range(cut2, end_counter):
+        content = content + all_texts[i].strip() + "\n\n"
+    result.append(content)
+    content = ""
+
+    # txt_filename = f"{f_counter}.txt"
+    # txt_path = os.path.join(output_dir, txt_filename)
+    # with open(txt_path, "w", encoding="utf-8") as txt_file:
+    #     for i in range(cut1):
+    #         txt_file.write(all_texts[i].strip() + "\n\n")
+    # print(f"Section saved to {txt_path}")
+    # f_counter += 1
+
+    # txt_filename = f"{f_counter}.txt"
+    # txt_path = os.path.join(output_dir, txt_filename)
+    # with open(txt_path, "w", encoding="utf-8") as txt_file:
+    #     for i in range(cut1, cut2):
+    #         txt_file.write(all_texts[i].strip() + "\n\n")
+    # print(f"Section saved to {txt_path}")
+    # f_counter += 1
+
+    # txt_filename = f"{f_counter}.txt"
+    # txt_path = os.path.join(output_dir, txt_filename)
+    # with open(txt_path, "w", encoding="utf-8") as txt_file:
+    #     for i in range(cut2, end_counter):
+    #         txt_file.write(all_texts[i].strip() + "\n\n")
+    # print(f"Section saved to {txt_path}")
+    # f_counter += 1
+
+    return result
 
 
 def extract(input_dir, output_dir):
@@ -183,4 +202,4 @@ def extract(input_dir, output_dir):
         toc_sections = extract_toc_sections(pdf_path)  # 先讀取目錄
         text_counter = extract_sections(pdf_path, output_dir, text_counter, toc_sections, all_texts)
 
-    merge(file_counter, text_counter, output_dir, all_texts)
+    return merge(file_counter, text_counter, output_dir, all_texts)
