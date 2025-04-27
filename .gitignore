@@ -3,3 +3,4 @@ paper_webcrawling/paper/
 dataset/
 output.txt
 uploaded_pdfs/
+nginx_logs/
