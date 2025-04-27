@@ -23,7 +23,7 @@ def extract_toc_sections(pdf_path):
     
     return toc_sections
 
-def extract_sections(pdf_path, output_dir, text_counter, toc_sections, index_records):
+def extract_sections(pdf_path, output_dir, text_counter, toc_sections, all_texts):
     """從內文中抓取對應章節名稱的完整段落，不包含目錄內容與標題，支援跨頁處理。"""
     doc = fitz.open(pdf_path)
     extracting = False
@@ -140,7 +140,7 @@ def extract_sections(pdf_path, output_dir, text_counter, toc_sections, index_rec
     
     return text_counter
 
-def merge(f_counter, t_counter):
+def merge(f_counter, t_counter, output_dir, all_texts):
     end_counter = t_counter - 1
     cut1 = end_counter // 3
     cut2 = cut1 * 2
@@ -169,26 +169,18 @@ def merge(f_counter, t_counter):
     print(f"Section saved to {txt_path}")
     f_counter += 1
 
-# 設定輸入與輸出目錄
-input_dir = ""
-output_dir = ""
-index_file = os.path.join(output_dir, "index.txt")
 
-os.makedirs(output_dir, exist_ok=True)
-pdf_files = [f for f in os.listdir(input_dir) if re.match(r'.+\.pdf$', f)]
-text_counter = 1
-file_counter = 1
-index_records = []
-all_texts = []
+def extract(input_dir, output_dir):
 
-for pdf in pdf_files:
-    pdf_path = os.path.join(input_dir, pdf)
-    toc_sections = extract_toc_sections(pdf_path)  # 先讀取目錄
-    text_counter = extract_sections(pdf_path, output_dir, text_counter, toc_sections, index_records)
+    os.makedirs(output_dir, exist_ok=True)
+    pdf_files = [f for f in os.listdir(input_dir) if re.match(r'.+\.pdf$', f)]
+    text_counter = 1
+    file_counter = 1
+    all_texts = []
 
-merge(file_counter, text_counter)
+    for pdf in pdf_files:
+        pdf_path = os.path.join(input_dir, pdf)
+        toc_sections = extract_toc_sections(pdf_path)  # 先讀取目錄
+        text_counter = extract_sections(pdf_path, output_dir, text_counter, toc_sections, all_texts)
 
-# 輸出 index.txt
-# with open(index_file, "w", encoding="utf-8") as index_f:
-#     index_f.write("\n".join(index_records))
-# print(f"Index saved to {index_file}")
+    merge(file_counter, text_counter, output_dir, all_texts)

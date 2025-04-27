@@ -6,4 +6,4 @@
 
 ## 使用
 - 安裝```pip install PyMuPDF```
-- 修改第173、174行輸入以及輸出的目錄即可
+- call這個function```extract(儲存檔案的目錄, 檔案輸出的目錄)```
