@@ -23,7 +23,7 @@ def extract_toc_sections(pdf_path):
     
     return toc_sections
 
-def extract_sections(pdf_path, output_dir, text_counter, toc_sections, index_records):
+def extract_sections(pdf_path, output_dir, text_counter, toc_sections, all_texts):
     """從內文中抓取對應章節名稱的完整段落，不包含目錄內容與標題，支援跨頁處理。"""
     doc = fitz.open(pdf_path)
     extracting = False
@@ -140,55 +140,66 @@ def extract_sections(pdf_path, output_dir, text_counter, toc_sections, index_rec
     
     return text_counter
 
-def merge(f_counter, t_counter):
+def merge(f_counter, t_counter, output_dir, all_texts):
+    result = []
+    content = ""
     end_counter = t_counter - 1
     cut1 = end_counter // 3
     cut2 = cut1 * 2
     
-    txt_filename = f"{f_counter}.txt"
-    txt_path = os.path.join(output_dir, txt_filename)
-    with open(txt_path, "w", encoding="utf-8") as txt_file:
-        for i in range(cut1):
-            txt_file.write(all_texts[i].strip() + "\n\n")
-    print(f"Section saved to {txt_path}")
-    f_counter += 1
+    for i in range(cut1):
+        content = content + all_texts[i].strip() + "\n\n"
+    result.append(content)
+    content = ""
 
-    txt_filename = f"{f_counter}.txt"
-    txt_path = os.path.join(output_dir, txt_filename)
-    with open(txt_path, "w", encoding="utf-8") as txt_file:
-        for i in range(cut1, cut2):
-            txt_file.write(all_texts[i].strip() + "\n\n")
-    print(f"Section saved to {txt_path}")
-    f_counter += 1
+    for i in range(cut1, cut2):
+        content = content + all_texts[i].strip() + "\n\n"
+    result.append(content)
+    content = ""
 
-    txt_filename = f"{f_counter}.txt"
-    txt_path = os.path.join(output_dir, txt_filename)
-    with open(txt_path, "w", encoding="utf-8") as txt_file:
-        for i in range(cut2, end_counter):
-            txt_file.write(all_texts[i].strip() + "\n\n")
-    print(f"Section saved to {txt_path}")
-    f_counter += 1
+    for i in range(cut2, end_counter):
+        content = content + all_texts[i].strip() + "\n\n"
+    result.append(content)
+    content = ""
 
-# 設定輸入與輸出目錄
-input_dir = ""
-output_dir = ""
-index_file = os.path.join(output_dir, "index.txt")
+    # txt_filename = f"{f_counter}.txt"
+    # txt_path = os.path.join(output_dir, txt_filename)
+    # with open(txt_path, "w", encoding="utf-8") as txt_file:
+    #     for i in range(cut1):
+    #         txt_file.write(all_texts[i].strip() + "\n\n")
+    # print(f"Section saved to {txt_path}")
+    # f_counter += 1
 
-os.makedirs(output_dir, exist_ok=True)
-pdf_files = [f for f in os.listdir(input_dir) if re.match(r'.+\.pdf$', f)]
-text_counter = 1
-file_counter = 1
-index_records = []
-all_texts = []
+    # txt_filename = f"{f_counter}.txt"
+    # txt_path = os.path.join(output_dir, txt_filename)
+    # with open(txt_path, "w", encoding="utf-8") as txt_file:
+    #     for i in range(cut1, cut2):
+    #         txt_file.write(all_texts[i].strip() + "\n\n")
+    # print(f"Section saved to {txt_path}")
+    # f_counter += 1
 
-for pdf in pdf_files:
-    pdf_path = os.path.join(input_dir, pdf)
-    toc_sections = extract_toc_sections(pdf_path)  # 先讀取目錄
-    text_counter = extract_sections(pdf_path, output_dir, text_counter, toc_sections, index_records)
+    # txt_filename = f"{f_counter}.txt"
+    # txt_path = os.path.join(output_dir, txt_filename)
+    # with open(txt_path, "w", encoding="utf-8") as txt_file:
+    #     for i in range(cut2, end_counter):
+    #         txt_file.write(all_texts[i].strip() + "\n\n")
+    # print(f"Section saved to {txt_path}")
+    # f_counter += 1
 
-merge(file_counter, text_counter)
+    return result
 
-# 輸出 index.txt
-# with open(index_file, "w", encoding="utf-8") as index_f:
-#     index_f.write("\n".join(index_records))
-# print(f"Index saved to {index_file}")
+
+def extract(input_dir, output_dir):
+
+    os.makedirs(output_dir, exist_ok=True)
+    pdf_files = [f for f in os.listdir(input_dir) if re.match(r'.+\.pdf$', f)]
+    text_counter = 1
+    file_counter = 1
+    all_texts = []
+
+    for pdf in pdf_files:
+        pdf_path = os.path.join(input_dir, pdf)
+        toc_sections = extract_toc_sections(pdf_path)  # 先讀取目錄
+        text_counter = extract_sections(pdf_path, output_dir, text_counter, toc_sections, all_texts)
+
+    return merge(file_counter, text_counter, output_dir, all_texts)
