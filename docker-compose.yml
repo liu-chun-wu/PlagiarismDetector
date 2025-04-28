@@ -81,6 +81,9 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    restart: always
+    mem_limit: 2g
     ports:
       - "9200:9200"
     networks:
@@ -95,6 +98,7 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:7.17.0
     container_name: kibana
+    restart: always
     ports:
       - "5601:5601"
     environment:
@@ -115,6 +119,7 @@ services:
   fluentd:
     build: ./fluentd
     container_name: fluentd
+    restart: always
     ports:
       - "24224:24224"
       - "24224:24224/udp"
