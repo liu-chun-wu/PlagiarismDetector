@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "@/Sidebar";
 import ScanGenerate from "@/ScanGenerate";
-import ScanRephrase from "@/ScanRephrase";
+import ScanParaphrase from "@/ScanParaphrase";
 import Intro from '@/Intro';
 // import MyScans from "./pages/MyScans";
 // import Shared from "./pages/Shared";
@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Intro />} />
             <Route path="/intro" element={<Intro />} />
-            <Route path="/scan_rephrase" element={<ScanRephrase />} />
+            <Route path="/scan_rephrase" element={<ScanParaphrase />} />
             <Route path="/scan_generate" element={<ScanGenerate />} />
           </Routes>
         </div>

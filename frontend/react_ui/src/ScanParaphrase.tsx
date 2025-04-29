@@ -16,7 +16,7 @@ const Skeleton = ({ className }: { className?: string }) => {
     );
 };
 
-export default function ScanRephrase() {
+export default function ScanParaphrase() {
     const [uploaded, setUploaded] = useState<boolean>(false);
     const [aiContent, setAiContent] = useState<number>(100);
     const [confidenceScore, setConfidenceScore] = useState<number>(100);
@@ -167,7 +167,7 @@ export default function ScanRephrase() {
     return (
         <div className="flex min-h-screen bg-gray-100">
             <main className="flex-1 p-8">
-                <h1 className="text-4xl font-bold text-center text-blue-700 mb-6">Detect AI Rephrased Content</h1>
+                <h1 className="text-4xl font-bold text-center text-blue-700 mb-6">Detect AI Paraphrased Content</h1>
                 {loading ? (
                     <Card className="p-6 max-w-3xl mx-auto">
                         <CardContent className="mt-4 space-y-6">

@@ -3,7 +3,7 @@ from flask_cors import CORS
 import os
 import random
 from dotenv import load_dotenv
-from model.check_rephrase_content import *
+from model.check_paraphrase_content import *
 from model.check_generate_content import *
 from pdf_processor_SogoChang.pdf_cutter import *
 from pdf_processor_SogoChang.json_to_array import *
