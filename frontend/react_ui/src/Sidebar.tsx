@@ -10,7 +10,7 @@ export default function Sidebar() {
                     <Link to="/intro">Intro</Link>
                 </Button>
                 <Button variant="ghost" className="w-full text-left">
-                    <Link to="/scan_rephrase">Scan AI Rephrase</Link>
+                    <Link to="/scan_rephrase">Scan AI Paraphrase</Link>
                 </Button>
                 <Button variant="ghost" className="w-full text-left">
                     <Link to="/scan_generate">Scan AI Generate</Link>

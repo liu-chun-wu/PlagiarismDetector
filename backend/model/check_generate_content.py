@@ -6,6 +6,8 @@
 # !python -m spacy download zh_core_web_sm
 # !pip install -U langchain-community
 
+# spaCy need python 3.12
+
 # ================================================================
 # (1) Imports
 # ================================================================
