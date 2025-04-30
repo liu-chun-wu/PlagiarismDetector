@@ -47,7 +47,7 @@ def analyze_content_with_gemini(pdf_path,
     """使用 Gemini 分析 PDF 頁面內容並進行段落分割"""
 
     # 設置模型
-    client = genai.Client(api_key=api_key)
+    genai.configure(api_key=api_key)
 
     # 準備提示
     prompt = """請分析這個 PDF 頁面的內容，但僅關注說明型文章的部分。
@@ -58,7 +58,7 @@ def analyze_content_with_gemini(pdf_path,
     - 數學公式和推導過程
     - 目錄、索引和參考文獻
     - 表格內容和表格說明
-    - 圖表標籤和圖表說明
+    - 図表標籤和圖表說明
     - 代碼片段
     - 作者資訊和單純的標題
     - 文件截圖
@@ -74,28 +74,20 @@ def analyze_content_with_gemini(pdf_path,
     """
 
     if use_image:
-        # 使用圖像方式（保留完整排版和視覺元素）
         img = extract_page_as_image(pdf_path, page_number)
-
-        # 使用 Gemini 的多模態功能分析內容
-        response = client.models.generate_content(
-            model="gemini-2.0-flash-lite",
-            contents=[img],
-            config=types.GenerateContentConfig(max_output_tokens=10000,
-                                               temperature=0.5,
-                                               system_instruction=prompt))
-
+        model = genai.GenerativeModel("gemini-2.0-flash-lite")
+        response = model.generate_content(
+            [prompt, img],
+            generation_config=genai.types.GenerationConfig(
+                max_output_tokens=10000, temperature=0.5))
     else:
-        # 使用文本方式（可能丟失一些排版信息）
         text = extract_page_as_text(pdf_path, page_number)
+        model = genai.GenerativeModel("gemini-2.0-flash-lite")
+        response = model.generate_content(
+            [prompt, text],
+            generation_config=genai.types.GenerationConfig(
+                max_output_tokens=10000, temperature=0.5))
 
-        # 添加文本到提示中
-        response = client.models.generate_content(
-            model="gemini-2.0-flash-lite",
-            contents=[text],
-            config=types.GenerateContentConfig(max_output_tokens=10000,
-                                               temperature=0.5,
-                                               system_instruction=prompt))
     time.sleep(2)
     return response.text
 
@@ -152,10 +144,8 @@ def extract_filtered_paragraphs(analysis_result):
 
 def check_paragraph_continuity(paragraph1, paragraph2, api_key):
     """檢查兩個段落連接起來是否合理"""
-    # 設置模型
-    client = genai.Client(api_key=api_key)
+    genai.configure(api_key=api_key)
 
-    # 準備提示
     prompt = """請判斷以下兩個段落是否是連續的內容，應該合併為同一段落。
 
 段落1:
@@ -172,20 +162,14 @@ def check_paragraph_continuity(paragraph1, paragraph2, api_key):
 請只回覆 "是" 或 "否"，不要解釋原因。
 """
 
-    # 填入段落
     filled_prompt = prompt.format(paragraph1=paragraph1, paragraph2=paragraph2)
+    model = genai.GenerativeModel("gemini-2.0-flash-lite")
+    response = model.generate_content(
+        [filled_prompt],
+        generation_config=genai.types.GenerationConfig(max_output_tokens=10,
+                                                       temperature=0.1))
 
-    # 使用Gemini分析
-    response = client.models.generate_content(
-        model="gemini-2.0-flash-lite",
-        contents=[filled_prompt],
-        config=types.GenerateContentConfig(max_output_tokens=10,
-                                           temperature=0.1))
-
-    # 等待一下以避免API限制
     time.sleep(2)
-
-    # 獲取回答並判斷
     answer = response.text.strip().lower()
     return "是" in answer
 
