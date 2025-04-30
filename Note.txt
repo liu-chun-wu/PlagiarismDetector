@@ -25,6 +25,10 @@ docker exec -it vm1 bash
 docker-compose up --build -d
 docker-compose down
 
+
+docker-compose -f docker-compose-backend-only.yml up --build -d
+docker-compose -f docker-compose-backend-only.yml down
+
 # restart container
 docker-compose restart plagiarismdetector-backend
 

@@ -12,17 +12,17 @@ RUN npm install --no-audit --no-fund
 # 定義 ARG 變數（用來接收 `docker build --build-arg` 傳遞的變數）
 ARG FRONTEND_PORT
 ARG VITE_API_URL_BACKEND
-ARG VITE_API_URL_TEXT_REPHRASED
+ARG VITE_API_URL_TEXT_PARAPHRASED
 ARG VITE_API_URL_TEXT_GENERATED
-ARG VITE_API_URL_PDF_REPHRASED
+ARG VITE_API_URL_PDF_PARAPHRASED
 ARG VITE_API_URL_PDF_GENERATED
 
 # 讓 Vite 讀取 ARG 變數（建立 `.env.production`）
 RUN echo "FRONTEND_PORT=${FRONTEND_PORT}" > .env.production && \
     echo "VITE_API_URL_BACKEND=${VITE_API_URL_BACKEND}" >> .env.production && \
-    echo "VITE_API_URL_TEXT_REPHRASED=${VITE_API_URL_TEXT_REPHRASED}" >> .env.production && \
+    echo "VITE_API_URL_TEXT_PARAPHRASED=${VITE_API_URL_TEXT_PARAPHRASED}" >> .env.production && \
     echo "VITE_API_URL_TEXT_GENERATED=${VITE_API_URL_TEXT_GENERATED}" >> .env.production && \
-    echo "VITE_API_URL_PDF_REPHRASED=${VITE_API_URL_PDF_REPHRASED}" >> .env.production && \
+    echo "VITE_API_URL_PDF_PARAPHRASED=${VITE_API_URL_PDF_PARAPHRASED}" >> .env.production && \
     echo "VITE_API_URL_PDF_GENERATED=${VITE_API_URL_PDF_GENERATED}" >> .env.production 
 
 # 複製其餘專案檔案（避免 node_modules 被複製）

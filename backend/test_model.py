@@ -11,9 +11,9 @@ load_dotenv()
 REQUIRED_ENV_VARS = [
     "OPENAI_APIKEY",
     "BACKEND_API_URL_TEXT_GENERATE",
-    "BACKEND_API_URL_TEXT_REPHRASE",
+    "BACKEND_API_URL_TEXT_PARAPHRASE",
     "BACKEND_API_URL_PDF_GENERATE",
-    "BACKEND_API_URL_PDF_REPHRASE",
+    "BACKEND_API_URL_PDF_PARAPHRASE",
 ]
 
 SOURCE_DIRS = [
@@ -96,7 +96,7 @@ def test_pdf_cutter(file_name):
     tansfer_array_to_json(original_text_list, PDF_SAVE_DIR, new_file_name)
 
 
-def rephrase_pdf_check(global_vector_db, global_embedding_model):
+def paraphrase_pdf_check(global_vector_db, global_embedding_model):
 
     processed_pdf = tansfer_json_to_array(PDF_SAVE_DIR, "data.json")
 
@@ -174,4 +174,4 @@ if __name__ == "__main__":
 
     # 處理PDF文件
 
-    # rephrase_pdf_check(global_vector_db, global_embedding_model)
+    # paraphrase_pdf_check(global_vector_db, global_embedding_model)

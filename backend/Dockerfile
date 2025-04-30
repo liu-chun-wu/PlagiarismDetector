@@ -4,12 +4,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 
 # 安裝必要工具與 Miniconda
-RUN apt-get update && apt-get install -y wget bzip2 git netcat-openbsd \
+RUN apt-get update && apt-get install -y \
+    wget bzip2 git netcat-openbsd \
+    build-essential g++ cmake pkg-config \
     && wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /miniconda.sh \
     && bash /miniconda.sh -b -p /opt/conda \
     && rm /miniconda.sh \
     && ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh \
     && echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
+
 
 ENV PATH="/opt/conda/bin:$PATH"
 ENV CONDA_DEFAULT_ENV=webapp
@@ -20,16 +23,16 @@ RUN useradd -m -s /bin/bash appuser
 ARG OPENAI_APIKEY
 ARG BACKEND_PORT
 ARG BACKEND_API_URL_TEXT_GENERATE
-ARG BACKEND_API_URL_TEXT_REPHRASE
+ARG BACKEND_API_URL_TEXT_PARAPHRASE
 ARG BACKEND_API_URL_PDF_GENERATE
-ARG BACKEND_API_URL_PDF_REPHRASE
+ARG BACKEND_API_URL_PDF_PARAPHRASE
 
 ENV OPENAI_APIKEY=${OPENAI_APIKEY}
 ENV BACKEND_PORT=${BACKEND_PORT}
 ENV BACKEND_API_URL_TEXT_GENERATE=${BACKEND_API_URL_TEXT_GENERATE}
-ENV BACKEND_API_URL_TEXT_REPHRASE=${BACKEND_API_URL_TEXT_REPHRASE}
+ENV BACKEND_API_URL_TEXT_PARAPHRASE=${BACKEND_API_URL_TEXT_PARAPHRASE}
 ENV BACKEND_API_URL_PDF_GENERATE=${BACKEND_API_URL_PDF_GENERATE}
-ENV BACKEND_API_URL_PDF_REPHRASE=${BACKEND_API_URL_PDF_REPHRASE}
+ENV BACKEND_API_URL_PDF_PARAPHRASE=${BACKEND_API_URL_PDF_PARAPHRASE}
 
 # 設定 Conda 環境
 COPY --chown=appuser:appuser ./environment.yml /home/appuser/environment.yml

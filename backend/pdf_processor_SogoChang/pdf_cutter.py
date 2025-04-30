@@ -1,6 +1,6 @@
 import fitz  # PyMuPDF
-from google import genai
-from google.genai import types
+import google.generativeai as genai
+from google.generativeai import types
 import re
 from PIL import Image
 import io
@@ -226,107 +226,115 @@ def post_process_paragraphs_from_list(paragraphs_list, api_key):
         处理后的二维段落列表
     """
     print("开始段落后处理...")
-    
+
     # 1. 检查每页的最后一个段落与下一页的第一个段落是否应连接
     current_page = 0
     while current_page < len(paragraphs_list) - 1:
         next_page = current_page + 1
-        
+
         # 确保当前页和下一页都有段落
         if not paragraphs_list[current_page] or not paragraphs_list[next_page]:
             current_page += 1
             continue
-        
+
         # 获取当前页的最后一个段落和下一页的第一个段落
         last_paragraph = paragraphs_list[current_page][-1]
         first_paragraph = paragraphs_list[next_page][0]
-        
+
         # 检查是否应该合并
-        if check_paragraph_continuity(last_paragraph, first_paragraph, api_key):
+        if check_paragraph_continuity(last_paragraph, first_paragraph,
+                                      api_key):
             print(f"合并页面 {current_page} 的最后段落与页面 {next_page} 的第一段落")
-            
+
             # 合并段落
-            merged_paragraph = last_paragraph.strip() + " " + first_paragraph.strip()
-            
+            merged_paragraph = last_paragraph.strip(
+            ) + " " + first_paragraph.strip()
+
             # 更新原始列表
             paragraphs_list[current_page][-1] = merged_paragraph
             paragraphs_list[next_page].pop(0)  # 移除已合并的段落
-            
+
             # 如果下一页被清空了，确保它是一个空列表而不是None
             if not paragraphs_list[next_page]:
                 paragraphs_list[next_page] = []
-                
+
             # 不增加current_page，因为合并后可能还需要继续处理当前页与下一页的关系
         else:
             current_page += 1
-    
+
     # 2. 处理冒号结尾的段落和列表项
     for page in range(len(paragraphs_list)):
         if not paragraphs_list[page]:
             continue
-            
+
         i = 0
         while i < len(paragraphs_list[page]):
             # 获取当前段落
             current_text = paragraphs_list[page][i].strip()
-            
+
             # 检查是否以冒号结尾（包括全形和半形冒号）
-            if current_text.rstrip().endswith(':') or current_text.rstrip().endswith('：'):
+            if current_text.rstrip().endswith(
+                    ':') or current_text.rstrip().endswith('：'):
                 next_text = None
                 next_page_idx = None
                 is_next_page = False
-                
+
                 # 检查是否有当前页的下一个段落
                 if i + 1 < len(paragraphs_list[page]):
                     next_text = paragraphs_list[page][i + 1].strip()
                     next_idx = i + 1
                     next_page_idx = page
                 # 如果是该页的最后一个段落，检查下一页的第一个段落
-                elif page + 1 < len(paragraphs_list) and paragraphs_list[page + 1]:
+                elif page + 1 < len(paragraphs_list) and paragraphs_list[page +
+                                                                         1]:
                     next_text = paragraphs_list[page + 1][0].strip()
                     next_idx = 0
                     next_page_idx = page + 1
                     is_next_page = True
-                
+
                 # 如果找到了下一个段落
                 if next_text is not None:
                     # 检查下一段是否为列表项
                     if is_bullet_or_numbered_list(next_text):
-                        print(f"发现冒号结尾段落后跟随列表项: 页 {page} 段落 {i}" + (" (下一页)" if is_next_page else ""))
-                        
+                        print(f"发现冒号结尾段落后跟随列表项: 页 {page} 段落 {i}" +
+                              (" (下一页)" if is_next_page else ""))
+
                         # 合并段落
                         merged_content = current_text + "\n" + next_text
                         paragraphs_list[page][i] = merged_content
-                        
+
                         # 删除已合并的段落
                         paragraphs_list[next_page_idx].pop(next_idx)
-                        
+
                         # 如果下一页被清空了，确保它是一个空列表
                         if is_next_page and not paragraphs_list[next_page_idx]:
                             paragraphs_list[next_page_idx] = []
-                        
+
                         # 如果是在同一页上继续检查后续列表项
                         if not is_next_page:
                             # 检查是否还有更多列表项需要合并
                             continue_merging = True
                             current_number = get_next_number(next_text)
-                            
-                            while continue_merging and i + 1 < len(paragraphs_list[page]):
-                                next_text = paragraphs_list[page][i + 1].strip()
-                                
+
+                            while continue_merging and i + 1 < len(
+                                    paragraphs_list[page]):
+                                next_text = paragraphs_list[page][i +
+                                                                  1].strip()
+
                                 # 检查是否是连续的列表项
                                 is_bullet = next_text.startswith('•')
                                 next_number = get_next_number(next_text)
-                                
+
                                 if (is_bullet and '•' in merged_content) or \
                                    (current_number is not None and next_number is not None and next_number == current_number + 1):
                                     # 继续合并
-                                    merged_content = paragraphs_list[page][i] + "\n" + next_text
+                                    merged_content = paragraphs_list[page][
+                                        i] + "\n" + next_text
                                     paragraphs_list[page][i] = merged_content
-                                    
+
                                     # 更新当前数字
                                     current_number = next_number
-                                    
+
                                     # 删除已合并的段落
                                     paragraphs_list[page].pop(i + 1)
                                 else:
@@ -341,10 +349,10 @@ def post_process_paragraphs_from_list(paragraphs_list, api_key):
                     print(f"删除冒号结尾且找不到后续段落的段落: 页 {page} 段落 {i}")
                     paragraphs_list[page].pop(i)
                     continue  # 不增加索引，因为当前索引已指向下一个段落
-            
+
             # 进入下一个段落
             i += 1
-    
+
     print("段落后处理完成")
     return paragraphs_list
 

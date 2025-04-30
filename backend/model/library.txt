@@ -1,1 +1,3 @@
-pip install torch transformers sentence-transformers langchain langchain-community langchain_huggingface faiss-cpu openai flask flask_cors  python-dotenv
+pip install -U openai tiktoken transformers accelerate sentencepiece sentence-transformers nltk jieba pandas tqdm scikit-learn bitsandbytes chromadb langchain networkx langchain-huggingface langchain-community
+pip install torch transformers sentence-transformers langchain langchain-community faiss-cpu openai
+pip install flask flask_cors python-dotenv gunicorn PyMuPDF
