@@ -11,7 +11,8 @@ docker rmi $(docker images -q)
 docker images -f "dangling=true" -q | xargs docker rmi -f
 
 ## 2. 清掉 build cache (build 時的 intermediate layer)
-docker builder prune -f
+docker builder prune --all
+
 
 ## 3. 清掉目前沒有使用的 containers/images/volumes(要小心)
 docker system prune -a --volumes -f

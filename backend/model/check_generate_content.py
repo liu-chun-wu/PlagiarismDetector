@@ -13,7 +13,7 @@ from pathlib import Path
 from collections import Counter, defaultdict
 from typing import List, Dict, Tuple, Any, Union
 import pickle, gzip, gc             #  <── new
-
+import faiss
 import numpy as np
 import pandas as pd
 import torch
@@ -25,7 +25,7 @@ from sklearn.metrics import classification_report, accuracy_score, f1_score
 from sentence_transformers import SentenceTransformer
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain.schema import Document
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import openai
@@ -33,14 +33,18 @@ import openai
 nltk.download('punkt', quiet=True)
 warnings.filterwarnings("ignore", category=UserWarning)
 
-SOURCE_JSON_DIRS = [
-    "/content/drive/MyDrive/extracted_keywords/source_ncu_2020"
-]
-PARAPHRASED_JSON_DIRS = [
-    "/content/drive/MyDrive/extracted_keywords/MyDrive_ncu_2020",
-    "/content/drive/MyDrive/extracted_keywords/MyDrive_nsyu_2019"
-]
+# SOURCE_JSON_DIRS = [
+#     "/content/drive/MyDrive/extracted_keywords/source_ncu_2020"
+# ]
+# PARAPHRASED_JSON_DIRS = [
+#     "/content/drive/MyDrive/extracted_keywords/MyDrive_ncu_2020",
+#     "/content/drive/MyDrive/extracted_keywords/MyDrive_nsyu_2019"
+# ]
 
+# Folder prefix that the *builder notebook* saved
+SAVE_BASE     = Path("/home/undergrad/PlagiarismDetector/backend/dataset/ai_database/hyperrag_kb_fast_identical")
+DOCSTORE_PATH = Path("/home/undergrad/PlagiarismDetector/backend/dataset/ai_database/hyperrag_kb_fast_identical.docstore.jsonl")
+openai.api_key = "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"
 GPT4_STYLE_MODEL = "gpt-4.1"
 GPT4_DECISION = "gpt-4.1"
 PPL_LM_ID = "Qwen/Qwen3-4B"
@@ -92,6 +96,51 @@ RELATION_PROMPT = """
 【只輸出關係概述，不要額外文字】
 """
 
+# -----------------------------------------------------------------
+# Minimal JSON-line doc-store that IS AddableMixin-compatible
+# -----------------------------------------------------------------
+import json, io, os
+from typing import Dict, Optional
+from langchain_community.docstore.base import AddableMixin, Docstore
+from langchain.schema import Document
+
+class JSONDocstore(AddableMixin, Docstore):
+    """
+    • Append-only JSONL file (one doc per line).
+    • Keeps NO full Document objects in RAM.
+    • Implements only the bits FAISS needs: add / __contains__ / search.
+      (The last two are dummies — FAISS never calls them at build time.)
+    """
+    def __init__(self, filename: str):
+        # ensure parent dir exists
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        self.filename = filename
+        # reopen for appending on every add → avoids keeping a handle open
+        # build a tiny in-memory index only if you later need random search
+        self._seen_keys = set()
+
+    # ---------- AddableMixin ------------------------------------
+    def add(self, texts: Dict[str, Document]):
+        """Persist {key: Document} mapping and return list(keys)."""
+        with open(self.filename, "a", encoding="utf-8") as f:
+            for k, doc in texts.items():
+                out = {
+                    "id":          k,
+                    "page_content": doc.page_content,
+                    "metadata":     doc.metadata,
+                }
+                f.write(json.dumps(out, ensure_ascii=False) + "\n")
+                self._seen_keys.add(k)
+        return list(texts.keys())
+
+    # ---------- Docstore API stubs (not needed for building) ----
+    def __contains__(self, key: str) -> bool:
+        return key in self._seen_keys          # cheap membership check
+
+    def search(self, search: str) -> Optional[Document]:
+        # optional: implement if you want doc-store look-ups later
+        return None
+
 all_snippets: List[str] = []          # every chunk string stored exactly once
 # ─────────────── save / load helpers ───────────────
 def save_hyperrag(hg, faiss_db, base_path: str):
@@ -117,18 +166,50 @@ def save_hyperrag(hg, faiss_db, base_path: str):
 
     print(f"✓ KB saved → {base}.index / .pkl.gz")
 
-def load_hyperrag(base_path: str):
+# ================================================================
+# load_hyperrag – loads the disk-based FAISS + JSONL doc-store
+# ================================================================
+def load_hyperrag(base_path: Path):
     """
-    Returns (hg, faiss_db) or (None, None) if files not found.
+    Return (hg, faiss_db) if files exist, else (None, None).
+
+    • Loads the JSONL doc-store (very light-weight, append-only)
+    • Memory-maps the FAISS index using faiss.read_index with IO_FLAG_MMAP
+    • Rebuilds the hyper-graph object from the .pkl.gz
     """
-    from pathlib import Path
-    base = Path(base_path)
-    idx, pkl = base.with_suffix(".index"), base.with_suffix(".pkl.gz")
-    if not (idx.exists() and pkl.exists()):
+    idx = base_path.with_suffix(".index")
+    pkl = base_path.with_suffix(".pkl.gz")
+    if not (idx.exists() and pkl.exists() and DOCSTORE_PATH.exists()):
         return None, None
 
-    faiss_db = FAISS.load_local(str(idx), _embeddings)
+    # 1) doc-store
+    docstore = JSONDocstore(str(DOCSTORE_PATH))
 
+    # 2) FAISS index (memory-mapped)
+    index_path = str(idx / "index.faiss")
+    if not os.path.exists(index_path):
+        raise FileNotFoundError(f"FAISS index file not found at {index_path}")
+    
+    # Load the FAISS index with memory mapping
+    index = faiss.read_index(index_path, faiss.IO_FLAG_MMAP)
+
+    # Load the index-to-docstore-id mapping
+    index_to_docstore_id_path = str(idx / "index.pkl")
+    if not os.path.exists(index_to_docstore_id_path):
+        raise FileNotFoundError(f"index_to_docstore_id file not found at {index_to_docstore_id_path}")
+    
+    with open(index_to_docstore_id_path, "rb") as f:
+        index_to_docstore_id = pickle.load(f)
+
+    # Create the LangChain FAISS vectorstore instance
+    faiss_db = FAISS(
+        embedding_function=_embeddings,
+        index=index,
+        docstore=docstore,
+        index_to_docstore_id=index_to_docstore_id
+    )
+
+    # 3) hyper-graph payload
     with gzip.open(pkl, "rb") as f:
         payload = pickle.load(f)
 
@@ -137,14 +218,54 @@ def load_hyperrag(base_path: str):
 
     hg = HyperGraphDB(entity_extractor)
     hg.entity_texts = defaultdict(list, payload["entity_texts"])
-    hg.hyperedges   = payload["hyperedges"]
+    hg.hyperedges = payload["hyperedges"]
     hg.graph.add_edges_from(payload["edges"])
 
-    print("✓ KB loaded from disk")
+    print("✓ KB loaded from disk with memory mapping")
     return hg, faiss_db
-# ────────────────────────────────────────────────────
+# # ================================================================
+# # load_hyperrag – loads the disk-based FAISS + JSONL doc-store
+# # ================================================================
+# def load_hyperrag(base_path: Path):
+#     """
+#     Return (hg, faiss_db) if files exist, else (None, None).
 
+#     • Loads the JSONL doc-store (very light-weight, append-only)
+#     • Memory-maps the FAISS index       (allow_mmap=True → vectors stay on disk)
+#     • Rebuilds the hyper-graph object   from the .pkl.gz
+#     """
+#     idx = base_path.with_suffix(".index")
+#     pkl = base_path.with_suffix(".pkl.gz")
+#     if not (idx.exists() and pkl.exists() and DOCSTORE_PATH.exists()):
+#         return None, None
 
+#     # 1) doc-store
+#     docstore = JSONDocstore(str(DOCSTORE_PATH))
+
+#     # 2) FAISS index (mmaped)
+#     faiss_db = FAISS.load_local(
+#         str(idx),
+#         _embeddings,
+#         allow_mmap=True,                       # <- vectors stay on disk!
+#         allow_dangerous_deserialization=True   # <- REQUIRED for LangChain >= 0.2
+#     )
+
+#     faiss_db.docstore = docstore
+
+#     # 3) hyper-graph payload
+#     with gzip.open(pkl, "rb") as f:
+#         payload = pickle.load(f)
+
+#     global all_snippets
+#     all_snippets = payload["all_snippets"]
+
+#     hg = HyperGraphDB(entity_extractor)
+#     hg.entity_texts = defaultdict(list, payload["entity_texts"])
+#     hg.hyperedges   = payload["hyperedges"]
+#     hg.graph.add_edges_from(payload["edges"])
+
+#     print("✓ KB loaded from disk")
+#     return hg, faiss_db
 
 def read_txt(path: str) -> str:
     return Path(path).read_text(encoding="utf-8", errors="ignore").strip()
@@ -209,18 +330,18 @@ class HyperGraphDB:
         if not entities:
             return
 
-        # ❶ assign a unique snippet-id
+        #  assign a unique snippet-id
         sid = len(all_snippets)
         all_snippets.append(text)
 
-        # ❷ classic nodes + pair edges
+        # classic nodes + pair edges
         for e in entities:
             self.graph.add_node(e)
             self.entity_texts[e].append(sid)       # store ID only
         for a, b in itertools.combinations(set(entities), 2):
             self.graph.add_edge(a, b)
 
-        # ❸ hyper-edges (unchanged, but store sid)
+        # hyper-edges (unchanged, but store sid)
         for k in range(3, min(len(entities), 6) + 1):
             for combo in itertools.combinations(sorted(set(entities)), k):
                 key = frozenset(combo)
@@ -288,92 +409,101 @@ class HyperGraphDB:
 #                 hits.extend(self.entity_texts.get(n, []))
 #         return list(dict.fromkeys(hits))[:top_k]
 
-source_jsons = []
-for d in SOURCE_JSON_DIRS:
-    source_jsons.extend(glob.glob(f"{d}/**/*.json", recursive=True))
-paraphrased_jsons = []
-for d in PARAPHRASED_JSON_DIRS:
-    paraphrased_jsons.extend(glob.glob(f"{d}/**/*.json", recursive=True))
+# source_jsons = []
+# for d in SOURCE_JSON_DIRS:
+#     source_jsons.extend(glob.glob(f"{d}/**/*.json", recursive=True))
+# paraphrased_jsons = []
+# for d in PARAPHRASED_JSON_DIRS:
+#     paraphrased_jsons.extend(glob.glob(f"{d}/**/*.json", recursive=True))
 
-print("Found", len(source_jsons), "source JSONs and", len(paraphrased_jsons), "paraphrased JSONs")
+# print("Found", len(source_jsons), "source JSONs and", len(paraphrased_jsons), "paraphrased JSONs")
 
-SAVE_BASE = "/content/drive/MyDrive/hyperrag_kb"   # ← choose any folder/name
+# SAVE_BASE = "/content/drive/MyDrive/hyperrag_kb"   # ← choose any folder/name
 
-# ─── try loading pre-built KB ─────────────────────
+
+# ─── load KB produced by the separate builder notebook ──────────
 hg, faiss_db = load_hyperrag(SAVE_BASE)
-
 if hg is None:
-    print("🔄 KB not found – building …")
+    raise RuntimeError(
+        "Knowledge-base files not found.  "
+        "Run the fast-builder notebook first to generate them."
+    )
 
-    # ---------- build path (same logic as before) ----------
-    hg   = HyperGraphDB(entity_extractor)
+# # ─── try loading pre-built KB ─────────────────────
+# hg, faiss_db = load_hyperrag(SAVE_BASE)
 
-    BATCH_SIZE = 2000
-    _docs_buffer = []
-    processed_hyperedges = set()
-    faiss_db = None                                    # created in _push
+# if hg is None:
+#     print("🔄 KB not found – building …")
 
-def _push_buffer_to_faiss():
-    """
-    Embed the current buffer, add it to FAISS, then free the Python objects.
-    Called automatically when the buffer reaches BATCH_SIZE.
-    """
-    global faiss_db, _docs_buffer
+#     # ---------- build path (same logic as before) ----------
+#     hg   = HyperGraphDB(entity_extractor)
 
-    if not _docs_buffer:            # nothing to do
-        return
+#     BATCH_SIZE = 2000
+#     _docs_buffer = []
+#     processed_hyperedges = set()
+#     faiss_db = None                                    # created in _push
 
-    if faiss_db is None:
-        faiss_db = FAISS.from_documents(_docs_buffer, embedding=_embeddings)
-    else:
-        faiss_db.add_documents(_docs_buffer)
+# def _push_buffer_to_faiss():
+#     """
+#     Embed the current buffer, add it to FAISS, then free the Python objects.
+#     Called automatically when the buffer reaches BATCH_SIZE.
+#     """
+#     global faiss_db, _docs_buffer
 
-    _docs_buffer.clear()            # drop references
-    gc.collect()                    # free RAM immediately
+#     if not _docs_buffer:            # nothing to do
+#         return
 
-def ingest(fp_list, label_tag):
-    for fp in tqdm(fp_list, desc=f"Loading {label_tag} JSONs"):
-        with open(fp, encoding="utf-8") as f:
-            data = json.load(f)
+#     if faiss_db is None:
+#         faiss_db = FAISS.from_documents(_docs_buffer, embedding=_embeddings)
+#     else:
+#         faiss_db.add_documents(_docs_buffer)
 
-        for chunk in data["chunks"]:
-            text      = chunk["text"]
-            keywords  = chunk.get("keywords", [])
-            hg.add(text, keywords)                       # builds graph + edges
+#     _docs_buffer.clear()            # drop references
+#     gc.collect()                    # free RAM immediately
 
-            # AFTER
-            _docs_buffer.append(Document(text, metadata={"label": label_tag,
-                             "type": "chunk",
-                             "path": fp}))
-            if len(_docs_buffer) >= BATCH_SIZE:
-                _push_buffer_to_faiss()
+# def ingest(fp_list, label_tag):
+#     for fp in tqdm(fp_list, desc=f"Loading {label_tag} JSONs"):
+#         with open(fp, encoding="utf-8") as f:
+#             data = json.load(f)
 
-            # 2) entity nodes
-            for ent in keywords:
-                _docs_buffer.append(Document(f"實體: {ent}", metadata={"label": "GRAPH",
-                                       "type": "node",
-                                       "entity": ent}))
-                if len(_docs_buffer) >= BATCH_SIZE:
-                    _push_buffer_to_faiss()
+#         for chunk in data["chunks"]:
+#             text      = chunk["text"]
+#             keywords  = chunk.get("keywords", [])
+#             hg.add(text, keywords)                       # builds graph + edges
+
+#             # AFTER
+#             _docs_buffer.append(Document(text, metadata={"label": label_tag,
+#                              "type": "chunk",
+#                              "path": fp}))
+#             if len(_docs_buffer) >= BATCH_SIZE:
+#                 _push_buffer_to_faiss()
+
+#             # 2) entity nodes
+#             for ent in keywords:
+#                 _docs_buffer.append(Document(f"實體: {ent}", metadata={"label": "GRAPH",
+#                                        "type": "node",
+#                                        "entity": ent}))
+#                 if len(_docs_buffer) >= BATCH_SIZE:
+#                     _push_buffer_to_faiss()
 
 
-            # 3) hyper-edge summaries (only once per unique edge)
-            for k in range(3, min(len(keywords),6)+1):
-                for combo in itertools.combinations(sorted(set(keywords)), k):
-                    key = frozenset(combo)
-                    if key in hg.hyperedges and key not in processed_hyperedges:
-                        _docs_buffer.append(Document(hg.hyperedges[key]["summary"],
-                                             metadata={"label":"GRAPH",
-                                                       "type":"hyper",
-                                                       "entities":list(combo)}))
-                        if len(_docs_buffer) >= BATCH_SIZE:
-                            _push_buffer_to_faiss()
-                        processed_hyperedges.add(key)
+#             # 3) hyper-edge summaries (only once per unique edge)
+#             for k in range(3, min(len(keywords),6)+1):
+#                 for combo in itertools.combinations(sorted(set(keywords)), k):
+#                     key = frozenset(combo)
+#                     if key in hg.hyperedges and key not in processed_hyperedges:
+#                         _docs_buffer.append(Document(hg.hyperedges[key]["summary"],
+#                                              metadata={"label":"GRAPH",
+#                                                        "type":"hyper",
+#                                                        "entities":list(combo)}))
+#                         if len(_docs_buffer) >= BATCH_SIZE:
+#                             _push_buffer_to_faiss()
+#                         processed_hyperedges.add(key)
 
-ingest(source_jsons,      "HUMAN")
-ingest(paraphrased_jsons, "AI")
-_push_buffer_to_faiss()
-save_hyperrag(hg, faiss_db, SAVE_BASE)
+# ingest(source_jsons,      "HUMAN")
+# ingest(paraphrased_jsons, "AI")
+# _push_buffer_to_faiss()
+# save_hyperrag(hg, faiss_db, SAVE_BASE)
 
 # hg = HyperGraphDB()
 # docs = []
@@ -761,11 +891,11 @@ if __name__ == "__main__":
         user_result = detect_from_text(user_text)
         print(json.dumps(user_result, ensure_ascii=False, indent=2))
 
-        # Optional: Save result to file
-        output_path = "/content/drive/MyDrive/user_test_result.json"
-        with open(output_path, "w", encoding="utf-8") as f:
-            json.dump(user_result, f, ensure_ascii=False, indent=2)
-        print(f"\n已儲存至 Google Drive：{output_path}")
+        # # Optional: Save result to file
+        # output_path = "/content/drive/MyDrive/user_test_result.json"
+        # with open(output_path, "w", encoding="utf-8") as f:
+        #     json.dump(user_result, f, ensure_ascii=False, indent=2)
+        # print(f"\n已儲存至 Google Drive：{output_path}")
 
 # import os
 # import re
