@@ -223,49 +223,6 @@ def load_hyperrag(base_path: Path):
 
     print("✓ KB loaded from disk with memory mapping")
     return hg, faiss_db
-# # ================================================================
-# # load_hyperrag – loads the disk-based FAISS + JSONL doc-store
-# # ================================================================
-# def load_hyperrag(base_path: Path):
-#     """
-#     Return (hg, faiss_db) if files exist, else (None, None).
-
-#     • Loads the JSONL doc-store (very light-weight, append-only)
-#     • Memory-maps the FAISS index       (allow_mmap=True → vectors stay on disk)
-#     • Rebuilds the hyper-graph object   from the .pkl.gz
-#     """
-#     idx = base_path.with_suffix(".index")
-#     pkl = base_path.with_suffix(".pkl.gz")
-#     if not (idx.exists() and pkl.exists() and DOCSTORE_PATH.exists()):
-#         return None, None
-
-#     # 1) doc-store
-#     docstore = JSONDocstore(str(DOCSTORE_PATH))
-
-#     # 2) FAISS index (mmaped)
-#     faiss_db = FAISS.load_local(
-#         str(idx),
-#         _embeddings,
-#         allow_mmap=True,                       # <- vectors stay on disk!
-#         allow_dangerous_deserialization=True   # <- REQUIRED for LangChain >= 0.2
-#     )
-
-#     faiss_db.docstore = docstore
-
-#     # 3) hyper-graph payload
-#     with gzip.open(pkl, "rb") as f:
-#         payload = pickle.load(f)
-
-#     global all_snippets
-#     all_snippets = payload["all_snippets"]
-
-#     hg = HyperGraphDB(entity_extractor)
-#     hg.entity_texts = defaultdict(list, payload["entity_texts"])
-#     hg.hyperedges   = payload["hyperedges"]
-#     hg.graph.add_edges_from(payload["edges"])
-
-#     print("✓ KB loaded from disk")
-#     return hg, faiss_db
 
 def read_txt(path: str) -> str:
     return Path(path).read_text(encoding="utf-8", errors="ignore").strip()
@@ -381,46 +338,6 @@ class HyperGraphDB:
         sid_hits = list(dict.fromkeys(sid_hits))[:top_k]
         return self._ids_to_texts(sid_hits)
 
-    
-# class HyperGraphDB:
-#     def __init__(self, entity_extractor=None):
-#         self.entity_extractor = entity_extractor
-#         self.graph = nx.Graph()
-#         self.entity_texts = defaultdict(list)
-
-#     def add(self, text: str, entities: list):
-#         if not entities:
-#             return
-#         for e in entities:
-#             self.graph.add_node(e)
-#             self.entity_texts[e].append(text)
-#         for a, b in itertools.combinations(set(entities), 2):
-#             self.graph.add_edge(a, b)
-
-#     def retrieve(self, query: str, top_k: int = 5):
-#         if self.entity_extractor:
-#             ents = self.entity_extractor(query)
-#         else:
-#             ents = [w.strip() for w in re.split(r"[，,、;；\s]+", query) if w.strip()]
-#         hits = []
-#         for e in ents:
-#             hits.extend(self.entity_texts.get(e, []))
-#             for n in self.graph.neighbors(e):
-#                 hits.extend(self.entity_texts.get(n, []))
-#         return list(dict.fromkeys(hits))[:top_k]
-
-# source_jsons = []
-# for d in SOURCE_JSON_DIRS:
-#     source_jsons.extend(glob.glob(f"{d}/**/*.json", recursive=True))
-# paraphrased_jsons = []
-# for d in PARAPHRASED_JSON_DIRS:
-#     paraphrased_jsons.extend(glob.glob(f"{d}/**/*.json", recursive=True))
-
-# print("Found", len(source_jsons), "source JSONs and", len(paraphrased_jsons), "paraphrased JSONs")
-
-# SAVE_BASE = "/content/drive/MyDrive/hyperrag_kb"   # ← choose any folder/name
-
-
 # ─── load KB produced by the separate builder notebook ──────────
 hg, faiss_db = load_hyperrag(SAVE_BASE)
 if hg is None:
@@ -428,107 +345,6 @@ if hg is None:
         "Knowledge-base files not found.  "
         "Run the fast-builder notebook first to generate them."
     )
-
-# # ─── try loading pre-built KB ─────────────────────
-# hg, faiss_db = load_hyperrag(SAVE_BASE)
-
-# if hg is None:
-#     print("🔄 KB not found – building …")
-
-#     # ---------- build path (same logic as before) ----------
-#     hg   = HyperGraphDB(entity_extractor)
-
-#     BATCH_SIZE = 2000
-#     _docs_buffer = []
-#     processed_hyperedges = set()
-#     faiss_db = None                                    # created in _push
-
-# def _push_buffer_to_faiss():
-#     """
-#     Embed the current buffer, add it to FAISS, then free the Python objects.
-#     Called automatically when the buffer reaches BATCH_SIZE.
-#     """
-#     global faiss_db, _docs_buffer
-
-#     if not _docs_buffer:            # nothing to do
-#         return
-
-#     if faiss_db is None:
-#         faiss_db = FAISS.from_documents(_docs_buffer, embedding=_embeddings)
-#     else:
-#         faiss_db.add_documents(_docs_buffer)
-
-#     _docs_buffer.clear()            # drop references
-#     gc.collect()                    # free RAM immediately
-
-# def ingest(fp_list, label_tag):
-#     for fp in tqdm(fp_list, desc=f"Loading {label_tag} JSONs"):
-#         with open(fp, encoding="utf-8") as f:
-#             data = json.load(f)
-
-#         for chunk in data["chunks"]:
-#             text      = chunk["text"]
-#             keywords  = chunk.get("keywords", [])
-#             hg.add(text, keywords)                       # builds graph + edges
-
-#             # AFTER
-#             _docs_buffer.append(Document(text, metadata={"label": label_tag,
-#                              "type": "chunk",
-#                              "path": fp}))
-#             if len(_docs_buffer) >= BATCH_SIZE:
-#                 _push_buffer_to_faiss()
-
-#             # 2) entity nodes
-#             for ent in keywords:
-#                 _docs_buffer.append(Document(f"實體: {ent}", metadata={"label": "GRAPH",
-#                                        "type": "node",
-#                                        "entity": ent}))
-#                 if len(_docs_buffer) >= BATCH_SIZE:
-#                     _push_buffer_to_faiss()
-
-
-#             # 3) hyper-edge summaries (only once per unique edge)
-#             for k in range(3, min(len(keywords),6)+1):
-#                 for combo in itertools.combinations(sorted(set(keywords)), k):
-#                     key = frozenset(combo)
-#                     if key in hg.hyperedges and key not in processed_hyperedges:
-#                         _docs_buffer.append(Document(hg.hyperedges[key]["summary"],
-#                                              metadata={"label":"GRAPH",
-#                                                        "type":"hyper",
-#                                                        "entities":list(combo)}))
-#                         if len(_docs_buffer) >= BATCH_SIZE:
-#                             _push_buffer_to_faiss()
-#                         processed_hyperedges.add(key)
-
-# ingest(source_jsons,      "HUMAN")
-# ingest(paraphrased_jsons, "AI")
-# _push_buffer_to_faiss()
-# save_hyperrag(hg, faiss_db, SAVE_BASE)
-
-# hg = HyperGraphDB()
-# docs = []
-
-# for fp in tqdm(source_jsons, desc="Loading source JSONs"):
-#     with open(fp, encoding='utf-8') as f:
-#         data = json.load(f)
-#     for chunk in data['chunks']:
-#         text = chunk['text']
-#         keywords = chunk.get('keywords', [])
-#         hg.add(text, keywords)
-#         docs.append(Document(page_content=text, metadata={"label": "HUMAN"}))
-
-# for fp in tqdm(paraphrased_jsons, desc="Loading paraphrased JSONs"):
-#     with open(fp, encoding='utf-8') as f:
-#         data = json.load(f)
-#     for chunk in data['chunks']:
-#         text = chunk['text']
-#         keywords = chunk.get('keywords', [])
-#         hg.add(text, keywords)
-#         docs.append(Document(page_content=text, metadata={"label": "AI"}))
-
-# print(f"Vectorising {len(docs)} KB chunks … (this may take a while)")
-# _embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL, model_kwargs={"device": DEVICE_MAP}, encode_kwargs={"dtype": np.float16})
-# faiss_db = FAISS.from_documents(docs, embedding=_embeddings)
 
 class KBManagerFromCache:
     def __init__(self, hg, faiss):
@@ -553,28 +369,7 @@ class KBManagerFromCache:
         labels = [d.metadata.get("label", "HUMAN") for d, _ in hits]
         ai_ratio = labels.count("AI") / len(labels) if labels else 0.5
         return expanded, ai_ratio
-    # def retrieve(self, query: str, k: int = TOP_K_SIMILAR):
-    #     ents = entity_extractor(query)
-    #     hg_texts = []
-    #     for e in ents:
-    #         hg_texts.extend(self.hg.entity_texts.get(e, []))
-    #         for n in self.hg.graph.neighbors(e):
-    #             hg_texts.extend(self.hg.entity_texts.get(n, []))
-    #     hg_texts = list(dict.fromkeys(hg_texts))[:k]
-    #     docs = self.faiss.similarity_search_with_score(query, k)
-    #     all_docs = []
-    #     if hg_texts:
-    #         for text in hg_texts:
-    #             for doc in self.faiss.index_to_docstore_id.values():
-    #                 doc_obj = self.faiss.docstore.search(doc)
-    #                 if doc_obj.page_content == text:
-    #                     all_docs.append((doc_obj, 0))
-    #                     break
-    #     if docs: all_docs.extend(docs)
-    #     if not all_docs: return [], 0.5
-    #     labels = [doc[0].metadata.get("label", "HUMAN") for doc in all_docs]
-    #     ai_ratio = labels.count("AI") / len(labels)
-    #     return [doc[0].page_content for doc in all_docs], ai_ratio
+
 
 kb_manager = KBManagerFromCache(hg, faiss_db)
 

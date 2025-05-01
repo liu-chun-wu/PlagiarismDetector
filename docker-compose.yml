@@ -18,6 +18,7 @@ services:
     volumes:
       - ./backend:/app
       - ./nginx_logs:/var/log/nginx
+      - ./backend/dataset:/app/dataset
     working_dir: /app
     entrypoint: ["/bin/bash", "/app/entrypoint.sh"]
     env_file:
@@ -125,7 +126,7 @@ services:
       - "24224:24224/udp"
     volumes:
       - ./fluentd/fluent.conf:/fluentd/etc/fluent.conf
-      - ./nginx_logs:/fluentd/nginxlog:ro
+      - ./nginx_logs:/fluentd/nginxlog
     networks:
       - plagiarism-detector-network
     depends_on:
