@@ -179,83 +179,83 @@ def paraphrase_pdf_check(req, global_vector_db, global_embedding_model):
         app.logger.warning("⚠️ 上傳的不是 PDF")
         return jsonify({"error": "Only PDF files are supported"}), 400
 
-    # try:
-    #     fixed_filename = "uploaded_paraphrased_pdf.pdf"
-    #     os.makedirs(PDF_SAVE_DIR, exist_ok=True)
-    #     saved_path = os.path.join(PDF_SAVE_DIR, fixed_filename)
-    #     uploaded_file.save(saved_path)
-    #     app.logger.info(f"✅ PDF 已儲存：{saved_path}")
+    try:
+        fixed_filename = "uploaded_paraphrased_pdf.pdf"
+        os.makedirs(PDF_SAVE_DIR, exist_ok=True)
+        saved_path = os.path.join(PDF_SAVE_DIR, fixed_filename)
+        uploaded_file.save(saved_path)
+        app.logger.info(f"✅ PDF 已儲存：{saved_path}")
 
-    #     # 開始處理 PDF
-    #     app.logger.info("🧠 開始使用 Gemini 處理 PDF 段落")
-    #     api_key = os.getenv("GEMINI_APIKEY")
-    #     app.logger.debug(f"🔐 使用 API 金鑰：{bool(api_key)}")
+        # 開始處理 PDF
+        app.logger.info("🧠 開始使用 Gemini 處理 PDF 段落")
+        api_key = os.getenv("GEMINI_APIKEY")
+        app.logger.debug(f"🔐 使用 API 金鑰：{bool(api_key)}")
 
-    #     processed_pdf = process_pdf(saved_path, api_key)
-    #     tansfer_array_to_json(processed_pdf, PDF_SAVE_DIR, "data.json")
+        processed_pdf = process_pdf(saved_path, api_key)
+        tansfer_array_to_json(processed_pdf, PDF_SAVE_DIR, "data.json")
 
-    #     # processed_pdf = tansfer_json_to_array(PDF_SAVE_DIR, "data.json")
+        # processed_pdf = tansfer_json_to_array(PDF_SAVE_DIR, "data.json")
 
-    # except Exception as e:
-    #     app.logger.error(f"❌ 發生錯誤：{e}", exc_info=True)
-    #     return jsonify({"error":
-    #                     f"Failed to save or process PDF: {str(e)}"}), 500
+    except Exception as e:
+        app.logger.error(f"❌ 發生錯誤：{e}", exc_info=True)
+        return jsonify({"error":
+                        f"Failed to save or process PDF: {str(e)}"}), 500
 
-    # # 統計段落數量
-    # total_paragraph_count = 0
-    # for page_idx, page_paragraphs in enumerate(processed_pdf):
-    #     if page_paragraphs:
-    #         for para_idx, paragraph in enumerate(page_paragraphs):
-    #             total_paragraph_count += 1
+    # 統計段落數量
+    total_paragraph_count = 0
+    for page_idx, page_paragraphs in enumerate(processed_pdf):
+        if page_paragraphs:
+            for para_idx, paragraph in enumerate(page_paragraphs):
+                total_paragraph_count += 1
 
-    # app.logger.info(f"📊 總段落數：{total_paragraph_count}")
-    # app.logger.info("🔍 開始檢測抄襲...")
+    app.logger.info(f"📊 總段落數：{total_paragraph_count}")
+    app.logger.info("🔍 開始檢測抄襲...")
 
-    # total_plagiarism_percentage = 0
-    # total_confidence_score = 0
-    # all_check_result = []
-    # original_text_and_plagiarism_snippet = []
+    total_plagiarism_percentage = 0
+    total_confidence_score = 0
+    all_check_result = []
+    original_text_and_plagiarism_snippet = []
 
-    # paragraph_count = 0
-    # for page_idx, page_paragraphs in enumerate(processed_pdf):
-    #     if page_paragraphs:
-    #         for para_idx, paragraph in enumerate(page_paragraphs):
-    #             paragraph_count += 1
-    #             app.logger.debug(f"🔎 檢測第 {paragraph_count} 段")
-    #             check_result = cooperate_plagiarism_check(
-    #                 user_text=paragraph,
-    #                 vector_db=global_vector_db,
-    #                 embedding_model=global_embedding_model)
+    paragraph_count = 0
+    for page_idx, page_paragraphs in enumerate(processed_pdf):
+        if page_paragraphs:
+            for para_idx, paragraph in enumerate(page_paragraphs):
+                paragraph_count += 1
+                app.logger.debug(f"🔎 檢測第 {paragraph_count} 段")
+                check_result = cooperate_plagiarism_check(
+                    user_text=paragraph,
+                    vector_db=global_vector_db,
+                    embedding_model=global_embedding_model)
 
-    #             original_text_and_plagiarism_snippet.append({
-    #                 "original_text":
-    #                 paragraph,
-    #                 "plagiarism_snippet":
-    #                 check_result["plagiarism_snippet"]
-    #             })
+                original_text_and_plagiarism_snippet.append({
+                    "original_text":
+                    paragraph,
+                    "plagiarism_snippet":
+                    check_result["plagiarism_snippet"]
+                })
 
-    #             all_check_result.append(check_result)
-    #             total_plagiarism_percentage += check_result[
-    #                 "plagiarism_percentage"]
-    #             total_confidence_score += check_result["plagiarism_confidence"]
+                all_check_result.append(check_result)
+                total_plagiarism_percentage += check_result[
+                    "plagiarism_percentage"]
+                total_confidence_score += check_result["plagiarism_confidence"]
 
-    # avg_confidence_score = total_confidence_score / total_paragraph_count
-    # avg_plagiarism_percentage = total_plagiarism_percentage / total_paragraph_count
+    avg_confidence_score = total_confidence_score / total_paragraph_count
+    avg_plagiarism_percentage = total_plagiarism_percentage / total_paragraph_count
 
-    # result = {
-    #     "plagiarism_percentage":
-    #     round(avg_plagiarism_percentage, 2),
-    #     "plagiarism_confidence":
-    #     round(avg_confidence_score, 2),
-    #     "original_text_and_plagiarism_snippet":
-    #     original_text_and_plagiarism_snippet,
-    # }
+    result = {
+        "plagiarism_percentage":
+        round(avg_plagiarism_percentage, 2),
+        "plagiarism_confidence":
+        round(avg_confidence_score, 2),
+        "original_text_and_plagiarism_snippet":
+        original_text_and_plagiarism_snippet,
+    }
 
-    # tansfer_array_to_json(all_check_result, PDF_SAVE_DIR,
-    #                       "all_check_result.json")
-    # tansfer_array_to_json(result, PDF_SAVE_DIR, "result.json")
+    tansfer_array_to_json(all_check_result, PDF_SAVE_DIR,
+                          "all_check_result.json")
+    tansfer_array_to_json(result, PDF_SAVE_DIR, "result.json")
 
-    result = tansfer_json_to_array(PDF_SAVE_DIR, "result.json")
+    # result = tansfer_json_to_array(PDF_SAVE_DIR, "result.json")
 
     app.logger.info("✅ 抄襲檢測完成")
     return jsonify(result)
