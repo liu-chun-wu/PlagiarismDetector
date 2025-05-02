@@ -56,4 +56,5 @@ docker stats
 # get container PID
 docker inspect --format '{{.State.Pid}}' plagiarismdetector-backend
 
+# watch GPU usage in real-time
 watch -n 1 nvidia-smi
