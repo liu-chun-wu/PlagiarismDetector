@@ -1,1 +1,0 @@
-許多深度學習研究應用於股票預測，並以準確率、均方差、股價變動方向正確率和Kohen’s kappa等統計量評估模型，例如Chen、Zhou 及Dai (2015)[4]、Di Persio 及Honchar (2016)[7]、Tsantekidis et al.(2017)[20]。這些研究著重於提高預測準確度，較少探討如何應用於實際交易並比較投資績效。Bai、Kolter 及Koltun (2018)[20]比較TCN、LSTM和GRU，發現TCN表現更佳。Pradhan 與 Longpre(2016)[37]、Prakash et al.(2016)[38]、Kim et al.(2017)[30]提出具殘差連接的LSTM網路，但目前缺乏TCN與具殘差連接LSTM網路的比較研究。
