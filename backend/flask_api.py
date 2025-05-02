@@ -3,10 +3,14 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 from model.check_paraphrase_content import *
-# from model.check_generate_content import *
-from pdf_processor_SogoChang.pdf_cutter import *
-from pdf_processor_SogoChang.json_to_array import *
-from pdf_processor_SogoChang.array_to_json import *
+from model.check_generate_content import *
+
+from pdf_processor_paraphrase.pdf_cutter import *
+from pdf_processor_generate.extract_for_test import *
+
+from tool.json_to_array import *
+from tool.array_to_json import *
+
 import logging
 # ✅ 初始化：讀取環境變數與定義全域常數
 load_dotenv()
@@ -78,7 +82,9 @@ def create_app():
     print(
         "Building FAISS vector store with all files... (this may take a while)"
     )
-    global_vector_db, global_embedding_model, _ = build_vector_db(SOURCE_DIRS)
+    global_paraphrase_vector_db, global_paraphrase_embedding_model, _ = build_paraphrase_vector_db(
+        SOURCE_DIRS)
+    # global_paraphrase_vector_db, global_paraphrase_embedding_model = None, None
 
     # --- 路由定義區 ---
     @app.route('/')
@@ -87,23 +93,23 @@ def create_app():
 
     @app.route(os.getenv("BACKEND_API_URL_TEXT_PARAPHRASE"), methods=['POST'])
     def upload_text_paraphrase():
-        return paraphrase_text_check(request, global_vector_db,
-                                     global_embedding_model)
+        return paraphrase_text_check(request, global_paraphrase_vector_db,
+                                     global_paraphrase_embedding_model)
 
     @app.route(os.getenv("BACKEND_API_URL_PDF_PARAPHRASE"), methods=['POST'])
     def upload_pdf_paraphrase():
-        return paraphrase_pdf_check(request, global_vector_db,
-                                    global_embedding_model)
+        return paraphrase_pdf_check(request, global_paraphrase_vector_db,
+                                    global_paraphrase_embedding_model)
 
     @app.route(os.getenv("BACKEND_API_URL_TEXT_GENERATE"), methods=['POST'])
     def upload_text_generate():
-        return generate_text_check(request, global_vector_db,
-                                   global_embedding_model)
+        return generate_text_check(request, global_paraphrase_vector_db,
+                                   global_paraphrase_embedding_model)
 
     @app.route(os.getenv("BACKEND_API_URL_PDF_GENERATE"), methods=['POST'])
     def upload_pdf_generate():
-        return generate_pdf_check(request, global_vector_db,
-                                  global_embedding_model)
+        return generate_pdf_check(request, global_paraphrase_vector_db,
+                                  global_paraphrase_embedding_model)
 
     return app
 
@@ -173,75 +179,83 @@ def paraphrase_pdf_check(req, global_vector_db, global_embedding_model):
         app.logger.warning("⚠️ 上傳的不是 PDF")
         return jsonify({"error": "Only PDF files are supported"}), 400
 
-    try:
-        fixed_filename = "uploaded_paraphrased_pdf.pdf"
-        os.makedirs(PDF_SAVE_DIR, exist_ok=True)
-        saved_path = os.path.join(PDF_SAVE_DIR, fixed_filename)
-        uploaded_file.save(saved_path)
-        app.logger.info(f"✅ PDF 已儲存：{saved_path}")
+    # try:
+    #     fixed_filename = "uploaded_paraphrased_pdf.pdf"
+    #     os.makedirs(PDF_SAVE_DIR, exist_ok=True)
+    #     saved_path = os.path.join(PDF_SAVE_DIR, fixed_filename)
+    #     uploaded_file.save(saved_path)
+    #     app.logger.info(f"✅ PDF 已儲存：{saved_path}")
 
-        # 開始處理 PDF
-        app.logger.info("🧠 開始使用 Gemini 處理 PDF 段落")
-        api_key = os.getenv("GEMINI_APIKEY")
-        app.logger.debug(f"🔐 使用 API 金鑰：{bool(api_key)}")
-        processed_pdf = process_pdf(saved_path, api_key)
-        app.logger.info(f"📄 處理完成頁數：{len(processed_pdf)}")
+    #     # 開始處理 PDF
+    #     app.logger.info("🧠 開始使用 Gemini 處理 PDF 段落")
+    #     api_key = os.getenv("GEMINI_APIKEY")
+    #     app.logger.debug(f"🔐 使用 API 金鑰：{bool(api_key)}")
 
-        tansfer_array_to_json(processed_pdf, PDF_SAVE_DIR, "data.json")
+    #     processed_pdf = process_pdf(saved_path, api_key)
+    #     tansfer_array_to_json(processed_pdf, PDF_SAVE_DIR, "data.json")
 
-    except Exception as e:
-        app.logger.error(f"❌ 發生錯誤：{e}", exc_info=True)
-        return jsonify({"error":
-                        f"Failed to save or process PDF: {str(e)}"}), 500
+    #     # processed_pdf = tansfer_json_to_array(PDF_SAVE_DIR, "data.json")
 
-    # 統計段落數量
-    total_paragraph_count = sum(len(p) for p in processed_pdf if p)
-    app.logger.info(f"📊 總段落數：{total_paragraph_count}")
-    app.logger.info("🔍 開始檢測抄襲...")
+    # except Exception as e:
+    #     app.logger.error(f"❌ 發生錯誤：{e}", exc_info=True)
+    #     return jsonify({"error":
+    #                     f"Failed to save or process PDF: {str(e)}"}), 500
 
-    total_plagiarism_percentage = 0
-    total_confidence_score = 0
-    all_check_result = []
-    original_text_and_plagiarism_snippet = []
+    # # 統計段落數量
+    # total_paragraph_count = 0
+    # for page_idx, page_paragraphs in enumerate(processed_pdf):
+    #     if page_paragraphs:
+    #         for para_idx, paragraph in enumerate(page_paragraphs):
+    #             total_paragraph_count += 1
 
-    paragraph_count = 0
-    for page_idx, page_paragraphs in enumerate(processed_pdf):
-        if page_paragraphs:
-            for para_idx, paragraph in enumerate(page_paragraphs):
-                paragraph_count += 1
-                app.logger.debug(f"🔎 檢測第 {paragraph_count} 段")
-                check_result = cooperate_plagiarism_check(
-                    user_text=paragraph,
-                    vector_db=global_vector_db,
-                    embedding_model=global_embedding_model)
+    # app.logger.info(f"📊 總段落數：{total_paragraph_count}")
+    # app.logger.info("🔍 開始檢測抄襲...")
 
-                original_text_and_plagiarism_snippet.append({
-                    "original_text":
-                    paragraph,
-                    "plagiarism_snippet":
-                    check_result["plagiarism_snippet"]
-                })
+    # total_plagiarism_percentage = 0
+    # total_confidence_score = 0
+    # all_check_result = []
+    # original_text_and_plagiarism_snippet = []
 
-                all_check_result.append(check_result)
-                total_plagiarism_percentage += check_result[
-                    "plagiarism_percentage"]
-                total_confidence_score += check_result["plagiarism_confidence"]
+    # paragraph_count = 0
+    # for page_idx, page_paragraphs in enumerate(processed_pdf):
+    #     if page_paragraphs:
+    #         for para_idx, paragraph in enumerate(page_paragraphs):
+    #             paragraph_count += 1
+    #             app.logger.debug(f"🔎 檢測第 {paragraph_count} 段")
+    #             check_result = cooperate_plagiarism_check(
+    #                 user_text=paragraph,
+    #                 vector_db=global_vector_db,
+    #                 embedding_model=global_embedding_model)
 
-    avg_confidence_score = total_confidence_score / total_paragraph_count
-    avg_plagiarism_percentage = total_plagiarism_percentage / total_paragraph_count
+    #             original_text_and_plagiarism_snippet.append({
+    #                 "original_text":
+    #                 paragraph,
+    #                 "plagiarism_snippet":
+    #                 check_result["plagiarism_snippet"]
+    #             })
 
-    result = {
-        "plagiarism_percentage":
-        round(avg_plagiarism_percentage, 2),
-        "plagiarism_confidence":
-        round(avg_confidence_score, 2),
-        "original_text_and_plagiarism_snippet":
-        original_text_and_plagiarism_snippet,
-    }
+    #             all_check_result.append(check_result)
+    #             total_plagiarism_percentage += check_result[
+    #                 "plagiarism_percentage"]
+    #             total_confidence_score += check_result["plagiarism_confidence"]
 
-    tansfer_array_to_json(all_check_result, PDF_SAVE_DIR,
-                          "all_check_result.json")
-    tansfer_array_to_json(result, PDF_SAVE_DIR, "result.json")
+    # avg_confidence_score = total_confidence_score / total_paragraph_count
+    # avg_plagiarism_percentage = total_plagiarism_percentage / total_paragraph_count
+
+    # result = {
+    #     "plagiarism_percentage":
+    #     round(avg_plagiarism_percentage, 2),
+    #     "plagiarism_confidence":
+    #     round(avg_confidence_score, 2),
+    #     "original_text_and_plagiarism_snippet":
+    #     original_text_and_plagiarism_snippet,
+    # }
+
+    # tansfer_array_to_json(all_check_result, PDF_SAVE_DIR,
+    #                       "all_check_result.json")
+    # tansfer_array_to_json(result, PDF_SAVE_DIR, "result.json")
+
+    result = tansfer_json_to_array(PDF_SAVE_DIR, "result.json")
 
     app.logger.info("✅ 抄襲檢測完成")
     return jsonify(result)
@@ -263,10 +277,9 @@ def generate_text_check(req, global_vector_db, global_embedding_model):
             app.logger.error("❌ Vector database 未初始化")
             return jsonify({"error": "Vector database not initialized"}), 500
 
-        check_paragraph_result = cooperate_plagiarism_check(
-            user_text=text,
-            vector_db=global_vector_db,
-            embedding_model=global_embedding_model)
+        check_paragraph_result = detect_from_text(text)
+        tansfer_array_to_json(check_paragraph_result, PDF_SAVE_DIR,
+                              "result.json")
 
         app.logger.debug("✅ 檢測完成，開始組裝結果")
 
@@ -317,11 +330,8 @@ def generate_pdf_check(req, global_vector_db, global_embedding_model):
         app.logger.info(f"✅ PDF 已儲存：{saved_path}")
 
         # 開始處理 PDF
-        app.logger.info("🧠 開始使用 Gemini 處理 PDF 段落")
-        api_key = os.getenv("GEMINI_APIKEY")
-        app.logger.debug(f"🔐 使用 API 金鑰：{bool(api_key)}")
-        processed_pdf = process_pdf(saved_path, api_key)
-        app.logger.info(f"📄 處理完成頁數：{len(processed_pdf)}")
+        app.logger.info("🧠 開始處理 PDF 段落")
+        processed_pdf = extract(saved_path)
 
         tansfer_array_to_json(processed_pdf, PDF_SAVE_DIR, "data.json")
 
@@ -331,7 +341,7 @@ def generate_pdf_check(req, global_vector_db, global_embedding_model):
                         f"Failed to save or process PDF: {str(e)}"}), 500
 
     # 統計段落數量
-    total_paragraph_count = sum(len(p) for p in processed_pdf if p)
+    total_paragraph_count = len(processed_pdf)
     app.logger.info(f"📊 總段落數：{total_paragraph_count}")
     app.logger.info("🔍 開始檢測抄襲...")
 
@@ -341,27 +351,21 @@ def generate_pdf_check(req, global_vector_db, global_embedding_model):
     original_text_and_plagiarism_snippet = []
 
     paragraph_count = 0
-    for page_idx, page_paragraphs in enumerate(processed_pdf):
-        if page_paragraphs:
-            for para_idx, paragraph in enumerate(page_paragraphs):
-                paragraph_count += 1
-                app.logger.debug(f"🔎 檢測第 {paragraph_count} 段")
-                check_result = cooperate_plagiarism_check(
-                    user_text=paragraph,
-                    vector_db=global_vector_db,
-                    embedding_model=global_embedding_model)
+    for paragraph in processed_pdf:
+        paragraph_count += 1
+        app.logger.debug(f"🔎 檢測第 {paragraph_count} 段")
+        check_result = detect_from_text(paragraph)
 
-                original_text_and_plagiarism_snippet.append({
-                    "original_text":
-                    paragraph,
-                    "plagiarism_snippet":
-                    check_result["plagiarism_snippet"]
-                })
+        original_text_and_plagiarism_snippet.append({
+            "original_text":
+            paragraph,
+            "plagiarism_snippet":
+            check_result["plagiarism_snippet"]
+        })
 
-                all_check_result.append(check_result)
-                total_plagiarism_percentage += check_result[
-                    "plagiarism_percentage"]
-                total_confidence_score += check_result["plagiarism_confidence"]
+        all_check_result.append(check_result)
+        total_plagiarism_percentage += check_result["plagiarism_percentage"]
+        total_confidence_score += check_result["plagiarism_confidence"]
 
     avg_confidence_score = total_confidence_score / total_paragraph_count
     avg_plagiarism_percentage = total_plagiarism_percentage / total_paragraph_count
@@ -385,5 +389,10 @@ def generate_pdf_check(req, global_vector_db, global_embedding_model):
 
 # ✅ 若是直接執行此檔案，則啟動開發伺服器
 if __name__ == "__main__":
+
     load_dotenv()
-    app.run(host="0.0.0.0", port=8077, debug=True)
+    app.run(host="0.0.0.0",
+            port=8077,
+            debug=True,
+            threaded=False,
+            use_reloader=False)

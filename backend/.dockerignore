@@ -44,3 +44,5 @@ celerybeat-schedule
 
 uploaded_pdfs/
 dataset/
+nltk_data/
+kb_faiss_index/

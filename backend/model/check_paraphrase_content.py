@@ -26,8 +26,8 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 # For calling GPT-4o
 from openai import OpenAI
 
-device = torch.device("cuda:1")
-torch.cuda.set_device(1)
+device = torch.device("cuda:0")
+torch.cuda.set_device(0)
 print(f"Using device: {device}")
 
 # ========== DEMO AI Detector Model Setup ==========
@@ -155,7 +155,7 @@ def compute_embedding_similarity(embedding_model, text1, text2):
 # ===============================================================
 # 4) Build a FAISS Vector Store from source docs
 # ===============================================================
-def build_vector_db(dirs_list: List[str]):
+def build_paraphrase_vector_db(dirs_list: List[str]):
     """
     Build a FAISS vector store from ALL .txt files in each directory.
     Each file is split into paragraphs.
@@ -166,7 +166,7 @@ def build_vector_db(dirs_list: List[str]):
 
     embedding_model = HuggingFaceEmbeddings(
         model_name="intfloat/multilingual-e5-base",
-        model_kwargs={"device": "cuda:1"})
+        model_kwargs={"device": "cuda:0"})
 
     for pages_dir in dirs_list:
         processed_files = 0
@@ -203,7 +203,7 @@ def build_vector_db(dirs_list: List[str]):
 # 5) CrossEncoder for re-ranking
 # ===============================================================
 cross_encoder_model = "BAAI/bge-reranker-v2-m3"
-cross_encoder = CrossEncoder(cross_encoder_model, device="cuda:1")
+cross_encoder = CrossEncoder(cross_encoder_model, device="cuda:0")
 
 
 # ===============================================================
@@ -391,6 +391,10 @@ def cooperate_plagiarism_check(user_text: str,
     else:
         plagiarism_snippet = gpt4_1_snippet
     # updated on 04/23/2025
+    # ✅ Forcefully return 0% and empty snippet if judged as human
+    if verdict == "ACCEPT":
+        plagiarism_percentage = 0.0
+        plagiarism_snippet = []
 
     gc.collect()
     torch.cuda.empty_cache()

@@ -18,8 +18,8 @@ const Skeleton = ({ className }: { className?: string }) => {
 
 export default function ScanParaphrase() {
     const [uploaded, setUploaded] = useState<boolean>(false);
-    const [aiContent, setAiContent] = useState<number>(100);
-    const [confidenceScore, setConfidenceScore] = useState<number>(100);
+    const [aiContent, setAiContent] = useState<number>(0);
+    const [confidenceScore, setConfidenceScore] = useState<number>(0);
     const [textInput, setTextInput] = useState<string>("");
     const [highlightedText, setHighlightedText] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
@@ -41,8 +41,8 @@ export default function ScanParaphrase() {
             if (!response.ok) throw new Error("Failed to upload text");
 
             const data = await response.json();
-            setAiContent(data.plagiarism_percentage || 100);
-            setConfidenceScore(data.plagiarism_confidence || 100);
+            setAiContent(data.plagiarism_percentage || 0);
+            setConfidenceScore(data.plagiarism_confidence || 0);
             setUploaded(true);
 
             // ✅ 使用 unified 函數處理
@@ -79,8 +79,8 @@ export default function ScanParaphrase() {
                 setTextInput(data.original_text_and_plagiarism_snippet[0].original_text);
             }
 
-            setAiContent(data.plagiarism_percentage || 100);
-            setConfidenceScore(data.plagiarism_confidence || 100);
+            setAiContent(data.plagiarism_percentage || 0);
+            setConfidenceScore(data.plagiarism_confidence || 0);
             setUploaded(true);
 
             // ✅ 使用 unified 函數處理
@@ -158,8 +158,8 @@ export default function ScanParaphrase() {
 
     const handleNewScan = () => {
         setUploaded(false);
-        setAiContent(100);
-        setConfidenceScore(100);
+        setAiContent(0);
+        setConfidenceScore(0);
         setTextInput("");
         setHighlightedText("");
     };

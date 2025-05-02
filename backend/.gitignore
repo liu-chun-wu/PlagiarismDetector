@@ -61,3 +61,5 @@ local_settings.py
 .ipynb_checkpoints/
 
 uploaded_pdfs/
+kb_faiss_index/
+nltk_data/
