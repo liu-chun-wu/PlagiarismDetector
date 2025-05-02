@@ -4,3 +4,4 @@ dataset/
 output.txt
 uploaded_pdfs/
 nginx_logs/
+kb_faiss_index/
