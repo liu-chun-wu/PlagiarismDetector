@@ -28,6 +28,10 @@
 
 ## ⚙️ 系統架構
 
+### 系統架構圖
+
+<img src="readme_image/專題系統架構圖.png" alt="專題系統架構圖" width="500"/>
+
 ### 🧠 AI 生成偵測流程
 
 - `Style Agent`：分析語氣與句型風格
@@ -43,8 +47,6 @@
 - `Reviewer Agent`：審查分析回應
 - `Final Decision Agent`：整合意見做出最終判斷
 
----
-
 ### 🧾 Log 管理與監控（EFK）
 
 本系統整合 **EFK 架構（Elasticsearch, Fluentd, Kibana）** 即時收集與監控後端與模型 log 資訊：
@@ -59,6 +61,30 @@
 > 🔍 Log 會被收集並集中管理於 Kibana 介面中，便於視覺化追蹤。
 
 ---
+
+## 頁面展示
+
+### 首頁
+
+<img src="readme_image/intro.png" alt="intro" width="500"/>
+
+### AI 改寫偵測檔案上傳
+
+<img src="readme_image/paraphrase.png" alt="paraphrase" width="500"/>
+
+### AI 生成偵測檔案上傳
+
+<img src="readme_image/generate.png" alt="generate" width="500"/>
+
+### 偵測結果
+
+>螢光筆為具有抄襲嫌疑的文本片段
+
+<img src="readme_image/result.png" alt="result" width="500"/>
+
+### EFK
+
+<img src="readme_image/elastic.jpg" alt="elastic" width="500"/>
 
 ## 📊 模型測試結果
 
