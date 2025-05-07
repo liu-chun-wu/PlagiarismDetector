@@ -35,6 +35,9 @@
 </p>
 
 ### 🧠 AI 生成偵測流程
+<p align="center">
+  <img src="readme_image/aigc_detector.png" alt="aigc_detector" width="600" style="border:1px solid black; border-radius:8px;" />
+</p>
 
 - `Style Agent`：分析語氣與句型風格  
 - `Heuristic Agent`：計算困惑度、重複率、句長變異  
@@ -42,6 +45,9 @@
 - `Decision Agent`：統整分析回應並提供判斷結果  
 
 ### 🔍 AI 改寫偵測流程
+<p align="center">
+  <img src="readme_image/plagiarism_detector.png" alt="plagiarism_detector" width="600" style="border:1px solid black; border-radius:8px;" />
+</p>
 
 - `Retriever`：語意模型 multilingual-e5 檢索相似段落  
 - `Reranker`：bge-reranker 精選相關文獻  
