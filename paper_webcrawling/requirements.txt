@@ -43,7 +43,7 @@ requests @ file:///croot/requests_1730999120400/work
 ruamel.yaml @ file:///croot/ruamel.yaml_1727980156079/work
 ruamel.yaml.clib @ file:///croot/ruamel.yaml.clib_1727769819935/work
 safetensors==0.5.3
-scikit-learn==1.3.1
+scikit-learn==1.5.1
 scipy==1.15.1
 setuptools==75.1.0
 six==1.17.0
@@ -51,7 +51,7 @@ svgwrite==1.4.3
 threadpoolctl==3.5.0
 tokenizers==0.21.0
 tqdm @ file:///croot/tqdm_1724853939799/work
-transformers==4.49.0
+transformers==4.50.0
 Tree==0.2.4
 truststore @ file:///work/perseverance-python-buildout/croot/truststore_1701735771625/work
 typing_extensions==4.12.2
