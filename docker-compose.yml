@@ -89,6 +89,9 @@ services:
       - "9200:9200"
     networks:
       - plagiarism-detector-network
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /mnt/Agents4Financial/PlagiarismDetector/elasticsearch_data:/usr/share/elasticsearch/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
       interval: 30s
@@ -133,6 +136,17 @@ services:
       elasticsearch:
         condition: service_healthy
 
+  # cleaner:
+  #   image: alpine:latest
+  #   container_name: cleaner
+  #   volumes:
+  #     - ./scripts:/scripts
+  #   entrypoint: ["/bin/sh", "-c", "apk add --no-cache curl bash && while true; do /scripts/es_cleanup.sh; sleep 172800; done"]
+  #   depends_on:
+  #     elasticsearch:
+  #       condition: service_healthy
+  #   networks:
+  #     - plagiarism-detector-network
 volumes:
   static_volume:
 
