@@ -7,3 +7,4 @@ nginx_logs/
 kb_faiss_index/
 demo_data/
 elasticsearch_data/
+nltk_data/
