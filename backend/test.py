@@ -21,16 +21,16 @@ REQUIRED_ENV_VARS = [
 
 SOURCE_DIRS = [
     # 測試用路徑
-    "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ccu",
-    "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nccu_2018",
-    "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nccu_2019",
-    "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2019",
-    "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2020",
-    "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nsyu_2019",
-    "/home/undergrad/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nycu",
+    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ccu",
+    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nccu_2018",
+    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nccu_2019",
+    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2019",
+    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2020",
+    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nsyu_2019",
+    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nycu",
 ]
 # 測試用路徑
-PDF_SAVE_DIR = "/home/undergrad/PlagiarismDetector/backend/uploaded_pdfs"
+PDF_SAVE_DIR = "/mnt/Agents4Financial/PlagiarismDetector/backend/uploaded_pdfs"
 
 
 # ✅ 檢查環境變數是否完整
@@ -53,3 +53,4 @@ def validate_env():
 
 if __name__ == "__main__":
     validate_env()
+

@@ -3,7 +3,7 @@ import os
 
 # 原始文字
 original_text = """
-以解構式行為理論所定義三個變數，分解出三個觀點內的兩個細項，三個前因支 援歸納出本研究的三個前因理論，再由分解出的變數去感受行為，最後再由感受到的 結果影響實際行為。 本研究主要以計畫行為理論(TPB)作為概念，將使用者在社群商務環境下對沉浸 因素分成三個觀點來探討：技術觀點之「感知互動性(Perceived Interactivity)」與「感 知安全性(Perceived Security)」、社會觀點之「評價評論(Recommendation & Referrals)」 與「推薦介紹(Rating & Reviews)」以及個人特質之「嚴謹性(Conscientiousness)」與「外 向性(Extraversion)」，探討消費者是否會有這三個因素影響「沉浸」，且是否能藉由沉 浸增加其「購買意圖」。因此，本研究提出以下的研究架構，如圖 3-1 所示。 探討社群商務沉浸對於購買意圖之影響：技術、社會化、個人特質之觀點       第三章  研究方法 圖 3 - 1 本研究之研究架構圖 技 術 感知互動性 感知安全性 社 會 化 評價評論 推薦介紹 個 人 特 質 嚴謹性 外向性 沉浸 購買意願 探討社群商務沉浸對於購買意圖之影響：技術、社會化、個人特質之觀點       第三章  研究方法
+過去深度學習應用於股票之研究已有很多，但大多應用僅止於預測股價，該類研 究衡量方式大多為統計量，如Chen、Zhou 及Dai (2015)以準確率(accuracy)衡量[4]、Di Persio 及Honchar (2016)以均方差(MSE;Mean square error)、Accuracy 衡量[7]、 Tsantekidis, A., et al.(2017)衡量股價變動方向的正確率，以Kohen’s kappa 衡量等 [20]，以上之研究多停留提升預測之精準度，較少人將研究拓展至將預測股價應用於實 際股票交易，並檢驗何種模型產生之投資績效較好。 Bai、Kolter 及Koltun (2018)曾對TCN 及LSTM、GRU(Gated recurrent units network)優劣做廣泛性的比較[20]，發現TCN 優於傳統LSTM、GRU，後來Pradhan 與 Longpre(2016)、Prakash et al.(2016)、Kim et al.(2017) 都提出了加上殘差連接(shortcut connection)的LSTM 網路[37] [38] [30]，但尚未有TCN 與加上殘差連接(residual connection)的LSTM 網路的比較。
 
 """
 
@@ -11,7 +11,7 @@ original_text = """
 json_ready_text = json.dumps(original_text, ensure_ascii=False, indent=2)
 
 # 檔案路徑
-file_path = "/home/undergrad/PlagiarismDetector/backend/tool/output.txt"
+file_path = "/mnt/Agents4Financial/PlagiarismDetector/backend/tool/output.txt"
 
 # 如果檔案存在，先刪除
 if os.path.exists(file_path):

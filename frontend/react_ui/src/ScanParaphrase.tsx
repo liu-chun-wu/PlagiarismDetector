@@ -6,8 +6,10 @@ import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { Upload } from "lucide-react";
 
-const upload_text_API = import.meta.env.VITE_API_URL_TEXT_PARAPHRASED;
-const upload_pdf_API = import.meta.env.VITE_API_URL_PDF_PARAPHRASED;
+let upload_text_API = import.meta.env.VITE_API_URL_TEXT_PARAPHRASED;
+let upload_pdf_API = import.meta.env.VITE_API_URL_PDF_PARAPHRASED;
+upload_text_API = upload_text_API.replace(/\\x3a/g, ":");
+upload_pdf_API = upload_pdf_API.replace(/\\x3a/g, ":");
 
 // Skeleton component
 const Skeleton = ({ className }: { className?: string }) => {
