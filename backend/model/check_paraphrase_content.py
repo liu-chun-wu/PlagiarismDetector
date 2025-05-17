@@ -156,22 +156,23 @@ def main_node(state: RagState):
         {"role": "system",
         "content": '''
         你是高校学术查重初审AI（Main）。
-        判定准则如下：
+判定准则如下：
 
-        1. 若sequence_match或cosine≥98%，自动判为“高风险”，is_plagiarism为true，无需推理和解释。
-        2. 若两者均<50%，直接判为“低风险”，is_plagiarism为false。
-        3. 若50%≤相似度<98%，或两个指标数值差异较大，请你像查重专家那样综合分析：结合表达方式、引用规范、内容重写、科研写作习惯、逻辑等，对“中风险”或“需补充引用”情形给出推理，并在"summary"字段用一句话说明风险来源与建议。
-        4. 禁止使用“已规范引用”“规范引用”相关措辞。
+1. 若sequence_match或cosine≥98%，输出 is_plagiarism=false，plagiarism_risk="高相似度注意"，并在summary提醒“内容与资料库高度相似，但已接受。建议适当改写。”
+2. 若两者均<50%，直接判为“低风险”，is_plagiarism为false。
+3. 若50%≤相似度<98%，或两个指标数值差异较大，请你像查重专家那样综合分析：结合表达方式、引用规范、内容重写、科研写作习惯、逻辑等，对“中风险”或“需补充引用”情形给出推理，并在"summary"字段用一句话说明风险来源与建议。
+4. 若表面相似度低（均<50%），但内容、结构、观点等高度相似，请特别指出“疑似深度改写”，并在summary中说明理由。
+5. 禁止使用“已规范引用”“规范引用”相关措辞。
 
-        只输出如下JSON，无任何解释说明：
-        {
-        "plagiarism_risk": "...",
-        "plagiarism_percent": 0-100,
-        "confidence": 0.00-1.00,
-        "is_plagiarism": true/false,
-        "overlap_excerpt": ["..."],
-        "summary": ""
-        }
+只输出如下JSON，无任何解释说明：
+{
+"plagiarism_risk": "...",
+"plagiarism_percent": 0-100,
+"confidence": 0.00-1.00,
+"is_plagiarism": true/false,
+"overlap_excerpt": ["..."],
+"summary": ""
+}
         '''
         },
         {"role": "user",
@@ -203,12 +204,21 @@ def expert_node(state: RagState, expert_id: int):
         "content": f'''
         你是查重专家（Expert {expert_id}），判定标准如下：
 
-        - sequence_match或cosine≥98%，直接判为“高风险”，is_plagiarism为true；
-        - 两者均<50%，直接“低风险”，is_plagiarism为false；
-        - 50%≤相似度<98% 或两指标判断分歧时，请像专家一样分析表达、引用、内容及专业背景，判为“中风险”或“需补充引用”时须在"summary"说明理由（如缺乏改写、部分引用不充分等）。
-        - 禁止出现“已规范引用”等免责标签。
+        - 若sequence_match或cosine≥98%，输出 is_plagiarism=false，plagiarism_risk="高相似度注意"，并在summary提醒“内容与资料库高度相似，但已接受。建议适当改写。”
+- 两者均<50%，直接“低风险”，is_plagiarism为false；
+- 50%≤相似度<98% 或两指标判断分歧时，请像专家一样分析表达、引用、内容及专业背景，判为“中风险”或“需补充引用”时须在"summary"说明理由（如缺乏改写、部分引用不充分等）。
+- 若表面相似度低（均<50%），但你认为有“深度改写”嫌疑，需在summary指出并解释。
+- 禁止出现“已规范引用”等免责标签。
 
-        始终输出与Main节点一致格式的JSON，"summary"字段用一句话阐明原因，无多余解释。
+始终输出与Main节点一致格式的JSON，"summary"字段用一句话阐明原因，无多余解释。
+{
+"plagiarism_risk": "...",
+"plagiarism_percent": 0-100,
+"confidence": 0.00-1.00,
+"is_plagiarism": true/false,
+"overlap_excerpt": ["..."],
+"summary": ""
+}
         '''
         },
         {"role": "user",
@@ -237,20 +247,19 @@ def consensus_node(state: RagState):
     prompt = [
         {"role": "system",
         "content": '''
-        你是终审综合AI（Consensus），融合判决标准如下：
-
-        1. 任一节点sequence_match或cosine≥98%，直接“高风险”，is_plagiarism为true；
-        2. 两者均<70%，直接“低风险”，is_plagiarism为false；
-        3. 其余情况，须根据表达、引用、内容归纳、专家建议综合推理风险等级，并用"summary"一行为理由说明（如“部分段落直接摘抄，建议重写”或“部分引用不充分，需补充说明”）。
-        不能出现“已规范引用”等免责表述。只输出如下JSON，无其它说明：
-        {
-        "plagiarism_risk": "...",
-        "plagiarism_percent": 0-100,
-        "confidence": 0.00-1.00,
-        "is_plagiarism": true/false,
-        "overlap_excerpt": ["..."],
-        "summary": ""
-        }
+        1. 任一节点sequence_match或cosine≥98%，输出 is_plagiarism=false，plagiarism_risk="高相似度注意"，并在summary提醒“内容与资料库高度相似，但已接受。建议适当改写。”
+2. 两者均<50%，直接“低风险”，is_plagiarism为false；
+3. 其余情况，须根据表达、引用、内容归纳、专家建议综合推理风险等级，并用"summary"一行为理由说明（如“部分段落直接摘抄，建议重写”或“部分引用不充分，需补充说明”）。
+4. 若表面相似度低，但专家节点提出“深度改写”疑虑，请在summary中给出警示性结论，并建议人工复查。
+5. 不能出现“已规范引用”等免责表述。只输出如下JSON，无其它说明：
+{
+"plagiarism_risk": "...",
+"plagiarism_percent": 0-100,
+"confidence": 0.00-1.00,
+"is_plagiarism": true/false,
+"overlap_excerpt": ["..."],
+"summary": ""
+}
         '''
         },
         {"role": "user",
@@ -279,36 +288,36 @@ def judge_node(state: RagState):
     prompt = [
             {"role": "system",
     "content": '''
-    你是中国高校学术诚信查重终审委员会Judge。
+你是中国高校学术诚信查重终审委员会Judge。
 
-    规则如下：
-    - sequence_match或cosine≥98%，直接“高风险”，is_plagiarism必须为true；
-    - 两者均<70%，直接“低风险”，is_plagiarism为false；
-    - 其余情况下，请针对50%≤相似度<98%或各项指标分歧时，像专家一样分析表达、引用、归纳等做判断，必须在"summary"字段补充一句理由或风险来源。
-
-    严禁任何“已规范引用”表述。输出如下结构JSON，不得有多余说明：
-    {
-    "final_judgement": {
-        "plagiarism_risk": "...",
-        "plagiarism_percent": 0-100,
-        "confidence": 0.00-1.00,
-        "summary": ""
-    },
-    "similarity_metrics": {
-        "sequence_match": "n%",
-        "cosine": "n%"
-    },
-    "overlap_excerpt": "与文献重合最长片段",
-    "expert_opinions": [
-        {"expert": "Expert 1", "opinion": "..."},
-        {"expert": "Expert 2", "opinion": "..."}
-    ],
-    "improvement_suggestions": [
-        "...",
-        "..."
-    ],
-    "conclusion": ""
-    }
+规则如下：
+- 任一节点sequence_match或cosine≥98%，输出 is_plagiarism=false，plagiarism_risk="高相似度注意"，并在summary提醒“内容与资料库高度相似，但已接受。建议适当改写。”
+- 两者均<50%，直接“低风险”，is_plagiarism为false；
+- 其余情况下，请针对50%≤相似度<98%或各项指标分歧时，像专家一样分析表达、引用、归纳等做判断，必须在"summary"字段补充一句理由或风险来源。
+- 若表面相似度低，但内容高度一致或专家怀疑深度改写，summary需警示并建议进一步人工审查。
+- 严禁任何“已规范引用”表述。输出如下结构JSON，不得有多余说明：
+{
+"final_judgement": {
+    "plagiarism_risk": "...",
+    "plagiarism_percent": 0-100,
+    "confidence": 0.00-1.00,
+    "summary": ""
+},
+"similarity_metrics": {
+    "sequence_match": "n%",
+    "cosine": "n%"
+},
+"overlap_excerpt": "与文献重合最长片段",
+"expert_opinions": [
+    {"expert": "Expert 1", "opinion": "..."},
+    {"expert": "Expert 2", "opinion": "..."}
+],
+"improvement_suggestions": [
+    "...",
+    "..."
+],
+"conclusion": ""
+}
     '''
     },
         {"role": "user",
@@ -373,11 +382,18 @@ def cooperate_plagiarism_check(user_text: str, vector_db, embedding_model=None, 
     def map_plagiarism_risk_to_verdict(plagiarism_risk, summary=""):
         if plagiarism_risk is None:
             return {"result": "UNKNOWN", "reason": "未能判定相似度风险"}
-        if plagiarism_risk == "低风险":
-            return {"result": "ACCEPT", "reason": summary or "文本相似度低，无明显抄袭风险。"}
-        # High, mid, need citation all = "ABSTAIN"
-        return {"result": "ABSTAIN", "reason": summary or f"因判定为{plagiarism_risk}，建议补充引用、重写、或复查。"}
-    
+        if plagiarism_risk in ["低风险", "高相似度注意"]:
+            # Differentiate the warning if needed
+            reason = (
+                summary or
+                ("内容與資料庫高度相似，但已接受。建議適當改寫。" if plagiarism_risk == "高相似度注意"
+                else "文本相似度低，無明顯抄襲風險。")
+            )
+            return {"result": "ACCEPT", "reason": reason}
+        # Add more 'accept' risk levels if desired, e.g., "无风险"
+        # All else
+        return {"result": "ABSTAIN", "reason": summary or f"因判定為{plagiarism_risk}，建議補充引用、重寫、或覆查。"}
+   
     def transfer_numpy_to_float(data):
         if isinstance(data, dict):
             return {k: transfer_numpy_to_float(v) for k, v in data.items()}
