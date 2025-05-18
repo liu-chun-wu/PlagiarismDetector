@@ -27,6 +27,7 @@ export default function ScanParaphrase() {
     const [loading, setLoading] = useState<boolean>(false);
     const [pdfFile, setPdfFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [verdict, setVerdict] = useState<{ result: string; reason: string } | null>(null);
 
 
     const handleTextUpload = async () => {
@@ -46,9 +47,10 @@ export default function ScanParaphrase() {
             setAiContent(data.plagiarism_percentage || 0);
             setConfidenceScore(data.plagiarism_confidence || 0);
             setUploaded(true);
+            setVerdict(data.verdict || null);
 
             // ✅ 使用 unified 函數處理
-            highlightSnippetsUnified(data.original_text_and_plagiarism_snippet);
+            highlightSnippetsUnified(data.original_text_and_plagiarism_snippet, data.verdict?.result);
         } catch (error) {
             console.error("Error uploading text:", error);
             alert("Failed to upload text");
@@ -84,9 +86,10 @@ export default function ScanParaphrase() {
             setAiContent(data.plagiarism_percentage || 0);
             setConfidenceScore(data.plagiarism_confidence || 0);
             setUploaded(true);
+            setVerdict(data.verdict || null);
 
             // ✅ 使用 unified 函數處理
-            highlightSnippetsUnified(data.original_text_and_plagiarism_snippet);
+            highlightSnippetsUnified(data.original_text_and_plagiarism_snippet, data.verdict?.result);
         } catch (error) {
             console.error("Error uploading PDF:", error);
             alert("Failed to upload PDF");
@@ -104,11 +107,20 @@ export default function ScanParaphrase() {
     };
 
     const highlightSnippetsUnified = (
-        originalTextAndSnippets: { original_text: string; plagiarism_snippet: string[] }[]
+        originalTextAndSnippets: { original_text: string; plagiarism_snippet: string[] }[],
+        verdictResult: string | null = null
     ): void => {
         const results: string[] = [];
 
         originalTextAndSnippets.forEach(({ original_text, plagiarism_snippet }) => {
+            // 若判定為 SOURCE，整段加上 highlight
+            if (verdictResult === "SOURCE") {
+                const full = `<span class="bg-yellow-300">${original_text}</span>`;
+                results.push(full);
+                return;
+            }
+
+            // 若沒有 snippet，原樣顯示
             if (!plagiarism_snippet || plagiarism_snippet.length === 0) {
                 results.push(original_text);
                 return;
@@ -116,7 +128,6 @@ export default function ScanParaphrase() {
 
             let matches: [number, number][] = [];
 
-            // 每個 snippet 分開處理、比對
             plagiarism_snippet.forEach((snippet) => {
                 const windowSize = snippet.length;
                 const threshold = 0.7;
@@ -131,7 +142,7 @@ export default function ScanParaphrase() {
                 }
             });
 
-            // 合併標記區間，避免重複標記
+            // 合併重疊範圍
             matches.sort((a, b) => a[0] - b[0]);
             const merged: [number, number][] = [];
             for (const [start, end] of matches) {
@@ -142,7 +153,7 @@ export default function ScanParaphrase() {
                 }
             }
 
-            // 插入 HTML 螢光標記
+            // 插入 highlight HTML
             let highlighted = "";
             let currentIndex = 0;
             for (const [start, end] of merged) {
@@ -156,6 +167,7 @@ export default function ScanParaphrase() {
 
         setHighlightedText(results.join("<br/><br/>"));
     };
+
 
 
     const handleNewScan = () => {
@@ -237,8 +249,8 @@ export default function ScanParaphrase() {
                 ) : (
                     <Card className="p-6 max-w-3xl mx-auto">
                         <h2 className="text-2xl font-bold">Plagiarism Detection Results</h2>
-                        <CardContent className="mt-4">
-                            <div className="mt-6">
+                        <CardContent className="mt-2">
+                            <div className="mt-4">
                                 <p className="font-semibold">Original Text with Highlighted Plagiarism Snippet</p>
                                 <div
                                     className="p-4 bg-gray-200 rounded-md mt-2 max-h-[400px] max-w-[700px] overflow-y-auto overflow-x-auto whitespace-pre-wrap text-base leading-relaxed"
@@ -250,6 +262,31 @@ export default function ScanParaphrase() {
                                 <p className="mt-4 font-semibold">Confidence Score</p>
                                 <Progress value={confidenceScore} className="mt-2 bg-blue-500" />
                                 <p className="text-right font-bold text-blue-600">{confidenceScore}%</p>
+                                {verdict && (
+                                    <>
+                                        {/* Verdict Block */}
+                                        <p className="text-base font-semibold text-gray-700">Verdict</p>
+                                        <p
+                                            className={`text-xl font-bold mt-2 ${verdict.result === "ACCEPT"
+                                                ? "text-green-600"
+                                                : verdict.result === "ABSTAIN"
+                                                    ? "text-red-600"
+                                                    : verdict.result === "SOURCE"
+                                                        ? "text-blue-600"
+                                                        : "text-gray-600"
+                                                }`}
+                                        >
+                                            {verdict.result}
+                                        </p>
+
+                                        {/* Spacer */}
+                                        <div className="h-4" />
+
+                                        {/* Explanation Block */}
+                                        <p className="text-base font-semibold text-gray-700">Explanation</p>
+                                        <p className="mt-2 text-gray-800 leading-relaxed">{verdict.reason}</p>
+                                    </>
+                                )}
                                 <Button className="mt-6" onClick={handleNewScan}>New Scan</Button>
                             </div>
                         </CardContent>

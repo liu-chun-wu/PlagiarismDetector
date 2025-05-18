@@ -237,7 +237,7 @@ export default function ScanRephrase() {
                 ) : (
                     <Card className="p-6 max-w-3xl mx-auto">
                         <h2 className="text-2xl font-bold">Plagiarism Detection Results</h2>
-                        <CardContent className="mt-4">
+                        <CardContent className="mt-2">
                             <div className="mt-6">
                                 <p className="font-semibold">Original Text with Highlighted Plagiarism Snippet</p>
                                 <div

@@ -11,6 +11,10 @@ from pdf_processor_generate.extract_for_test import *
 from tool.json_to_array import *
 from tool.array_to_json import *
 
+from opencc import OpenCC
+
+cc = OpenCC('s2t')  # s2t: simplified to traditional
+
 import logging
 # ✅ 初始化：讀取環境變數與定義全域常數
 load_dotenv()
@@ -139,6 +143,8 @@ def paraphrase_text_check(req, global_vector_db, global_embedding_model):
             embedding_model=global_embedding_model)
 
         app.logger.debug("✅ 檢測完成，開始組裝結果")
+        tansfer_array_to_json(check_paragraph_result, PDF_SAVE_DIR,
+                              "paraphrase_text_check_result.json")
 
         result = {
             "plagiarism_percentage":
@@ -150,7 +156,12 @@ def paraphrase_text_check(req, global_vector_db, global_embedding_model):
                 text,
                 "plagiarism_snippet":
                 check_paragraph_result["plagiarism_snippet"]
-            }]
+            }],
+            "verdict": {
+                "result": check_paragraph_result["verdict"]["result"],
+                "reason":
+                cc.convert(check_paragraph_result["verdict"]["reason"])
+            }
         }
 
         app.logger.info("📤 回傳結果成功")
@@ -241,14 +252,15 @@ def paraphrase_pdf_check(req, global_vector_db, global_embedding_model):
 
     avg_confidence_score = total_confidence_score / total_paragraph_count
     avg_plagiarism_percentage = total_plagiarism_percentage / total_paragraph_count
+    verdict = aggregate_document_verdict_simple(all_check_result)
+    verdict["reason"] = cc.convert(verdict["reason"])
 
     result = {
-        "plagiarism_percentage":
-        round(avg_plagiarism_percentage, 2),
-        "plagiarism_confidence":
-        round(avg_confidence_score, 2),
+        "plagiarism_percentage": round(avg_plagiarism_percentage, 2),
+        "plagiarism_confidence": round(avg_confidence_score, 2),
         "original_text_and_plagiarism_snippet":
         original_text_and_plagiarism_snippet,
+        "verdict": verdict,
     }
 
     tansfer_array_to_json(all_check_result, PDF_SAVE_DIR,
@@ -293,7 +305,9 @@ def generate_text_check(req, global_vector_db, global_embedding_model):
                 text,
                 "plagiarism_snippet":
                 check_paragraph_result["plagiarism_snippet"]
-            }]
+            }],
+            # "verdict":
+            # check_paragraph_result["verdict"],
         }
 
         app.logger.info("📤 回傳結果成功")
