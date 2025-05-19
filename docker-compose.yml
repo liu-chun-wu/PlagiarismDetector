@@ -83,6 +83,7 @@ services:
       - discovery.type=single-node
       - xpack.security.enabled=false
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - ES_TMPDIR=/usr/share/elasticsearch/tmp  # ✅ 新增：指定暫存路徑
     restart: always
     mem_limit: 2g
     ports:
@@ -92,6 +93,7 @@ services:
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - /mnt/Agents4Financial/PlagiarismDetector/elasticsearch_data:/usr/share/elasticsearch/data
+      - /mnt/Agents4Financial/PlagiarismDetector/es_tmp:/usr/share/elasticsearch/tmp  # ✅ 新增：將主機資料夾掛載為容器 tmp 目錄
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
       interval: 30s

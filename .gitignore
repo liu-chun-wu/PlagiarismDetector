@@ -9,3 +9,4 @@ kb_faiss_index/
 demo_data/
 elasticsearch_data/
 nltk_data/
+es_tmp/

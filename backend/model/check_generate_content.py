@@ -80,23 +80,23 @@ client = OpenAI(api_key=os.getenv("OPENAI_APIKEY"))
 #  (4) Corpus paths & vector-DB cache
 # ------------------------------------------------
 SOURCE_DIRS = [
-    # # 正式部署用
-    # "dataset/paraphrased_dataset/source/ccu",
-    # "dataset/paraphrased_dataset/source/nccu_2018",
-    # "dataset/paraphrased_dataset/source/nccu_2019",
-    # "dataset/paraphrased_dataset/source/ncu_2019",
-    # "dataset/paraphrased_dataset/source/ncu_2020",
-    # "dataset/paraphrased_dataset/source/nsyu_2019",
-    # "dataset/paraphrased_dataset/source/nycu",
+    # 正式部署用
+    "dataset/paraphrased_dataset/source/ccu",
+    "dataset/paraphrased_dataset/source/nccu_2018",
+    "dataset/paraphrased_dataset/source/nccu_2019",
+    "dataset/paraphrased_dataset/source/ncu_2019",
+    "dataset/paraphrased_dataset/source/ncu_2020",
+    "dataset/paraphrased_dataset/source/nsyu_2019",
+    "dataset/paraphrased_dataset/source/nycu",
 
-    # 測試用路徑
-    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ccu",
-    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nccu_2018",
-    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nccu_2019",
-    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2019",
-    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2020",
-    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nsyu_2019",
-    "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nycu",
+    # # 測試用路徑
+    # "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ccu",
+    # "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nccu_2018",
+    # "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nccu_2019",
+    # "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2019",
+    # "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/ncu_2020",
+    # "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nsyu_2019",
+    # "/mnt/Agents4Financial/PlagiarismDetector/backend/dataset/paraphrased_dataset/source/nycu",
 ]
 
 # auto-created on first run
